@@ -1,0 +1,91 @@
+Struktur Tabel
+
+users
+- id
+- national_identity_number
+- name
+- email
+- password
+- remember_token
+- gender
+- address
+- phone_number
+- role
+- status
+- profile_picture
+- settings
+- created_at
+- updated_at
+- deleted_at
+
+vendors
+- id
+- name
+- address
+- phone_number
+- status
+- created_at
+- updated_at
+- deleted_at
+
+units
+- id
+- name
+- description
+- status
+
+designators
+- id
+- unit_id
+- material
+- services
+- description
+- created_at
+- updated_at
+- deleted_at
+
+projects
+- id
+- project_code
+- project_name
+- time_of_contract
+- drm_value
+- supervisor_id
+- vendor_id
+- begin_date
+- finish_date
+- status
+- created_at
+- updated_at
+- deleted_at
+
+project_evaluations
+- id
+- project_id
+- evaluated_by
+- evaluation
+- created_at
+- updated_at
+
+project_designators
+- id
+- project_id
+- designator_id
+- designated_by
+- status
+- created_at
+- updated_at
+- deleted_at
+
+project_designator_progress_update
+- id
+- project_designator_id
+- content
+- type
+- description
+- value_before
+- value_after
+- uploaded_by
+- status
+- created_at
+- updated_at

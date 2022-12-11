@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
         name="viewport">
-    <title>@yield('title') &mdash; Stisla</title>
+    <title>@yield('title') &mdash; Simapro Taiseigiken</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet"
@@ -48,6 +48,7 @@
             @include('components.header')
 
             <!-- Sidebar -->
+            <!-- @include('components.sidebar-backup') -->
             @include('components.sidebar')
 
             <!-- Content -->
@@ -66,12 +67,22 @@
     <script src="{{ asset('library/jquery.nicescroll/dist/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ asset('library/moment/min/moment.min.js') }}"></script>
     <script src="{{ asset('js/stisla.js') }}"></script>
+    // Money
+    <script src="{{ asset('js/jquery.mask.min.js')}}"></script>
 
     @stack('scripts')
 
     <!-- Template JS File -->
     <script src="{{ asset('js/scripts.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+
+    <script>
+        $('.money').mask('000.000.000', {reverse: true})
+        
+        $('#logout').on('click', function() {
+            $('#logoutForm').submit()
+        });
+    </script>
 </body>
 
 </html>

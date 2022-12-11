@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\RoleEnum;
+use App\Enums\StatusEnum;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,9 +20,17 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'national_identity_number',
         'name',
         'email',
         'password',
+        'gender',
+        'address',
+        'phone_number',
+        'role',
+        'status',
+        'profile_picture',
+        'settings'
     ];
 
     /**
@@ -40,5 +50,9 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'role' => RoleEnum::class,
+        'status' => StatusEnum::class
     ];
+
+    // Helpers
 }
