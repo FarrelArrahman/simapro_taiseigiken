@@ -8,6 +8,8 @@
         href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet"
         href="{{ asset('library/izitoast/dist/css/iziToast.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('library/chocolat/dist/css/chocolat.css') }}">
 @endpush
 
 @section('main')
@@ -393,9 +395,10 @@
                                                     @endforeach
                                                 </div>
                                             </div>
-                                            <div class="col-8 bg-secondary">
+                                            <div class="col-8 bg-secondary" style="max-height: 500px; overflow-y: scroll">
                                                 <div class="tab-content"
-                                                    id="nav-tabContent">
+                                                    id="nav-tabContent"
+                                                    >
                                                     @foreach($projects->projectDesignators as $projectDesignator)
                                                     <div class="tab-pane fade {{ $loop->iteration == 1 ? 'show active' : '' }} border-0"
                                                         id="list-{{ $projectDesignator->id }}"
@@ -410,7 +413,13 @@
                                                                 <div class="activity-detail">
                                                                     <div class="mb-2">
                                                                         <span class="text-job text-primary">{{ $update->created_at->isoFormat('dddd, DD MMMM Y') }}</span>
+                                                                        <span class="bullet"></span>
+                                                                        <span class="text-job">
+                                                                            {{ $update->value . ' ' . $update->projectDesignator->designator->unit->name }}
+                                                                        </span>
                                                                         <div class="dropdown float-right">
+                                                                            <a href="#!" 
+                                                                                data-collapse="#mycard-collapse-{{ $update->id }}" class="toggle-minimize-{{ $update->id }}"><i class="fas fa-minus toggle-minimize-icon-{{ $update->id }}"></i></a>
                                                                             <a href="#"
                                                                                 data-toggle="dropdown"><i class="fas fa-ellipsis-h"></i></a>
                                                                             <div class="dropdown-menu">
@@ -422,28 +431,32 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <p>
-                                                                        @if($update->description == null && $update->content == null)
-                                                                        {!! "<em>Update progress ini tidak memiliki deskripsi atau dokumentasi apapun</em>" !!}
-                                                                        @else
-                                                                            @if($update->content != null)
-                                                                            <div class="chocolat-parent">
-                                                                                <a href="{{ asset('img/example-image.jpg') }}"
-                                                                                    class="chocolat-image"
-                                                                                    title="Just an example">
-                                                                                    <div data-crop-image="285">
-                                                                                        <img alt="image"
-                                                                                            src="{{ asset('img/example-image.jpg') }}"
-                                                                                            class="img-fluid">
-                                                                                    </div>
-                                                                                </a>
-                                                                            </div>
+                                                                    <div class="collapse show" id="mycard-collapse-{{ $update->id }}">
+                                                                        <p>
+                                                                            @if($update->description == null && $update->content == null)
+                                                                            {!! "<em>Update progress ini tidak memiliki deskripsi atau dokumentasi apapun</em>" !!}
+                                                                            @else
+                                                                                @if($update->content != null)
+                                                                                <div class="chocolat-parent mb-2">
+                                                                                    <a href="{{ $update->content ?? asset('img/example-image.jpg') }}"
+                                                                                        class="chocolat-image"
+                                                                                        title="Just an example">
+                                                                                        <div data-crop-image="250">
+                                                                                            <img alt="image"
+                                                                                                src="{{ $update->content ?? asset('img/example-image.jpg') }}"
+                                                                                                class="img-fluid">
+                                                                                        </div>
+                                                                                    </a>
+                                                                                </div>
+                                                                                @endif
+                                                                                @if($update->description != null)
+                                                                                <p>
+                                                                                    {{ $update->description }}
+                                                                                </p>
+                                                                                @endif
                                                                             @endif
-                                                                            @if($update->description != null)
-                                                                                {{ $update->description }}
-                                                                            @endif
-                                                                        @endif
-                                                                    </p>
+                                                                        </p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             @empty
@@ -545,6 +558,7 @@
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
     <script src="{{ asset('library/izitoast/dist/js/iziToast.min.js') }}"></script>
+    <script src="{{ asset('library/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
     <script src="{{ asset('library/chart.js/dist/Chart.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
