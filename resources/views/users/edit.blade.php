@@ -25,7 +25,7 @@
                         @csrf
                         <div class="card">
                             <div class="card-body">
-                            <div class="form-group">
+                                <div class="form-group">
                                     <label for="inputName">Nama</label>
                                     <input type="text"
                                         name="name"

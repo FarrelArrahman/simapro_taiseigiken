@@ -7,6 +7,7 @@ use App\Enums\StatusEnum;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Designator;
 use App\Models\User;
 use App\Models\Vendor;
 
@@ -82,6 +83,7 @@ class ProjectController extends Controller
         $this->authorize('update', $project);
         
         $this->data['projects'] = $project;
+        $this->data['designators'] = Designator::whereStatus(StatusEnum::Active)->get();
         $this->data['projectDesignators'] = $project->projectDesignators;
         $this->data['projectHeads'] = User::whereRole(RoleEnum::ProjectHead)->get();
         $this->data['vendors'] = Vendor::whereStatus(StatusEnum::Active)->get();

@@ -48,8 +48,8 @@
             @include('components.header')
 
             <!-- Sidebar -->
-            <!-- @include('components.sidebar-backup') -->
-            @include('components.sidebar')
+            @include('components.sidebar-backup')
+            <!-- @include('components.sidebar') -->
 
             <!-- Content -->
             @yield('main')

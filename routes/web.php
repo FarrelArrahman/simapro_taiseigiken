@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function() {
     Route::redirect('/', '/home');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
+    Route::put('/profile/{user}', [HomeController::class, 'profileUpdate'])->name('profileUpdate');
 
     Route::resource('projects', ProjectController::class);
     Route::resource('designators', DesignatorController::class);

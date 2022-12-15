@@ -39,7 +39,21 @@ class ProjectDesignatorController extends Controller
      */
     public function store(StoreProjectDesignatorRequest $request)
     {
-        //
+        $project = Project::findOrFail($request->project_id);
+        $projectDesignators = $request->except(['project_id', '_token']);
+        foreach($projectDesignators as $key => $value) {
+            ProjectDesignator::create([
+                'project_id' => $request->project_id,
+                'designator_id' => $key,
+                'designated_by' => auth()->user()->id,
+                'amount' => $value,
+                'status' => StatusEnum::Incomplete,
+            ]);
+        }
+
+        return to_route('projects.edit', ['project' => $project->id, 'ref' => 'projectDesignator'])
+            ->with('message', 'Berhasil menambahkan designator ke dalam project.')
+            ->with('status', 'success');
     }
 
     /**
@@ -74,17 +88,24 @@ class ProjectDesignatorController extends Controller
     public function update(UpdateProjectDesignatorRequest $request, Project $projectDesignator)
     {
         $projectDesignatorProgressUpdates = $request->except(['_method', '_token']);
+        // dd($projectDesignatorProgressUpdates);
+
+        $data = [];
         
-        foreach($projectDesignatorProgressUpdates as $key => $value) {
-            ProjectDesignatorProgressUpdate::create([
-                'project_designator_id' => $key,
-                'content' => '',
-                'type' => 'progress_update',
-                'value' => $value,
-                'status' => StatusEnum::Pending,
-                'uploaded_by' => auth()->user()->id,
-            ]);
+        foreach($projectDesignatorProgressUpdates as $fieldName => $field) {
+            $now = now();
+            foreach($field as $key => $value) {
+                $data[$key]['project_designator_id'] = $key;
+                $data[$key]['status'] = StatusEnum::Pending;
+                $data[$key]['uploaded_by'] = auth()->user()->id;
+                $data[$key]['type'] = 'progress_update';
+                $data[$key][$fieldName] = $value;
+                $data[$key]['created_at'] = $now;
+                $data[$key]['updated_at'] = $now;
+            }
         }
+
+        ProjectDesignatorProgressUpdate::insert($data);
 
         return to_route('projects.edit', $projectDesignator->id)
             ->with('message', 'Berhasil mengupdate progress project.')
@@ -99,6 +120,11 @@ class ProjectDesignatorController extends Controller
      */
     public function destroy(ProjectDesignator $projectDesignator)
     {
-        //
+        $id = $projectDesignator->project_id;
+        $projectDesignator->delete();
+
+        return to_route('projects.edit', ['project' => $id, 'ref' => 'projectDesignator'])
+            ->with('message', 'Berhasil menghapus designator dari project.')
+            ->with('status', 'success');
     }
 }

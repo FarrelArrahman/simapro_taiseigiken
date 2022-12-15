@@ -19,13 +19,13 @@ class ProjectFactory extends Factory
      */
     public function definition()
     {
-        $timeOfContract = fake()->numberBetween(1, 365);
-        $beginDate = fake()->numberBetween(1, 365);
+        $timeOfContract = fake()->numberBetween(1, 14);
+        $beginDate = fake()->numberBetween(1, 14);
 
         return [
             'project_code' => fake()->unique()->regexify('[A-Za-z0-9]{10}'),
             'project_name' => fake()->sentence(),
-            'time_of_contract' => $timeOfContract . ' ' . ($timeOfContract < 2 ? 'day' : 'days'),
+            'time_of_contract' => $timeOfContract,
             'drm_value' => fake()->randomNumber(9),
             'project_head_id' => User::whereIn('role', ['Admin', 'Project Head'])->inRandomOrder()->first()->id,
             'vendor_id' => fake()->numberBetween(1, Vendor::all()->count()),

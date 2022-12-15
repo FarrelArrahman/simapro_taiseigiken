@@ -62,6 +62,11 @@ class Project extends Model
         return $this->hasMany(ProjectDesignator::class, 'project_id');
     }
 
+    public function projectEvaluations()
+    {
+        return $this->hasMany(ProjectEvaluation::class, 'project_id');
+    }
+
     // Helpers
     public function progress()
     {

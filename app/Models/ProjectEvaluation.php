@@ -43,4 +43,9 @@ class ProjectEvaluation extends Model
     {
         return $this->belongsTo(Project::class, 'project_id', 'id');
     }
+
+    public function evaluatedBy()
+    {
+        return $this->hasOne(User::class, 'id', 'evaluated_by');
+    }
 }

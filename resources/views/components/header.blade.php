@@ -248,10 +248,14 @@
                 <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name ?? 'Guest' }}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <div class="dropdown-title">User Area</div>
-                <a href="features-profile.html"
+                <div class="dropdown-title">
+                    <div class="badge badge-{{ auth()->user()->role->color() }}">
+                        {{ auth()->user()->role->value }}
+                    </div>
+                </div>
+                <a href="{{ route('profile') }}"
                     class="dropdown-item has-icon">
-                    <i class="far fa-user"></i> Profile
+                    <i class="far fa-user"></i> Profil
                 </a>
                 <!-- <a href="features-activities.html"
                     class="dropdown-item has-icon">
@@ -259,7 +263,7 @@
                 </a> -->
                 <a href="features-settings.html"
                     class="dropdown-item has-icon">
-                    <i class="fas fa-cog"></i> Settings
+                    <i class="fas fa-cog"></i> Pengaturan
                 </a>
                 <div class="dropdown-divider"></div>
                 <a id="logout" href="#"
