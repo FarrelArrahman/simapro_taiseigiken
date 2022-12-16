@@ -95,6 +95,10 @@ class ProjectDesignatorController extends Controller
         foreach($projectDesignatorProgressUpdates as $fieldName => $field) {
             $now = now();
             foreach($field as $key => $value) {
+                if($value == 0) {
+                    continue;
+                }
+
                 $data[$key]['project_designator_id'] = $key;
                 $data[$key]['status'] = StatusEnum::Pending;
                 $data[$key]['uploaded_by'] = auth()->user()->id;
@@ -110,6 +114,32 @@ class ProjectDesignatorController extends Controller
         return to_route('projects.edit', $projectDesignator->id)
             ->with('message', 'Berhasil mengupdate progress project.')
             ->with('status', 'success');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function progressUpdate(UpdateProjectDesignatorRequest $request, ProjectDesignatorProgressUpdate $update)
+    {
+        $data = [];
+        $title = "mengubah status dari";
+        
+        if($request->has('status')) {
+            $data['status'] = StatusEnum::from($request->status);
+        } else if($request->has('comment')) {
+            $data['comment'] = $request->comment;
+            $data['commented_by'] = auth()->user()->id;
+            $title = "memberi komentar pada";
+        }
+
+        $update->update($data);
+        return response()->json([
+            'success' => true,
+            'message' => "Berhasil " . $title . " progress ini.",
+            'data' => $update
+        ], 200);
     }
 
     /**

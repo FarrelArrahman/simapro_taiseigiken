@@ -25,6 +25,8 @@ class ProjectDesignatorProgressUpdateFactory extends Factory
             'type' => fake()->randomElement(['documentation', 'progress_update']),
             'value' => fake()->numberBetween(1, 100),
             'description' => fake()->text(),
+            'comment' => fake()->text(),
+            'commented_by' => User::whereIn('role', ['Admin', 'Project Head'])->inRandomOrder()->first()->id,
             'uploaded_by' => fake()->numberBetween(1, User::where('role', 'Worker')->count()),
             'status' => fake()->randomElement(StatusEnum::approvalCases()),
         ];

@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjectDesignatorController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
+use App\Models\ProjectDesignatorProgressUpdate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,10 +27,12 @@ Route::middleware('auth')->group(function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
     Route::put('/profile/{user}', [HomeController::class, 'profileUpdate'])->name('profileUpdate');
+    Route::put('/progress_update/{update}', [ProjectDesignatorController::class, 'progressUpdate'])->name('progressUpdate');
 
     Route::resource('projects', ProjectController::class);
     Route::resource('designators', DesignatorController::class);
     Route::resource('project_designators', ProjectDesignatorController::class);
+    Route::resource('project_evaluations', ProjectEvaluationController::class);
     Route::resource('vendors', VendorController::class);
     Route::resource('units', UnitController::class);
     Route::resource('users', UserController::class);

@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('type', 20);
             $table->string('value')->nullable();
             $table->text('description')->nullable();
+            $table->text('comment')->nullable();
+            $table->foreignId('commented_by')->nullable()->constrained('users');
             $table->string('status', 20);
             $table->foreignId('uploaded_by')->constrained('users');
             $table->timestamps();

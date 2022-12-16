@@ -25,6 +25,16 @@ enum StatusEnum : string {
         };
     }
 
+    public function icon(): string
+    {
+        return match($this) 
+        {
+            StatusEnum::Approved => 'fas fa-check',
+            StatusEnum::Pending => 'far fa-clock',
+            StatusEnum::Rejected => 'far fa-x',
+        };
+    }
+
     public static function activeCases(): array
     {
         return [

@@ -357,7 +357,7 @@
                                                         <td>{{ $projectDesignator->realization() }}</td>
                                                         <td>{{ $projectDesignator->amount - $projectDesignator->realization() }}</td>
                                                         <td>
-                                                            <input required min="0" class="form-control update-input" type="number" name="value[{{ $projectDesignator->id }}]">
+                                                            <input min="0" class="form-control update-input" type="number" name="value[{{ $projectDesignator->id }}]">
                                                         </td>
                                                         <td>
                                                             <input class="form-control update-input" type="file" name="file[{{ $projectDesignator->id }}]">
@@ -407,8 +407,8 @@
                                                         <div class="activities mt-3">
                                                             @forelse($projectDesignator->projectDesignatorProgressUpdates as $update)
                                                             <div class="activity">
-                                                                <div class="activity-icon bg-primary shadow-primary text-white">
-                                                                    <i class="fas fa-comment-alt"></i>
+                                                                <div id="activity-{{ $update->id }}" class="activity-icon bg-{{ $update->status->color() }} shadow-{{ $update->status->color() }} text-white">
+                                                                    <i id="activity-icon-{{ $update->id }}" class="{{ $update->status->icon() }}"></i>
                                                                 </div>
                                                                 <div class="activity-detail">
                                                                     <div class="mb-2">
@@ -424,38 +424,81 @@
                                                                                 data-toggle="dropdown"><i class="fas fa-ellipsis-h"></i></a>
                                                                             <div class="dropdown-menu">
                                                                                 <div class="dropdown-title">Ubah Status</div>
-                                                                                <a href="#!"
-                                                                                    class="dropdown-item has-icon text-success"><i class="fas fa-check"></i> Approve</a>
-                                                                                <a href="#!"
-                                                                                    class="dropdown-item has-icon text-danger"><i class="fas fa-times"></i> Reject</a>
+                                                                                <a data-id="{{ $update->id }}"
+                                                                                    data-status="Approved" 
+                                                                                    href="#!"
+                                                                                    class="dropdown-item has-icon text-success update-progress-status"><i class="fas fa-check"></i> Approve</a>
+                                                                                <a data-id="{{ $update->id }}"
+                                                                                    data-status="Pending" 
+                                                                                    href="#!"
+                                                                                    class="dropdown-item has-icon text-warning update-progress-status"><i class="fas fa-clock"></i> Pending</a>
+                                                                                <a data-id="{{ $update->id }}"
+                                                                                    data-status="Rejected" 
+                                                                                    href="#!"
+                                                                                    class="dropdown-item has-icon text-danger update-progress-status"><i class="far fa-x"></i> Reject</a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="collapse show" id="mycard-collapse-{{ $update->id }}">
-                                                                        <p>
+                                                                        <div class="row">
                                                                             @if($update->description == null && $update->content == null)
-                                                                            {!! "<em>Update progress ini tidak memiliki deskripsi atau dokumentasi apapun</em>" !!}
+                                                                            <div class="col-12 mb-2">
+                                                                                {!! "<em>Update progress ini tidak memiliki deskripsi atau dokumentasi apapun</em>" !!}
+                                                                            </div>
                                                                             @else
                                                                                 @if($update->content != null)
-                                                                                <div class="chocolat-parent mb-2">
-                                                                                    <a href="{{ $update->content ?? asset('img/example-image.jpg') }}"
-                                                                                        class="chocolat-image"
-                                                                                        title="Just an example">
-                                                                                        <div data-crop-image="250">
-                                                                                            <img alt="image"
-                                                                                                src="{{ $update->content ?? asset('img/example-image.jpg') }}"
-                                                                                                class="img-fluid">
-                                                                                        </div>
-                                                                                    </a>
+                                                                                <div class="col-4">
+                                                                                    <div class="chocolat-parent mb-2">
+                                                                                        <a href="{{ $update->content ?? asset('img/example-image.jpg') }}"
+                                                                                            class="chocolat-image"
+                                                                                            title="Just an example">
+                                                                                            <div data-crop-image="150">
+                                                                                                <img alt="image"
+                                                                                                    src="{{ $update->content ?? asset('img/example-image.jpg') }}"
+                                                                                                    class="img-fluid">
+                                                                                            </div>
+                                                                                        </a>
+                                                                                    </div>
                                                                                 </div>
                                                                                 @endif
                                                                                 @if($update->description != null)
-                                                                                <p>
-                                                                                    {{ $update->description }}
-                                                                                </p>
+                                                                                <div class="col-8">
+                                                                                    <p>
+                                                                                        {{ $update->description }}
+                                                                                    </p>
+                                                                                </div>
                                                                                 @endif
                                                                             @endif
-                                                                        </p>
+                                                                        </div>
+                                                                        <div class="row mt-2">
+                                                                            <div class="col-12">
+                                                                                <h6 class="mb-2">Komentar</h6>
+
+                                                                                <ul id="comment-ul-{{ $update->id }}" class="list-unstyled list-unstyled-border @if($update->comment == NULL && $update->commented_by == NULL) d-none @endif">
+                                                                                    <li class="media">
+                                                                                        <img alt="image"
+                                                                                            class="rounded-circle mr-3"
+                                                                                            width="50"
+                                                                                            src="{{ asset('img/avatar/avatar-1.png') }}">
+                                                                                        <div class="media-body">
+                                                                                            <div id="commented-by-{{ $update->id }}" class="font-weight-bold mt-0 mb-1">{{ $update->commentedBy?->name }}</div>
+                                                                                            <div id="comment-{{ $update->id }}">{{ $update?->comment }}</div>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                </ul>
+                                                                                
+                                                                                <form data-id="{{ $update->id }}" class="@if($update->comment != NULL && $update->commented_by != NULL) d-none @endif comment-form" id="comment-form-{{ $update->id }}" action="{{ route('project_designators.update', $update->id) }}">
+                                                                                    <div class="form-group">
+                                                                                        <textarea id="comment-textarea-{{ $update->id }}" class="form-control" 
+                                                                                            data-height="75"
+                                                                                            placeholder="Berikan komentar Anda..."></textarea>
+                                                                                    </div>
+                                                                                    <button type="submit" 
+                                                                                        class="btn btn-primary">Kirim</button>
+                                                                                </form>
+
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -606,9 +649,53 @@
             toggleFirstDesignatorRow()
             toggleSubmitDesignator()
         }
-    </script>
 
-    <script>
+        let updateProgress = (id, type, value) => {
+            let url = "{{ route('progressUpdate', 'x') }}".replace('x', id)
+            let body = {}
+            if(type == "status") {
+                body.status = value
+            } else if(type == "comment") {
+                body.comment = value
+            }
+
+            return fetch(url, {
+                method: 'PUT',
+                body: JSON.stringify(body),
+                headers: {
+                    "Content-Type": "application/json; charset=UTF-8",
+                    "Accept": "application/json; charset=UTF-8",
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')
+                }
+            })
+                .then((response) => response.json())
+        }
+
+        $('.update-progress-status').on('click', function() {
+            let id = $(this).data('id')
+            let status = $(this).data('status')
+            updateProgress(id, "status", status)
+                .then((data) => {
+                    $('#activity-' + data.data.id).removeClass('bg-primary bg-warning bg-danger shadow-primary shadow-warning shadow-danger')
+                    $('#activity-icon-' + data.data.id).removeClass()
+                    $('#activity-' + data.data.id).addClass('bg-' + data.data.status_color)
+                    $('#activity-icon-' + data.data.id).addClass(data.data.icon)
+                })
+        })
+
+        $('.comment-form').on('submit', function(e) {
+            e.preventDefault()
+            let id = $(this).data('id')
+            let comment = $('#comment-textarea-' + id).val()
+            updateProgress(id, "comment", comment)
+                .then((data) => {
+                    $('#comment-ul-' + data.data.id).removeClass('d-none')
+                    $('#comment-' + data.data.id).text(data.data.comment)
+                    $('#commented-by-' + data.data.id).text(data.data.commented_by_name)
+                    $('#comment-form-' + data.data.id).addClass('d-none')
+                })
+        })
+
         var ctx = document.getElementById("curveSChart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
