@@ -64,7 +64,7 @@ class Project extends Model
 
     public function projectEvaluations()
     {
-        return $this->hasMany(ProjectEvaluation::class, 'project_id');
+        return $this->hasMany(ProjectEvaluation::class, 'project_id')->latest();
     }
 
     // Helpers

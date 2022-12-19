@@ -30,8 +30,7 @@ class StoreProjectRequest extends FormRequest
             'drm_value' => 'required',
             'project_head_id' => 'required|exists:users,id',
             'vendor_id' => 'required|exists:vendors,id',
-            'begin_date' => 'required|date|before:finish_date',
-            'finish_date' => 'required|date|after:begin_date',
+            'begin_date' => 'required|date',
         ];
     }
 }

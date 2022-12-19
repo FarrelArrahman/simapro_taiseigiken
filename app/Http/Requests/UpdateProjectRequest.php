@@ -24,7 +24,13 @@ class UpdateProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'project_code' => 'required|string',
+            'project_name' => 'required|string',
+            'time_of_contract' => 'required|numeric',
+            'drm_value' => 'required',
+            'project_head_id' => 'required|exists:users,id',
+            'vendor_id' => 'required|exists:vendors,id',
+            'begin_date' => 'required|date',
         ];
     }
 }

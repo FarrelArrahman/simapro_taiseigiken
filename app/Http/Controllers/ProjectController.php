@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Designator;
 use App\Models\User;
 use App\Models\Vendor;
+use Carbon\Carbon;
 
 class ProjectController extends Controller
 {
@@ -52,7 +53,8 @@ class ProjectController extends Controller
             'project_head_id' => $request->project_head_id,
             'vendor_id' => $request->vendor_id,
             'begin_date' => $request->begin_date,
-            'finish_date' => $request->finish_date,
+            'finish_date' => Carbon::createFromFormat('Y-m-d', $request->begin_date)
+                ->addDays($request->time_of_contract),
             'status' => StatusEnum::Pending,
         ]);
 

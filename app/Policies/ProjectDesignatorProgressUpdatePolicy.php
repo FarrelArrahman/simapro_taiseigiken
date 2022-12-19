@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\RoleEnum;
 use App\Models\ProjectDesignatorProgressUpdate;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -41,7 +42,7 @@ class ProjectDesignatorProgressUpdatePolicy
      */
     public function create(User $user)
     {
-        //
+        return in_array($user->role, [RoleEnum::Admin]);
     }
 
     /**
@@ -53,7 +54,7 @@ class ProjectDesignatorProgressUpdatePolicy
      */
     public function update(User $user, ProjectDesignatorProgressUpdate $projectDesignatorProgressUpdate)
     {
-        //
+        return in_array($user->role, [RoleEnum::Admin]);
     }
 
     /**
@@ -65,7 +66,7 @@ class ProjectDesignatorProgressUpdatePolicy
      */
     public function delete(User $user, ProjectDesignatorProgressUpdate $projectDesignatorProgressUpdate)
     {
-        //
+        return in_array($user->role, [RoleEnum::Admin]);
     }
 
     /**
@@ -77,7 +78,7 @@ class ProjectDesignatorProgressUpdatePolicy
      */
     public function restore(User $user, ProjectDesignatorProgressUpdate $projectDesignatorProgressUpdate)
     {
-        //
+        return in_array($user->role, [RoleEnum::Admin]);
     }
 
     /**
@@ -89,6 +90,6 @@ class ProjectDesignatorProgressUpdatePolicy
      */
     public function forceDelete(User $user, ProjectDesignatorProgressUpdate $projectDesignatorProgressUpdate)
     {
-        //
+        return in_array($user->role, [RoleEnum::Admin]);
     }
 }

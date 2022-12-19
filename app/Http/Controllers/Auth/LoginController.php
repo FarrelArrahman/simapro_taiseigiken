@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Laravel\Fortify\Http\Requests\LoginRequest;
 
 class LoginController extends Controller
 {
@@ -36,5 +37,21 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(LoginRequest $request)
+    {
+        $credentials = $request->getCredentials();
+
+        if(!auth()->validate($credentials)):
+            return redirect()->to('login')
+                        ->withErrors(trans('auth.failed'));
+        endif;
+
+        $user = auth()->getProvider()->retrieveByCredentials($credentials);
+
+        auth()->login($user, $request->get('remember'));
+
+        return $this->authenticated($request, $user);
     }
 }

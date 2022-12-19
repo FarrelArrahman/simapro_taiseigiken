@@ -62,7 +62,7 @@ class ProjectDesignatorProgressUpdate extends Model
 
     public function getCommentedByNameAttribute()
     {
-        return $this->commentedBy->name;
+        return $this->commentedBy?->name;
     }
 
     // Relationships

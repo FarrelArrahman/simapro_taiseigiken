@@ -36,7 +36,15 @@ class ProjectEvaluationController extends Controller
      */
     public function store(StoreProjectEvaluationRequest $request)
     {
-        //
+        ProjectEvaluation::create([
+            'project_id' => $request->project_id,
+            'evaluated_by' => auth()->user()->id,
+            'evaluation' => $request->evaluation,
+        ]);
+
+        return to_route('projects.edit', ['project' => $request->project_id, 'ref' => 'recordEvaluasi'])
+            ->with('message', 'Berhasil menambahkan evaluasi.')
+            ->with('status', 'success');
     }
 
     /**

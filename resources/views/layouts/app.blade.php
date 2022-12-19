@@ -78,7 +78,7 @@
     <script src="{{ asset('js/custom.js') }}"></script>
 
     <script>
-        $('.money').mask('000.000.000', {reverse: true})
+        $('.money').mask('000.000.000.000.000', {reverse: true})
         
         $('#logout').on('click', function() {
             $('#logoutForm').submit()

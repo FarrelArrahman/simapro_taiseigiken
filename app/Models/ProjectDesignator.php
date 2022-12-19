@@ -54,7 +54,7 @@ class ProjectDesignator extends Model
 
     public function projectDesignatorProgressUpdates()
     {
-        return $this->hasMany(ProjectDesignatorProgressUpdate::class, 'project_designator_id');
+        return $this->hasMany(ProjectDesignatorProgressUpdate::class, 'project_designator_id')->latest();
     }
 
     public function realization()

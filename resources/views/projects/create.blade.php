@@ -129,20 +129,6 @@
                                         </div>
                                         @enderror
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputFinishDate">Tanggal selesai</label>
-                                    <input type="date"
-                                        name="finish_date"
-                                        class="form-control @error('finish_date') is-invalid @enderror"
-                                        id="inputFinishDate"
-                                        placeholder="Tanggal selesai project..."
-                                        value="{{ old('finish_date') ?? date('Y-m-d') }}">
-                                        @error('finish_date')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}                                            
-                                        </div>
-                                        @enderror
-                                </div>
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-lg btn-primary">Submit</button>

@@ -60,7 +60,7 @@
                                             aria-selected="false">Curve S</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link"
+                                        <a class="nav-link {{ request()->query('ref') == 'recordEvaluasi' ? 'active' : '' }}"
                                             id="record-evaluasi-tab"
                                             data-toggle="tab"
                                             href="#recordEvaluasi"
@@ -69,7 +69,7 @@
                                             aria-selected="false">Record Evaluasi</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link"
+                                        <a class="nav-link {{ request()->query('ref') == 'updateProgress' ? 'active' : '' }}"
                                             id="update-progress-tab"
                                             data-toggle="tab"
                                             href="#updateProgress"
@@ -303,12 +303,12 @@
                                         <h4 class="mt-3 mb-3">Curve S</h4>
                                         <canvas id="curveSChart"></canvas>
                                     </div>
-                                    <div class="tab-pane fade"
+                                    <div class="tab-pane fade {{ request()->query('ref') == 'recordEvaluasi' ? 'show active' : '' }}"
                                         id="recordEvaluasi"
                                         role="tabpanel"
                                         aria-labelledby="record-evaluasi-tab">
                                         <h4 class="mt-3 mb-3">Record Evaluasi</h4>
-                                        @foreach($projects->projectEvaluations as $projectEvaluation)
+                                        @forelse($projects->projectEvaluations as $projectEvaluation)
                                         <div class="card card-primary">
                                             <div class="card-header">
                                                 <h4>{{ $projectEvaluation->evaluatedBy->name }}</h4>
@@ -321,9 +321,32 @@
                                                 <p>{{ $projectEvaluation->evaluation }}</p>
                                             </div>
                                         </div>
-                                        @endforeach
+                                        @empty
+                                        <div class="empty-state"
+                                            data-height="200">
+                                            <div class="empty-state-icon bg-danger mt-3">
+                                                <i class="fas fa-times"></i>
+                                            </div>
+                                            <h2>Record evaluasi tidak tersedia</h2>
+                                            <p class="lead">
+                                                Anda dapat memberikan evaluasi terhadap project ini agar record evaluasi dapat muncul pada bagian ini. 
+                                            </p>
+                                        </div>
+                                        @endforelse
+                                        <h4 class="mt-3 mb-3">Tambah Evaluasi</h4>
+                                        <form action="{{ route('project_evaluations.store') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="project_id" value="{{ $projects->id }}">
+                                            <div class="form-group">
+                                                <textarea name="evaluation" class="form-control" 
+                                                    data-height="75"
+                                                    placeholder="Berikan evaluasi Anda..."></textarea>
+                                            </div>
+                                            <button type="submit" 
+                                                class="btn btn-primary">Kirim</button>
+                                        </form>
                                     </div>
-                                    <div class="tab-pane fade"
+                                    <div class="tab-pane fade {{ request()->query('ref') == 'updateProgress' ? 'show active' : '' }}"
                                         id="updateProgress"
                                         role="tabpanel"
                                         aria-labelledby="update-progress-tab">
@@ -360,10 +383,10 @@
                                                             <input min="0" class="form-control update-input" type="number" name="value[{{ $projectDesignator->id }}]">
                                                         </td>
                                                         <td>
-                                                            <input class="form-control update-input" type="file" name="file[{{ $projectDesignator->id }}]">
+                                                            <input class="form-control update-input" type="file" name="content[{{ $projectDesignator->id }}]">
                                                         </td>
                                                         <td>
-                                                            <input class="form-control update-input" type="text" name="description[{{ $projectDesignator->id }}]">
+                                                            <input class="form-control update-input" type="text" name="description[{{ $projectDesignator->id }}]" autocomplete="off">
                                                         </td>
                                                     </tr>
                                                     @empty
@@ -373,14 +396,28 @@
                                                     @endforelse
                                                 </tbody>
                                             </table>
+                                            @if($projects->projectDesignators->count() > 0)
                                             <div class="row">
                                                 <div class="col-12">
                                                     <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
                                                 </div>
                                             </div>
+                                            @endif
                                         </form>
 
                                         <h4 class="mt-5 mb-3">Histori Update</h4>
+                                        @if($projects->projectDesignators->count() < 1)
+                                        <div class="empty-state"
+                                            data-height="200">
+                                            <div class="empty-state-icon bg-danger mt-3">
+                                                <i class="fas fa-times"></i>
+                                            </div>
+                                            <h2>Histori update tidak tersedia</h2>
+                                            <p class="lead">
+                                                Histori update tidak tersedia untuk di-update dan diberi komentar. Silahkan tambahkan designator dan lakukan progress update terlebih dahulu.
+                                            </p>
+                                        </div>
+                                        @else
                                         <div class="row">
                                             <div class="col-4">
                                                 <div class="list-group"
@@ -447,14 +484,14 @@
                                                                             </div>
                                                                             @else
                                                                                 @if($update->content != null)
-                                                                                <div class="col-4">
+                                                                                <div class="@if($update->description != null) col-4 @else col-12 @endif">
                                                                                     <div class="chocolat-parent mb-2">
-                                                                                        <a href="{{ $update->content ?? asset('img/example-image.jpg') }}"
+                                                                                        <a href="{{ Storage::url($update->content) }}"
                                                                                             class="chocolat-image"
-                                                                                            title="Just an example">
+                                                                                            title="Klik untuk memperbesar">
                                                                                             <div data-crop-image="150">
                                                                                                 <img alt="image"
-                                                                                                    src="{{ $update->content ?? asset('img/example-image.jpg') }}"
+                                                                                                    src="{{ Storage::url($update->content) }}"
                                                                                                     class="img-fluid">
                                                                                             </div>
                                                                                         </a>
@@ -462,7 +499,7 @@
                                                                                 </div>
                                                                                 @endif
                                                                                 @if($update->description != null)
-                                                                                <div class="col-8">
+                                                                                <div class="@if($update->content != null) col-8 ml-0 pl-0 @else col-12 @endif">
                                                                                     <p>
                                                                                         {{ $update->description }}
                                                                                     </p>
@@ -520,6 +557,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -639,7 +677,7 @@
                 </td>
             </tr>`
 
-            $('#addDesignatorBody').prepend(tr)
+            $('#addDesignatorBody').append(tr)
             toggleFirstDesignatorRow()
             toggleSubmitDesignator()
         })

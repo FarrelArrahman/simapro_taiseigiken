@@ -93,9 +93,8 @@ class ProjectDesignatorController extends Controller
         $data = [];
         
         foreach($projectDesignatorProgressUpdates as $fieldName => $field) {
-            $now = now();
             foreach($field as $key => $value) {
-                if($value == 0) {
+                if($value == null) {
                     continue;
                 }
 
@@ -104,14 +103,18 @@ class ProjectDesignatorController extends Controller
                 $data[$key]['uploaded_by'] = auth()->user()->id;
                 $data[$key]['type'] = 'progress_update';
                 $data[$key][$fieldName] = $value;
-                $data[$key]['created_at'] = $now;
-                $data[$key]['updated_at'] = $now;
+
+                if($fieldName == 'content') {
+                    $data[$key][$fieldName] = $value->store('public/progress_updates');
+                }
             }
         }
 
-        ProjectDesignatorProgressUpdate::insert($data);
+        foreach($data as $value) {
+            ProjectDesignatorProgressUpdate::create($value);
+        }
 
-        return to_route('projects.edit', $projectDesignator->id)
+        return to_route('projects.edit', ['project' => $projectDesignator->id, 'ref' => 'updateProgress'])
             ->with('message', 'Berhasil mengupdate progress project.')
             ->with('status', 'success');
     }
