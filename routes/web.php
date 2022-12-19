@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
     Route::put('/profile/{user}', [HomeController::class, 'profileUpdate'])->name('profileUpdate');
+    Route::get('/project/{projectDesignator}', [ProjectDesignatorController::class, 'changeDesignatorStatus'])->name('changeDesignatorStatus');
     Route::put('/progress_update/{update}', [ProjectDesignatorController::class, 'progressUpdate'])->name('progressUpdate');
 
     Route::resource('projects', ProjectController::class);

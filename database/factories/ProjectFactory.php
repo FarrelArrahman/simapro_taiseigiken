@@ -31,7 +31,7 @@ class ProjectFactory extends Factory
             'vendor_id' => fake()->numberBetween(1, Vendor::all()->count()),
             'begin_date' => fake()->dateTimeBetween(startDate: "-" . $beginDate . " days"),
             'finish_date' => fake()->dateTimeBetween(startDate: 'now', endDate: "+" . $timeOfContract . " days"),
-            'status' => fake()->randomElement(StatusEnum::approvalCases()),
+            // 'status' => fake()->randomElement(StatusEnum::approvalCases()),
         ];
     }
 }

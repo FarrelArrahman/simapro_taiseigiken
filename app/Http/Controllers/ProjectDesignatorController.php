@@ -8,6 +8,7 @@ use App\Http\Requests\StoreProjectDesignatorRequest;
 use App\Http\Requests\UpdateProjectDesignatorRequest;
 use App\Models\Project;
 use App\Models\ProjectDesignatorProgressUpdate;
+use Illuminate\Support\Facades\Request;
 
 class ProjectDesignatorController extends Controller
 {
@@ -158,6 +159,25 @@ class ProjectDesignatorController extends Controller
 
         return to_route('projects.edit', ['project' => $id, 'ref' => 'projectDesignator'])
             ->with('message', 'Berhasil menghapus designator dari project.')
+            ->with('status', 'success');
+    }
+
+    /**
+     * Change the status of the specified resource from storage.
+     *
+     * @param  \App\Models\ProjectDesignator  $projectDesignator
+     * @return \Illuminate\Http\Response
+     */
+    public function changeDesignatorStatus(Request $request, ProjectDesignator $projectDesignator)
+    {
+        $projectDesignator->update([
+            'status' => $projectDesignator->status === StatusEnum::Done 
+                ? StatusEnum::Incomplete 
+                : StatusEnum::Done
+        ]);
+
+        return to_route('projects.edit', ['project' => $projectDesignator->project_id, 'ref' => 'projectDesignator'])
+            ->with('message', 'Berhasil mengubah status designator.')
             ->with('status', 'success');
     }
 }

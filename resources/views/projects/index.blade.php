@@ -49,7 +49,7 @@
                                                 <th>Kepala Proyek</th>
                                                 <th>Mitra</th>
                                                 <th>Completion (%)</th>
-                                                <th>Status</th>
+                                                {{-- <th>Status</th> --}}
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -73,9 +73,9 @@
                                                             aria-valuemax="100">{{ $project->progress() }}%</div>
                                                     </div>
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     <div class="badge badge-{{ $project->status->color() }}">{{ $project->status->value }}</div>
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     <a class="btn btn-warning btn-block btn-action mr-1"
                                                         href="{{ route('projects.edit', $project->id) }}"

@@ -21,7 +21,7 @@ class ProjectDesignatorProgressUpdateFactory extends Factory
     {
         return [
             'project_designator_id' => fake()->numberBetween(1, ProjectDesignator::all()->count()),
-            'content' => fake()->imageUrl(),
+            'content' => null,
             'type' => fake()->randomElement(['documentation', 'progress_update']),
             'value' => fake()->numberBetween(1, 100),
             'description' => fake()->text(),

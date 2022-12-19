@@ -25,7 +25,7 @@ class Project extends Model
         'begin_date',
         'expected_finish_date',
         'finish_date',
-        'status'
+        // 'status'
     ];
 
     /**
@@ -43,7 +43,7 @@ class Project extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'status' => StatusEnum::class
+        // 'status' => StatusEnum::class
     ];
 
     // Relationships
@@ -70,7 +70,7 @@ class Project extends Model
     // Helpers
     public function progress()
     {
-        return $this->status == StatusEnum::Approved && $this->projectDesignators()->count() > 0 
+        return $this->projectDesignators()->count() > 0 
             ? round($this->projectDesignators->where('status', StatusEnum::Done)->count() / $this->projectDesignators->count() * 100, 2)
             : 0;
     }

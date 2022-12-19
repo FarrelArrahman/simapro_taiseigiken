@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreignId('vendor_id')->constrained();
             $table->date('begin_date');
             $table->date('finish_date');
-            $table->string('status', 20);
+            // $table->string('status', 20);
             $table->timestamps();
         });
     }

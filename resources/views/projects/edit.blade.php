@@ -198,14 +198,14 @@
                                                     </div>
                                                     @enderror
                                             </div>
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label>Status</label>
                                                 <select name="status" class="form-control form-control-lg">
                                                     @foreach(\App\Enums\StatusEnum::approvalCases() as $status)
                                                     <option @selected($projects->status->name == $status->name) value="{{ $status->value }}">{{ $status->value }}</option>
                                                     @endforeach
                                                 </select>
-                                            </div>
+                                            </div> --}}
                                             <div class="row">
                                                 <div class="col-12">
                                                     <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
@@ -230,7 +230,7 @@
                                                         <th>Uraian Pekerjaan</th>
                                                         <th>Jumlah</th>
                                                         <th>Status</th>
-                                                        <th>Aksi</th>
+                                                        <th width="75">Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -254,6 +254,10 @@
                                                                 title="Delete"
                                                                 data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
                                                                 data-confirm-yes="deleteItem('{{ route('project_designators.destroy', $projectDesignator->id) }}')"><i class="fas fa-trash"></i></a>
+                                                            <a class="btn {{ $projectDesignator->status->value == 'Done' ? 'btn-dark' :  'btn-info' }} btn-action"
+                                                                data-toggle="tooltip"
+                                                                title="{{ $projectDesignator->status->value == 'Done' ? 'Tandai belum selesai' :  'Tandai selesai' }}"
+                                                                href="{{ route('changeDesignatorStatus', $projectDesignator->id) }}'"><i class="{{ $projectDesignator->status->value == 'Done' ? 'fas fa-clock' :  'fas fa-check' }}"></i></a>
                                                         </td>
                                                     </tr>
                                                     @endforeach
@@ -371,7 +375,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @forelse($projects->projectDesignators as $projectDesignator)
+                                                    @forelse($projects->projectDesignators->where('status', \App\Enums\StatusEnum::Incomplete) as $projectDesignator)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $projectDesignator->designator->name }}</td>
@@ -396,7 +400,7 @@
                                                     @endforelse
                                                 </tbody>
                                             </table>
-                                            @if($projects->projectDesignators->count() > 0)
+                                            @if($projects->projectDesignators->where('status', \App\Enums\StatusEnum::Incomplete)->count() > 0)
                                             <div class="row">
                                                 <div class="col-12">
                                                     <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
@@ -478,8 +482,14 @@
                                                                     </div>
                                                                     <div class="collapse show" id="mycard-collapse-{{ $update->id }}">
                                                                         <div class="row">
+                                                                            <div class="col-6">
+                                                                                <span class="text-primary font-weight-bold">{{ $update->uploadedBy->name }}</span>
+                                                                            </div>
+                                                                            <div class="col-6 text-right">
+                                                                                <em><span class="text-muted font-weight-bold">{{ $update->created_at->isoFormat('dddd, DD MMMM Y hh:mm') }} WITA</span></em>
+                                                                            </div>
                                                                             @if($update->description == null && $update->content == null)
-                                                                            <div class="col-12 mb-2">
+                                                                            <div class="col-12">
                                                                                 {!! "<em>Update progress ini tidak memiliki deskripsi atau dokumentasi apapun</em>" !!}
                                                                             </div>
                                                                             @else
@@ -487,8 +497,7 @@
                                                                                 <div class="@if($update->description != null) col-4 @else col-12 @endif">
                                                                                     <div class="chocolat-parent mb-2">
                                                                                         <a href="{{ Storage::url($update->content) }}"
-                                                                                            class="chocolat-image"
-                                                                                            title="Klik untuk memperbesar">
+                                                                                            class="chocolat-image">
                                                                                             <div data-crop-image="150">
                                                                                                 <img alt="image"
                                                                                                     src="{{ Storage::url($update->content) }}"
@@ -500,16 +509,14 @@
                                                                                 @endif
                                                                                 @if($update->description != null)
                                                                                 <div class="@if($update->content != null) col-8 ml-0 pl-0 @else col-12 @endif">
-                                                                                    <p>
-                                                                                        {{ $update->description }}
-                                                                                    </p>
+                                                                                    {{ $update->description }}
                                                                                 </div>
                                                                                 @endif
                                                                             @endif
                                                                         </div>
-                                                                        <div class="row mt-2">
+                                                                        <div class="row mt-3">
                                                                             <div class="col-12">
-                                                                                <h6 class="mb-2">Komentar</h6>
+                                                                                <h6 class="mb-3">Komentar</h6>
 
                                                                                 <ul id="comment-ul-{{ $update->id }}" class="list-unstyled list-unstyled-border @if($update->comment == NULL && $update->commented_by == NULL) d-none @endif">
                                                                                     <li class="media">
