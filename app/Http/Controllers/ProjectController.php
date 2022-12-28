@@ -11,6 +11,7 @@ use App\Models\Designator;
 use App\Models\User;
 use App\Models\Vendor;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class ProjectController extends Controller
 {
@@ -132,5 +133,24 @@ class ProjectController extends Controller
         return to_route('projects.index')
             ->with('message', 'Berhasil menghapus data project.')
             ->with('status', 'success');
+    }
+
+    public function curveS(Project $project)
+    {
+        $updates = [];
+        $period = CarbonPeriod::create($project->begin_date, $project->finish_date);
+        $dates = [];
+
+        foreach($project->projectDesignators as $projectDesignator) {
+            $updates[$projectDesignator->id] = $projectDesignator->projectDesignatorProgressUpdates()->whereDate('created_at', "2022-12-17")->sum('value');
+        }
+
+        dd($updates);
+
+        return response()->json([
+            'success' => true,
+            'message' => "Curve S",
+            'data' => $project
+        ], 200);
     }
 }

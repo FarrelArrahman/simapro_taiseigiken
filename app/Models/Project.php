@@ -23,7 +23,6 @@ class Project extends Model
         'project_head_id',
         'vendor_id',
         'begin_date',
-        'expected_finish_date',
         'finish_date',
         // 'status'
     ];

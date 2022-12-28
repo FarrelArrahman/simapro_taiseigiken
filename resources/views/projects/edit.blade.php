@@ -305,7 +305,11 @@
                                         role="tabpanel"
                                         aria-labelledby="curve-s-tab">
                                         <h4 class="mt-3 mb-3">Curve S</h4>
-                                        <canvas id="curveSChart"></canvas>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <canvas id="curveSChart"></canvas>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade {{ request()->query('ref') == 'recordEvaluasi' ? 'show active' : '' }}"
                                         id="recordEvaluasi"
@@ -482,11 +486,8 @@
                                                                     </div>
                                                                     <div class="collapse show" id="mycard-collapse-{{ $update->id }}">
                                                                         <div class="row">
-                                                                            <div class="col-6">
+                                                                            <div class="col-12">
                                                                                 <span class="text-primary font-weight-bold">{{ $update->uploadedBy->name }}</span>
-                                                                            </div>
-                                                                            <div class="col-6 text-right">
-                                                                                <em><span class="text-muted font-weight-bold">{{ $update->created_at->isoFormat('dddd, DD MMMM Y hh:mm') }} WITA</span></em>
                                                                             </div>
                                                                             @if($update->description == null && $update->content == null)
                                                                             <div class="col-12">
@@ -742,48 +743,44 @@
         })
 
         var ctx = document.getElementById("curveSChart").getContext('2d');
-        var myChart = new Chart(ctx, {
+        new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                datasets: [{
-                    label: 'Statistics',
+                labels: ['22-12-2022', '23-12-2022', '24-12-2022', '25-12-2022', '26-12-2022', '27-12-2022', '28-12-2022'],
+                datasets: [
+                {
+                    label: 'Realisasi',
+                    data: [15, 60, 63, 67, 92, 94, 100],
+                    fill: false,
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
                     lineTension: 0,
-                    data: [14, 28, 42, 56, 70, 84, 98],
-                    borderWidth: 2,
-                    backgroundColor: 'rgba(0, 0, 0, 0)',
-                    borderColor: '#6777ef',
-                    borderWidth: 2.5,
-                    pointBackgroundColor: '#ffffff',
-                    pointRadius: 4,
-                }]
+                },
+                {
+                    label: 'Planning',
+                    data: [14, 28, 42, 56, 70, 85, 100],
+                    fill: false,
+                    backgroundColor: 'rgb(122, 99, 255)',
+                    borderColor: 'rgba(102, 99, 255, 1)',
+                    lineTension: 0,
+                }
+                ],
             },
             options: {
-                legend: {
-                    display: false
-                },
                 scales: {
-                yAxes: [{
-                    gridLines: {
-                        drawBorder: false,
-                        color: '#f2f2f2',
+                yAxes: [
+                    {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        ticks: {
+                            beginAtZero: true,
+                        },
                     },
-                    ticks: {
-                        beginAtZero: true,
-                        stepSize: 100
-                    }
-                }],
-                xAxes: [{
-                    ticks: {
-                        display: false
-                    },
-                    gridLines: {
-                        display: false
-                    }
-                }]
+                ],
                 },
             }
-        })
+            });
     </script>
 
     @if(session()->has('message'))

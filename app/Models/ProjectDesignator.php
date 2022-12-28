@@ -57,6 +57,7 @@ class ProjectDesignator extends Model
         return $this->hasMany(ProjectDesignatorProgressUpdate::class, 'project_designator_id')->latest();
     }
 
+    // Helpers
     public function realization()
     {
         return $this->projectDesignatorProgressUpdates->sum('value');
