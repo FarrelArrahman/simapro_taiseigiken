@@ -137,20 +137,38 @@ class ProjectController extends Controller
 
     public function curveS(Project $project)
     {
-        $updates = [];
-        $period = CarbonPeriod::create($project->begin_date, $project->finish_date);
-        $dates = [];
+        $updates = $planning = $realization = [];
+        $cumulative = 0;
+        $periods = CarbonPeriod::create($project->begin_date, $project->finish_date);
 
         foreach($project->projectDesignators as $projectDesignator) {
-            $updates[$projectDesignator->id] = $projectDesignator->projectDesignatorProgressUpdates()->whereDate('created_at', "2022-12-17")->sum('value');
+            foreach($periods as $key => $period) {
+                $date = $period->format('Y-m-d');
+                if( ! isset($updates[$key])) {
+                    $updates[$key] = 0;
+                }
+                
+                $updates[$key] += $projectDesignator
+                    ->projectDesignatorProgressUpdates()
+                    ->whereDate('created_at', $date)
+                    ->whereStatus(StatusEnum::Approved)->sum('value') / $projectDesignator->amount;
+            }
         }
 
-        dd($updates);
-
+        foreach($updates as $key => $update) {
+            $planning[] = (++$key / count($updates));
+            $realization[] = $cumulative + ($update / $project->projectDesignators->count());
+            $cumulative += ($update / $project->projectDesignators->count());
+        }
+        
         return response()->json([
             'success' => true,
             'message' => "Curve S",
-            'data' => $project
+            'data' => [
+                'dates' => collect($periods)->map(fn(Carbon $date) => $date->format('Y-m-d')),
+                'planning' => collect($planning)->map(fn($value) => round($value, 2) * 100),
+                'realization' => collect($realization)->map(fn($value) => round($value, 2) * 100)
+            ]
         ], 200);
     }
 }

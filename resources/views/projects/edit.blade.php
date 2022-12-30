@@ -304,7 +304,7 @@
                                         id="curveS"
                                         role="tabpanel"
                                         aria-labelledby="curve-s-tab">
-                                        <h4 class="mt-3 mb-3">Curve S</h4>
+                                        <h4 class="mt-3 mb-3">Curve S <button type="button" class="btn btn-primary reloadCurveS float-right"><i class="fa fa-refresh mr-1"></i> Reload</button></h4>
                                         <div class="row">
                                             <div class="col-12">
                                                 <canvas id="curveSChart"></canvas>
@@ -656,7 +656,8 @@
     <script src="{{ asset('js/datatable.js') }}"></script>
 
     <script type="text/javascript">
-        let counter = 0      
+        let counter = 0
+        var curveSChart
 
         let toggleFirstDesignatorRow = () => {
             $('.designator').length > 0 ? $('#addDesignatorRow').hide() : $('#addDesignatorRow').show()
@@ -717,6 +718,61 @@
                 .then((response) => response.json())
         }
 
+        let getCurveS = () => {
+            let url = "{{ route('project.curveS', $projects->id) }}"
+
+            return fetch(url)
+                .then((response) => response.json())
+                .then((data) => setCurveS(data))
+        }
+
+        let setCurveS = (curveS) => {
+            var ctx = document.getElementById("curveSChart").getContext('2d');
+            if(curveSChart) {
+                curveSChart.destroy()
+            }
+            curveSChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: curveS.data.dates,
+                    datasets: [
+                    {
+                        label: 'Realisasi',
+                        data: curveS.data.realization,
+                        fill: false,
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        lineTension: 0,
+                    },
+                    {
+                        label: 'Planning',
+                        data: curveS.data.planning,
+                        fill: false,
+                        backgroundColor: 'rgb(122, 99, 255)',
+                        borderColor: 'rgba(102, 99, 255, 1)',
+                        lineTension: 0,
+                    }
+                    ],
+                },
+                options: {
+                    scales: {
+                    yAxes: [
+                        {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            ticks: {
+                                beginAtZero: true,
+                            },
+                        },
+                    ],
+                    },
+                }
+            })
+        }
+
+        getCurveS()
+
         $('.update-progress-status').on('click', function() {
             let id = $(this).data('id')
             let status = $(this).data('status')
@@ -726,6 +782,7 @@
                     $('#activity-icon-' + data.data.id).removeClass()
                     $('#activity-' + data.data.id).addClass('bg-' + data.data.status_color)
                     $('#activity-icon-' + data.data.id).addClass(data.data.icon)
+                    getCurveS()
                 })
         })
 
@@ -742,45 +799,9 @@
                 })
         })
 
-        var ctx = document.getElementById("curveSChart").getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['22-12-2022', '23-12-2022', '24-12-2022', '25-12-2022', '26-12-2022', '27-12-2022', '28-12-2022'],
-                datasets: [
-                {
-                    label: 'Realisasi',
-                    data: [15, 60, 63, 67, 92, 94, 100],
-                    fill: false,
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    lineTension: 0,
-                },
-                {
-                    label: 'Planning',
-                    data: [14, 28, 42, 56, 70, 85, 100],
-                    fill: false,
-                    backgroundColor: 'rgb(122, 99, 255)',
-                    borderColor: 'rgba(102, 99, 255, 1)',
-                    lineTension: 0,
-                }
-                ],
-            },
-            options: {
-                scales: {
-                yAxes: [
-                    {
-                        type: 'linear',
-                        display: true,
-                        position: 'left',
-                        ticks: {
-                            beginAtZero: true,
-                        },
-                    },
-                ],
-                },
-            }
-            });
+        $('.reloadCurveS').click(function() {
+            getCurveS()
+        })
     </script>
 
     @if(session()->has('message'))
