@@ -28,6 +28,8 @@ class DesignatorController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Designator::class);
+
         $this->data['units'] = Unit::active();
         return view('designators.create', $this->data);
     }
@@ -40,6 +42,8 @@ class DesignatorController extends Controller
      */
     public function store(StoreDesignatorRequest $request)
     {
+        $this->authorize('store', Designator::class);
+
         Designator::create([
             'name' => $request->name,
             'unit_id' => $request->unit_id,
@@ -89,6 +93,8 @@ class DesignatorController extends Controller
      */
     public function update(UpdateDesignatorRequest $request, Designator $designator)
     {
+        $this->authorize('update', $designator);
+
         $designator->update([
             'name' => $request->name,
             'unit_id' => $request->unit_id,
@@ -111,6 +117,6 @@ class DesignatorController extends Controller
      */
     public function destroy(Designator $designator)
     {
-        //
+        $this->authorize('delete', $designator);
     }
 }

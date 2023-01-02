@@ -28,10 +28,12 @@
                             <div class="card-header">
                                 <h4>Daftar Unit</h4>
                                 <div class="card-header-action">
+                                    @can('create', \App\Models\Unit::class)
                                     <a href="{{ route('units.create') }}"
                                         class="btn btn-primary btn-lg">
                                         Tambah Data
                                     </a>
+                                    @endcan
                                 </div>
                             </div>
                             <div class="card-body">
@@ -45,7 +47,9 @@
                                                 <th>Nama</th>
                                                 <th>Deskripsi</th>
                                                 <th>Status</th>
+                                                @can('viewAny', \App\Models\Unit::class)
                                                 <th>Aksi</th>
+                                                @endcan
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -61,6 +65,7 @@
                                                 <td>
                                                     <div class="badge badge-{{ $unit->status->color() }}">{{ $unit->status->value }}</div>
                                                 </td>
+                                                @can('update', $unit)
                                                 <td>
                                                     <a class="btn btn-warning btn-action mr-1"
                                                         href="{{ route('units.edit', $unit->id) }}"
@@ -72,6 +77,7 @@
                                                         data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
                                                         data-confirm-yes="deleteItem({{ $unit->id }})"><i class="fas fa-trash"></i></a> -->
                                                 </td>
+                                                @endcan
                                             </tr>
                                             @endforeach
                                         </tbody>

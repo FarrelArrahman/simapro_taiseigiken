@@ -28,10 +28,12 @@
                             <div class="card-header">
                                 <h4>Daftar Project</h4>
                                 <div class="card-header-action">
+                                    @can('create', App\Models\Project::class)
                                     <a href="{{ route('projects.create') }}"
                                         class="btn btn-primary btn-lg">
                                         Tambah Data
                                     </a>
+                                    @endcan
                                 </div>
                             </div>
                             <div class="card-body">
@@ -77,15 +79,17 @@
                                                     <div class="badge badge-{{ $project->status->color() }}">{{ $project->status->value }}</div>
                                                 </td> --}}
                                                 <td>
-                                                    <a class="btn btn-warning btn-block btn-action mr-1"
+                                                    <a class="btn btn-info btn-block btn-action mr-1"
                                                         href="{{ route('projects.edit', $project->id) }}"
                                                         data-toggle="tooltip"
-                                                        title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                        title="Show"><i class="fas fa-eye"></i></a>
+                                                    @can('delete', $project)
                                                     <a class="btn btn-danger btn-block btn-action btn-delete"
                                                         data-toggle="tooltip"
                                                         title="Delete"
                                                         data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
                                                         data-confirm-yes="deleteItem('{{ route('projects.destroy', $project->id) }}')"><i class="fas fa-trash"></i></a>
+                                                    @endcan
                                                 </td>
                                             </tr>
                                             @endforeach

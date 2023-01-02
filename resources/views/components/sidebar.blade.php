@@ -28,10 +28,12 @@
                 <a class="nav-link"
                     href="{{ route('units.index') }}"><i class="fas fa-star-of-life"></i> <span>Unit</span></a>
             </li>
+            @can('viewAny', \App\Models\User::class)
             <li class="{{ Request::is('*users*') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('users') }}"><i class="fas fa-users"></i> <span>Manajemen User</span></a>
+                    href="{{ url('users') }}"><i class="fas fa-users"></i> <span>User</span></a>
             </li>
+            @endcan
         </ul>
 
         <!-- <div class="hide-sidebar-mini mt-4 mb-4 p-3">

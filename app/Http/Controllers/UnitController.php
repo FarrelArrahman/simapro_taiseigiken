@@ -27,6 +27,8 @@ class UnitController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Unit::class);
+
         return view('units.create', $this->data);
     }
 
@@ -38,7 +40,7 @@ class UnitController extends Controller
      */
     public function store(StoreUnitRequest $request)
     {
-        $this->authorize('create');
+        $this->authorize('store', Unit::class);
 
         Unit::create([
             'name' => $request->name,
@@ -85,6 +87,8 @@ class UnitController extends Controller
      */
     public function update(UpdateUnitRequest $request, Unit $unit)
     {
+        $this->authorize('update', $unit);
+
         $unit->update([
             'name' => $request->name,
             'description' => $request->description,

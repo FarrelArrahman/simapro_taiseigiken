@@ -28,11 +28,11 @@ Route::middleware('auth')->group(function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
     Route::put('/profile/{user}', [HomeController::class, 'profileUpdate'])->name('profileUpdate');
-    Route::get('/projects/{projectDesignator}', [ProjectDesignatorController::class, 'changeDesignatorStatus'])->name('changeDesignatorStatus');
     Route::put('/progress_update/{update}', [ProjectDesignatorController::class, 'progressUpdate'])->name('progressUpdate');
     Route::get('/projects/{project}/curve-s', [ProjectController::class, 'curveS'])->name('project.curveS');
-
+    
     Route::resource('projects', ProjectController::class);
+    Route::get('/projects/{projectDesignator}', [ProjectDesignatorController::class, 'changeDesignatorStatus'])->name('changeDesignatorStatus');
     Route::resource('designators', DesignatorController::class);
     Route::resource('project_designators', ProjectDesignatorController::class);
     Route::resource('project_evaluations', ProjectEvaluationController::class);

@@ -22,7 +22,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $this->data['projects'] = Project::all();
+        $this->data['projects'] = Project::latest()->get();
         return view('projects.index', $this->data);
     }
 
@@ -33,6 +33,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $this->authorize('store', Project::class);
+        
         $this->data['projectHeads'] = User::whereRole(RoleEnum::ProjectHead)->get();
         $this->data['vendors'] = Vendor::whereStatus(StatusEnum::Active)->get();
         return view('projects.create', $this->data);
@@ -46,6 +48,8 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+        $this->authorize('store', Project::class);
+
         Project::create([
             'project_code' => $request->project_code,
             'project_name' => $request->project_name,
@@ -84,7 +88,7 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $this->authorize('update', $project);
-        
+
         $this->data['projects'] = $project;
         $this->data['designators'] = Designator::whereStatus(StatusEnum::Active)->get();
         $this->data['projectDesignators'] = $project->projectDesignators;
@@ -103,6 +107,8 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
+        $this->authorize('update', $project);
+
         $project->update([
             'project_code' => $request->project_code,
             'project_name' => $request->project_name,
@@ -112,7 +118,6 @@ class ProjectController extends Controller
             'vendor_id' => $request->vendor_id,
             'begin_date' => $request->begin_date,
             'finish_date' => $request->finish_date,
-            'status' => StatusEnum::from($request->status),
         ]);
 
         return to_route('projects.index')
@@ -157,8 +162,12 @@ class ProjectController extends Controller
 
         foreach($updates as $key => $update) {
             $planning[] = (++$key / count($updates));
-            $realization[] = $cumulative + ($update / $project->projectDesignators->count());
-            $cumulative += ($update / $project->projectDesignators->count());
+            if($update > 0) {
+                $realization[] = $cumulative + ($update / $project->projectDesignators->count());
+                $cumulative += ($update / $project->projectDesignators->count());
+            } else {
+                $realization[] = null;
+            }
         }
         
         return response()->json([
@@ -167,7 +176,7 @@ class ProjectController extends Controller
             'data' => [
                 'dates' => collect($periods)->map(fn(Carbon $date) => $date->format('Y-m-d')),
                 'planning' => collect($planning)->map(fn($value) => round($value, 2) * 100),
-                'realization' => collect($realization)->map(fn($value) => round($value, 2) * 100)
+                'realization' => collect($realization)->map(fn($value) => $value != null ? round($value, 2) * 100 : null)
             ]
         ], 200);
     }

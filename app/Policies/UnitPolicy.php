@@ -19,7 +19,7 @@ class UnitPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return in_array($user->role, [RoleEnum::Admin]);
     }
 
     /**

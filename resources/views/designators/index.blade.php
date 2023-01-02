@@ -28,10 +28,12 @@
                             <div class="card-header">
                                 <h4>Daftar Designator</h4>
                                 <div class="card-header-action">
+                                    @can('create', \App\Models\Designator::class)
                                     <a href="{{ route('designators.create') }}"
                                         class="btn btn-primary btn-lg">
                                         Tambah Data
                                     </a>
+                                    @endcan
                                 </div>
                             </div>
                             <div class="card-body">
@@ -48,7 +50,9 @@
                                                 <th>Services</th>
                                                 <th>Deskripsi</th>
                                                 <th>Status</th>
+                                                @can('edit', \App\Models\Designator::class)
                                                 <th>Aksi</th>
+                                                @endcan
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -63,6 +67,7 @@
                                                 <td>
                                                     <div class="badge badge-{{ $designator->status->color() }}">{{ $designator->status->value }}</div>
                                                 </td>
+                                                @can('edit', \App\Models\Designator::class)
                                                 <td>
                                                     <a class="btn btn-warning btn-action mr-1"
                                                         href="{{ route('designators.edit', $designator->id) }}"
@@ -74,6 +79,7 @@
                                                         data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
                                                         data-confirm-yes="deleteItem('{{ route('designators.destroy', $designator->id) }}')"><i class="fas fa-trash"></i></a> -->
                                                 </td>
+                                                @endcan
                                             </tr>
                                             @endforeach
                                         </tbody>
