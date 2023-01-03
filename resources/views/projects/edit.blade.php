@@ -91,6 +91,7 @@
                                             <div class="form-group">
                                                 <label for="inputProjectCode">Project Code</label>
                                                 <input type="text"
+                                                    @cannot('update', $projects) disabled @endcannot
                                                     name="project_code"
                                                     class="form-control @error('project_code') is-invalid @enderror"
                                                     id="inputProjectCode"
@@ -105,6 +106,7 @@
                                             <div class="form-group">
                                                 <label for="inputProjectName">Project Name</label>
                                                 <input type="text"
+                                                    @cannot('update', $projects) disabled @endcannot
                                                     name="project_name"
                                                     class="form-control @error('project_name') is-invalid @enderror"
                                                     id="inputProjectName"
@@ -119,6 +121,7 @@
                                             <div class="form-group">
                                                 <label for="inputTimeOfContract">Time of Contract (days)</label>
                                                 <input type="text"
+                                                    @cannot('update', $projects) disabled @endcannot
                                                     name="time_of_contract"
                                                     class="form-control @error('time_of_contract') is-invalid @enderror"
                                                     id="inputTimeOfContract"
@@ -133,6 +136,7 @@
                                             <div class="form-group">
                                                 <label for="inputDRMValue">Nilai DRM</label>
                                                 <input type="text"
+                                                    @cannot('update', $projects) disabled @endcannot
                                                     name="drm_value"
                                                     class="form-control @error('drm_value') is-invalid @enderror"
                                                     id="inputDRMValue"
@@ -146,7 +150,10 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputProjectHead">Kepala Proyek</label>
-                                                <select name="project_head_id" class="form-control">
+                                                <select
+                                                    @cannot('update', $projects) disabled @endcannot 
+                                                    name="project_head_id" 
+                                                    class="form-control">
                                                     @foreach($projectHeads as $projectHead)
                                                     <option @selected($projects->projectHead->id == $projectHead->id) value="{{ $projectHead->id }}">{{ $projectHead->name }}</option>
                                                     @endforeach
@@ -159,7 +166,10 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputVendor">Mitra</label>
-                                                <select name="vendor_id" class="form-control">
+                                                <select 
+                                                    @cannot('update', $projects) disabled @endcannot
+                                                    name="vendor_id" 
+                                                    class="form-control">
                                                     @foreach($vendors as $vendor)
                                                     <option @selected($projects->vendor->id == $vendor->id) value="{{ $vendor->id }}">{{ $vendor->name }}</option>
                                                     @endforeach
@@ -173,6 +183,7 @@
                                             <div class="form-group">
                                                 <label for="inputBeginDate">Tanggal mulai</label>
                                                 <input type="date"
+                                                    @cannot('update', $projects) disabled @endcannot
                                                     name="begin_date"
                                                     class="form-control @error('begin_date') is-invalid @enderror"
                                                     id="inputBeginDate"
@@ -187,6 +198,7 @@
                                             <div class="form-group">
                                                 <label for="inputFinishDate">Tanggal selesai</label>
                                                 <input type="date"
+                                                    @cannot('update', $projects) disabled @endcannot
                                                     name="finish_date"
                                                     class="form-control @error('finish_date') is-invalid @enderror"
                                                     id="inputFinishDate"
@@ -206,11 +218,13 @@
                                                     @endforeach
                                                 </select>
                                             </div> --}}
+                                            @can('update', $projects)
                                             <div class="row">
                                                 <div class="col-12">
                                                     <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
                                                 </div>
                                             </div>
+                                            @endcan
                                         </form>
                                     </div>
                                     <div class="tab-pane fade {{ request()->query('ref') == 'projectDesignator' ? 'show active' : '' }}"
@@ -230,7 +244,9 @@
                                                         <th>Uraian Pekerjaan</th>
                                                         <th>Jumlah</th>
                                                         <th>Status</th>
+                                                        @can('update', $projects->projectDesignators->first())
                                                         <th width="75">Aksi</th>
+                                                        @endcan
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -244,6 +260,7 @@
                                                         <td>
                                                             <div class="badge badge-{{ $projectDesignator->status->color() }}">{{ $projectDesignator->status->value }}</div>
                                                         </td>
+                                                        @can('update', $projectDesignator)
                                                         <td>
                                                             <!-- <a class="btn btn-warning btn-action mr-1"
                                                                 href="{{ route('projects.edit', $projectDesignator->id) }}"
@@ -259,15 +276,21 @@
                                                                 title="{{ $projectDesignator->status->value == 'Done' ? 'Tandai belum selesai' :  'Tandai selesai' }}"
                                                                 href="{{ route('changeDesignatorStatus', $projectDesignator->id) }}'"><i class="{{ $projectDesignator->status->value == 'Done' ? 'fas fa-clock' :  'fas fa-check' }}"></i></a>
                                                         </td>
+                                                        @endcan
                                                     </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
 
+                                        @can('create', \App\Models\ProjectDesignator::class)
                                         <div class="row mt-5">
                                             <div class="col-12">
-                                                <h4 class="mb-3">Designator <button data-toggle="modal" data-target="#addDesignatorModal" type="button" id="addDesignatorButton" class="btn btn-success float-right"><i class="fas fa-list-check mr-2"></i> Daftar Designator</button></h4>
+                                                <h4 class="mb-3">Designator 
+                                                    @can('create', \App\Models\ProjectDesignator::class)
+                                                    <button data-toggle="modal" data-target="#addDesignatorModal" type="button" id="addDesignatorButton" class="btn btn-success float-right"><i class="fas fa-list-check mr-2"></i> Daftar Designator</button>
+                                                    @endcan
+                                                </h4>
                                                 <form action="{{ route('project_designators.store') }}" method="POST">
                                                     <input type="hidden" name="project_id" value="{{ $projects->id }}">
                                                     @csrf
@@ -299,6 +322,7 @@
                                                 </form>
                                             </div>
                                         </div>
+                                        @endcan
                                     </div>
                                     <div class="tab-pane fade"
                                         id="curveS"
@@ -337,10 +361,11 @@
                                             </div>
                                             <h2>Record evaluasi tidak tersedia</h2>
                                             <p class="lead">
-                                                Anda dapat memberikan evaluasi terhadap project ini agar record evaluasi dapat muncul pada bagian ini. 
+                                                Admin atau Kepala Proyek dapat memberikan evaluasi yang akan ditampilkan pada bagian ini. 
                                             </p>
                                         </div>
                                         @endforelse
+                                        @can('create', \App\Models\ProjectEvaluation::class)
                                         <h4 class="mt-3 mb-3">Tambah Evaluasi</h4>
                                         <form action="{{ route('project_evaluations.store') }}" method="POST">
                                             @csrf
@@ -353,6 +378,7 @@
                                             <button type="submit" 
                                                 class="btn btn-primary">Kirim</button>
                                         </form>
+                                        @endcan
                                     </div>
                                     <div class="tab-pane fade {{ request()->query('ref') == 'updateProgress' ? 'show active' : '' }}"
                                         id="updateProgress"
@@ -465,6 +491,7 @@
                                                                         <div class="dropdown float-right">
                                                                             <a href="#!" 
                                                                                 data-collapse="#mycard-collapse-{{ $update->id }}" class="toggle-minimize-{{ $update->id }}"><i class="fas fa-minus toggle-minimize-icon-{{ $update->id }}"></i></a>
+                                                                            @can('update', $update)
                                                                             <a href="#"
                                                                                 data-toggle="dropdown"><i class="fas fa-ellipsis-h"></i></a>
                                                                             <div class="dropdown-menu">
@@ -482,6 +509,7 @@
                                                                                     href="#!"
                                                                                     class="dropdown-item has-icon text-danger update-progress-status"><i class="far fa-x"></i> Reject</a>
                                                                             </div>
+                                                                            @endcan
                                                                         </div>
                                                                     </div>
                                                                     <div class="collapse show" id="mycard-collapse-{{ $update->id }}">
@@ -515,10 +543,10 @@
                                                                                 @endif
                                                                             @endif
                                                                         </div>
-                                                                        <div class="row mt-3">
+                                                                        <div class="row">
                                                                             <div class="col-12">
-                                                                                <h6 class="mb-3">Komentar</h6>
-
+                                                                                @if($update->comment != "")
+                                                                                <h6 class="mt-3 mb-3">Komentar</h6>
                                                                                 <ul id="comment-ul-{{ $update->id }}" class="list-unstyled list-unstyled-border @if($update->comment == NULL && $update->commented_by == NULL) d-none @endif">
                                                                                     <li class="media">
                                                                                         <img alt="image"
@@ -532,6 +560,7 @@
                                                                                     </li>
                                                                                 </ul>
                                                                                 
+                                                                                @can('update', $update)
                                                                                 <form data-id="{{ $update->id }}" class="@if($update->comment != NULL && $update->commented_by != NULL) d-none @endif comment-form" id="comment-form-{{ $update->id }}" action="{{ route('project_designators.update', $update->id) }}">
                                                                                     <div class="form-group">
                                                                                         <textarea id="comment-textarea-{{ $update->id }}" class="form-control" 
@@ -541,7 +570,9 @@
                                                                                     <button type="submit" 
                                                                                         class="btn btn-primary">Kirim</button>
                                                                                 </form>
+                                                                                @endcan
 
+                                                                                @endif
                                                                             </div>
                                                                         </div>
                                                                     </div>

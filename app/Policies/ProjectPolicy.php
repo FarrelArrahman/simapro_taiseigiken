@@ -19,7 +19,7 @@ class ProjectPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return in_array($user->role, RoleEnum::cases());
     }
 
     /**
@@ -31,7 +31,7 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project)
     {
-        //
+        return in_array($user->role, RoleEnum::cases());
     }
 
     /**

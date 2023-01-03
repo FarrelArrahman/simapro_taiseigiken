@@ -11,7 +11,7 @@
 @section('main')
     <div class="card card-primary">
         <div class="card-header">
-            <h4>{{ __('Login') }}</h4>
+            <h4>{{ __('auth.login') }}</h4>
         </div>
 
         <div class="card-body">
@@ -21,7 +21,7 @@
                 novalidate="">
                 @csrf
                 <div class="form-group">
-                    <label for="email">{{ __('Email Address') }}</label>
+                    <label for="email">{{ __('auth.email') }}</label>
                     <input id="email"
                         type="email"
                         class="form-control @error('email') is-invalid @enderror"
@@ -34,7 +34,7 @@
                         @error('email')
                         {{ $message }}
                         @else
-                        {{ 'Please fill in your email' }}
+                        {{ __('validation.email', ['attribute' => 'Email']) }}
                         @enderror
                     </div>
                 </div>
@@ -42,15 +42,15 @@
                 <div class="form-group">
                     <div class="d-block">
                         <label for="password"
-                            class="control-label">{{ __('Password') }}</label>
-                        @if (Route::has('password.request'))
+                            class="control-label">{{ __('auth.password') }}</label>
+                        <!-- @if (Route::has('password.request'))
                         <div class="float-right">
                             <a href="auth-forgot-password.html"
                                 class="text-small">
                                 {{ __('Forgot Password?') }}
                             </a>
                         </div>
-                        @endif
+                        @endif -->
                     </div>
                     <input id="password"
                         type="password"
@@ -62,7 +62,7 @@
                     @error('password')
                         {{ $message }}
                         @else
-                        {{ 'Please fill in your password' }}
+                        {{ __('validation.password') }}
                         @enderror
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                             id="remember-me"
                             {{ old('remember') ? 'checked' : '' }}>
                         <label class="custom-control-label"
-                            for="remember-me">{{ __('Remember Me') }}</label>
+                            for="remember-me">{{ __('auth.remember_me') }}</label>
                     </div>
                 </div>
 
@@ -84,7 +84,7 @@
                     <button type="submit"
                         class="btn btn-primary btn-lg btn-block"
                         tabindex="4">
-                        {{ __('Login') }}
+                        {{ __('auth.login') }}
                     </button>
                 </div>
             </form>
@@ -93,7 +93,8 @@
     </div>
     @if (Route::has('register'))
     <div class="text-muted mt-2 text-center">
-        Don't have an account? <a href="{{ route('register') }}">Create One</a>
+        {{ __('auth.dont_have_an_account') }} 
+        <a href="{{ route('register') }}">{{ __('auth.create_account') }}</a>
     </div>
     @endif
 @endsection

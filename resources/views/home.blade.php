@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'General Dashboard')
+@section('title', 'Dashboard')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,7 +14,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Dashboard</h1>
+                <h1>{{ __('dashboard.Dashboard') }}</h1>
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
@@ -24,7 +24,7 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Total Pekerja</h4>
+                                <h4>{{__('dashboard.Workers Count')}}</h4>
                             </div>
                             <div class="card-body">
                                 {{ $worker_count }}
@@ -39,7 +39,7 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Total Vendor</h4>
+                                <h4>{{ __('dashboard.Vendors Count') }}</h4>
                             </div>
                             <div class="card-body">
                                 {{ $vendor_count }}
@@ -54,7 +54,7 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Project Berjalan</h4>
+                                <h4>{{ __('dashboard.Ongoing Projects') }}</h4>
                             </div>
                             <div class="card-body">
                                 {{ $project_ongoing_count }}
@@ -69,7 +69,7 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Project Selesai</h4>
+                                <h4>{{ __('dashboard.Done Projects') }}</h4>
                             </div>
                             <div class="card-body">
                                 {{ $project_done_count }}

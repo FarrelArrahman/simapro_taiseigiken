@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\RoleEnum;
 use App\Models\ProjectDesignator;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -18,7 +19,7 @@ class ProjectDesignatorPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return in_array($user->role, RoleEnum::cases());
     }
 
     /**
@@ -30,7 +31,7 @@ class ProjectDesignatorPolicy
      */
     public function view(User $user, ProjectDesignator $projectDesignator)
     {
-        //
+        return in_array($user->role, RoleEnum::cases());
     }
 
     /**
@@ -41,7 +42,7 @@ class ProjectDesignatorPolicy
      */
     public function create(User $user)
     {
-        //
+        return in_array($user->role, [RoleEnum::Admin, RoleEnum::ProjectHead]);
     }
 
     /**
@@ -53,7 +54,7 @@ class ProjectDesignatorPolicy
      */
     public function update(User $user, ProjectDesignator $projectDesignator)
     {
-        //
+        return in_array($user->role, [RoleEnum::Admin, RoleEnum::ProjectHead]);
     }
 
     /**
@@ -65,7 +66,7 @@ class ProjectDesignatorPolicy
      */
     public function delete(User $user, ProjectDesignator $projectDesignator)
     {
-        //
+        return in_array($user->role, [RoleEnum::Admin, RoleEnum::ProjectHead]);
     }
 
     /**
@@ -77,7 +78,7 @@ class ProjectDesignatorPolicy
      */
     public function restore(User $user, ProjectDesignator $projectDesignator)
     {
-        //
+        return in_array($user->role, [RoleEnum::Admin, RoleEnum::ProjectHead]);
     }
 
     /**
@@ -89,6 +90,6 @@ class ProjectDesignatorPolicy
      */
     public function forceDelete(User $user, ProjectDesignator $projectDesignator)
     {
-        //
+        return in_array($user->role, [RoleEnum::Admin, RoleEnum::ProjectHead]);
     }
 }

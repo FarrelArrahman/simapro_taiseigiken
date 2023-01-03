@@ -33,7 +33,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $this->authorize('store', Project::class);
+        $this->authorize('create', Project::class);
         
         $this->data['projectHeads'] = User::whereRole(RoleEnum::ProjectHead)->get();
         $this->data['vendors'] = Vendor::whereStatus(StatusEnum::Active)->get();
@@ -87,7 +87,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $this->authorize('update', $project);
+        $this->authorize('view', $project);
 
         $this->data['projects'] = $project;
         $this->data['designators'] = Designator::whereStatus(StatusEnum::Active)->get();

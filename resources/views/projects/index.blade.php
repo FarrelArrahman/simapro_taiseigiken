@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Project')
+@section('title', __('dashboard.Project'))
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,10 +14,10 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Project</h1>
+                <h1>{{ __('dashboard.Project') }}</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item active">Project</div>
+                    <div class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('dashboard.Dashboard') }}</a></div>
+                    <div class="breadcrumb-item active">{{ __('dashboard.Project') }}</div>
                 </div>
             </div>
 
@@ -26,12 +26,12 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Daftar Project</h4>
+                                <h4>{{ __('dashboard.Project List') }}</h4>
                                 <div class="card-header-action">
                                     @can('create', App\Models\Project::class)
                                     <a href="{{ route('projects.create') }}"
                                         class="btn btn-primary btn-lg">
-                                        Tambah Data
+                                        {{ __('dashboard.Add Data') }}
                                     </a>
                                     @endcan
                                 </div>
@@ -44,15 +44,15 @@
                                                 <th class="text-center">
                                                     #
                                                 </th>
-                                                <th>Code</th>
-                                                <th>Project Name</th>
-                                                <th>TOC</th>
-                                                <th>Nilai DRM</th>
-                                                <th>Kepala Proyek</th>
-                                                <th>Mitra</th>
-                                                <th>Completion (%)</th>
-                                                {{-- <th>Status</th> --}}
-                                                <th>Aksi</th>
+                                                <th>{{ __('dashboard.Code') }}</th>
+                                                <th>{{ __('dashboard.Project Name') }}</th>
+                                                <th>{{ __('dashboard.Time of Contract') }}</th>
+                                                <th>{{ __('dashboard.DRM Value') }}</th>
+                                                <th>{{ __('dashboard.Project Head') }}</th>
+                                                <th>{{ __('dashboard.Vendor') }}</th>
+                                                <th>{{ __('dashboard.Completion') }}</th>
+                                                {{-- <th>{{ __('dashboard.Status') }}Status</th> --}}
+                                                <th>{{ __('dashboard.Action') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>

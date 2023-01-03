@@ -7,31 +7,31 @@
             <a href="index.html">ST</a>
         </div>
         <ul class="sidebar-menu">
-            <li class="menu-header">Menu</li>
+            <li class="menu-header">{{ __('dashboard.Menu') }}</li>
             <li class="{{ Request::is('*home*') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('home') }}"><i class="fas fa-home"></i> <span>Dashboard</span></a>
+                    href="{{ url('home') }}"><i class="fas fa-home"></i> <span>{{ __('dashboard.Dashboard') }}</span></a>
             </li>
             <li class="{{ Request::is('*projects*') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('projects') }}"><i class="fas fa-briefcase"></i> <span>Project</span></a>
+                    href="{{ url('projects') }}"><i class="fas fa-briefcase"></i> <span>{{ __('dashboard.Project') }}</span></a>
             </li>
             <li class="{{ Request::is('*designators*') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ route('designators.index') }}"><i class="fas fa-list-check"></i> <span>Designator</span></a>
+                    href="{{ route('designators.index') }}"><i class="fas fa-list-check"></i> <span>{{ __('dashboard.Designator') }}</span></a>
             </li>
             <li class="{{ Request::is('*vendors*') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ route('vendors.index') }}"><i class="fas fa-user-tie"></i> <span>Vendor</span></a>
+                    href="{{ route('vendors.index') }}"><i class="fas fa-user-tie"></i> <span>{{ __('dashboard.Vendor') }}</span></a>
             </li>
             <li class="{{ Request::is('*units*') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ route('units.index') }}"><i class="fas fa-star-of-life"></i> <span>Unit</span></a>
+                    href="{{ route('units.index') }}"><i class="fas fa-star-of-life"></i> <span>{{ __('dashboard.Unit') }}</span></a>
             </li>
             @can('viewAny', \App\Models\User::class)
             <li class="{{ Request::is('*users*') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('users') }}"><i class="fas fa-users"></i> <span>User</span></a>
+                    href="{{ url('users') }}"><i class="fas fa-users"></i> <span>{{ __('dashboard.User') }}</span></a>
             </li>
             @endcan
         </ul>
