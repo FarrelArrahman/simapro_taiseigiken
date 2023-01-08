@@ -54,7 +54,7 @@ class ProjectDesignatorProgressUpdatePolicy
      */
     public function update(User $user, ProjectDesignatorProgressUpdate $projectDesignatorProgressUpdate)
     {
-        return in_array($user->role, [RoleEnum::Admin]);
+        return in_array($user->role, [RoleEnum::Admin, RoleEnum::Manager, RoleEnum::ProjectHead]);
     }
 
     /**

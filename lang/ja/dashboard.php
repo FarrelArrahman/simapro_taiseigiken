@@ -24,17 +24,28 @@ return [
 
     // CRUD
     'Add Data' => 'データ追加',
+    'Add' => '追加',
     'Show' => '参照',
     'Edit' => '変更する',
     'Delete' => '削除',
     'Action' => 'アクション',
+    'Submit' => '提出',
+    'Cancel' => 'キャンセル',
+    'Back' => '背面',
+    'Are You Sure?' => '本当にいいんですか？',
+    'This action can not be undone. Do you want to continue?' => 'この操作は元に戻せません。続行しますか？',
 
     // Project Fields
+    'Add Project' => 'プロジェクトの追加',
+    'Project Detail' => 'プロジェクト詳細',
     'Code' => 'コード',
+    'Project Code' => 'プロジェクトコード',
     'Project Name' => 'プロジェクト名',
     'Time of Contract' => 'プロジェクト期間',
     'DRM Value' => 'DRMバリュー',
     'Completion' => '決済',
+    'Start Date' => '開始日',
+    'End Date' => '終了日',
 
     // Roles
     'Admin' => 'アドミン',

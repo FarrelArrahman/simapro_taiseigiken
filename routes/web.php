@@ -32,13 +32,13 @@ Route::middleware('auth')->group(function() {
     Route::get('/projects/{project}/curve-s', [ProjectController::class, 'curveS'])->name('project.curveS');
     
     Route::resource('projects', ProjectController::class);
-    Route::get('/projects/{projectDesignator}', [ProjectDesignatorController::class, 'changeDesignatorStatus'])->name('changeDesignatorStatus');
     Route::resource('designators', DesignatorController::class);
     Route::resource('project_designators', ProjectDesignatorController::class);
     Route::resource('project_evaluations', ProjectEvaluationController::class);
     Route::resource('vendors', VendorController::class);
     Route::resource('units', UnitController::class);
     Route::resource('users', UserController::class);
+    Route::get('/projects/{projectDesignator}/change-status', [ProjectDesignatorController::class, 'changeDesignatorStatus'])->name('changeDesignatorStatus');
 });
 
 Route::get('/dashboard-ecommerce-dashboard', function () {

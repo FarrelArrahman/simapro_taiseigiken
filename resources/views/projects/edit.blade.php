@@ -274,7 +274,7 @@
                                                             <a class="btn {{ $projectDesignator->status->value == 'Done' ? 'btn-dark' :  'btn-info' }} btn-action"
                                                                 data-toggle="tooltip"
                                                                 title="{{ $projectDesignator->status->value == 'Done' ? 'Tandai belum selesai' :  'Tandai selesai' }}"
-                                                                href="{{ route('changeDesignatorStatus', $projectDesignator->id) }}'"><i class="{{ $projectDesignator->status->value == 'Done' ? 'fas fa-clock' :  'fas fa-check' }}"></i></a>
+                                                                href="{{ route('changeDesignatorStatus', $projectDesignator->id) }}"><i class="{{ $projectDesignator->status->value == 'Done' ? 'fas fa-clock' :  'fas fa-check' }}"></i></a>
                                                         </td>
                                                         @endcan
                                                     </tr>
@@ -545,7 +545,6 @@
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                @if($update->comment != "")
                                                                                 <h6 class="mt-3 mb-3">Komentar</h6>
                                                                                 <ul id="comment-ul-{{ $update->id }}" class="list-unstyled list-unstyled-border @if($update->comment == NULL && $update->commented_by == NULL) d-none @endif">
                                                                                     <li class="media">
@@ -572,7 +571,6 @@
                                                                                 </form>
                                                                                 @endcan
 
-                                                                                @endif
                                                                             </div>
                                                                         </div>
                                                                     </div>

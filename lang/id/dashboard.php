@@ -24,17 +24,28 @@ return [
 
     // CRUD
     'Add Data' => 'Tambah Data',
+    'Add' => 'Tambah',
     'Show' => 'Lihat',
     'Edit' => 'Ubah',
     'Delete' => 'Hapus',
     'Action' => 'Aksi',
+    'Submit' => 'Kirim',
+    'Cancel' => 'Batal',
+    'Back' => 'Kembali',
+    'Are You Sure?' => 'Apakah Anda Yakin?',
+    'This action can not be undone. Do you want to continue?' => 'Aksi ini tidak dapat dikembalikan. Apakah Anda ingin melanjutkannya?',
 
     // Project Fields
+    'Add Project' => 'Tambah Project',
+    'Project Detail' => 'Detail Project',
     'Code' => 'Kode',
+    'Project Code' => 'Kode Project',
     'Project Name' => 'Nama Project',
     'Time of Contract' => 'Durasi Project',
     'DRM Value' => 'Nilai DRM',
     'Completion' => 'Penyelesaian',
+    'Start Date' => 'Tanggal Mulai',
+    'End Date' => 'Tanggal Selesai',
 
     // Roles
     'Admin' => 'Admin',
