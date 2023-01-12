@@ -68,7 +68,7 @@ class HomeController extends Controller
             'phone_number' => $request->phone_number,
         ];
 
-        if($request->has('password')) {
+        if(! empty($request->password)) {
             $data['password'] = bcrypt($request->password);
         }
 
@@ -82,7 +82,7 @@ class HomeController extends Controller
         $user->update($data);
 
         return to_route('profile')
-            ->with('message', 'Berhasil mengubah profil.')
+            ->with('message', __('dashboard.Successfully changed the profile'))
             ->with('status', 'success');
     }
 

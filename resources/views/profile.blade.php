@@ -143,7 +143,7 @@
                                                     id="inputGenderMale"
                                                     value="Male">
                                                 <label class="form-check-label"
-                                                    for="inputGenderMale">Laki-laki</label>
+                                                    for="inputGenderMale">{{ __('dashboard.Male') }}</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input"
@@ -153,7 +153,7 @@
                                                     id="inputGenderFemale"
                                                     value="Female">
                                                 <label class="form-check-label"
-                                                    for="inputGenderFemale">Perempuan</label>
+                                                    for="inputGenderFemale">{{ __('dashboard.Female') }}</label>
                                             </div>
                                             @error('gender')
                                             <div class="invalid-feedback">
@@ -210,4 +210,14 @@
     <script src="{{ asset('library/izitoast/dist/js/iziToast.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
+    @if(session()->has('message'))
+    <script>
+        let data = {
+            message: "{{ session()->get('message') }}",
+            status: "{{ session()->get('status') }}",
+            position: 'topCenter',
+        }
+    </script>
+    <script src="{{ asset('js/toastr.js') }}"></script>
+    @endif
 @endpush

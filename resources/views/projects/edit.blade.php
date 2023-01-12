@@ -343,7 +343,7 @@
                                         @forelse($projects->projectEvaluations as $projectEvaluation)
                                         <div class="card card-primary">
                                             <div class="card-header">
-                                                <h4>{{ $projectEvaluation->evaluatedBy->name }}</h4>
+                                                <h4>{{ $projectEvaluation->evaluatedBy->name }} <div class="ml-1 badge badge-sm badge-{{ $projectEvaluation->evaluatedBy->role->color() }}">{{ __('dashboard.' . $projectEvaluation->evaluatedBy->role->value) }}</div></h4>
                                                 <div class="card-header-action">
                                                     {{ $projectEvaluation->created_at->isoFormat('dddd, DD MMMM Y HH:mm') }}
                                                 </div>
@@ -383,8 +383,9 @@
                                         id="updateProgress"
                                         role="tabpanel"
                                         aria-labelledby="update-progress-tab">
+                                        @can('create', \App\Models\ProjectDesignatorProgressUpdate::class)
                                         <h4 class="mt-3 mb-3">{{ __('dashboard.Progress Updates') }} &mdash; {{ today()->isoFormat('dddd, DD MMMM Y') }}</h4>
-                                        <form action="{{ route('project_designators.update', $projects->id) }}" method="POST" enctype="multipart/form-data">
+                                        <form class="mb-3" action="{{ route('project_designators.update', $projects->id) }}" method="POST" enctype="multipart/form-data">
                                             @method('PUT')
                                             @csrf
                                             <table class="table-striped table">
@@ -437,8 +438,9 @@
                                             </div>
                                             @endif
                                         </form>
+                                        @endcan
 
-                                        <h4 class="mt-5 mb-3">{{ __('dashboard.Update History') }}</h4>
+                                        <h4 class="mt-3 mb-3">{{ __('dashboard.Update History') }}</h4>
                                         @if($projects->projectDesignators->count() < 1)
                                         <div class="empty-state"
                                             data-height="200">

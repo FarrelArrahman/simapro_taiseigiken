@@ -156,6 +156,7 @@ return [
     'Successfully changed the user.' => 'Berhasil mengubah user.',
     'Successfully updated the project progress.' => 'Berhasil mengupdate progress project.',
     'Successfully changed the status of the designator.' => 'Berhasil mengubah status designator.',
+    'Successfully changed the profile' => 'Berhasil mengubah profil',
     
     // Message - Update
     'Successfully deleted the project.' => 'Berhasil menghapus project.',

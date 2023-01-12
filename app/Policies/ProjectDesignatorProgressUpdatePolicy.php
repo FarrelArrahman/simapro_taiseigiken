@@ -42,7 +42,7 @@ class ProjectDesignatorProgressUpdatePolicy
      */
     public function create(User $user)
     {
-        return in_array($user->role, [RoleEnum::Admin]);
+        return in_array($user->role, [RoleEnum::Admin, RoleEnum::Worker, RoleEnum::ProjectHead]);
     }
 
     /**

@@ -156,6 +156,7 @@ return [
     'Successfully changed the user.' => 'ユーザーの変更に成功しました。',
     'Successfully updated the project progress.' => 'プロジェクト進捗のアップデートを成功させた。',
     'Successfully changed the status of the designator.' => 'デジタルの状態変更に成功しました。.',
+    'Successfully changed the profile' => 'プロファイルの変更に成功しました',
     
     // Message - Delete
     'Successfully deleted the project.' => 'プロジェクトの削除に成功しました。',
