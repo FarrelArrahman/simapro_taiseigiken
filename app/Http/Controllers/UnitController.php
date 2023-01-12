@@ -40,7 +40,7 @@ class UnitController extends Controller
      */
     public function store(StoreUnitRequest $request)
     {
-        $this->authorize('store', Unit::class);
+        $this->authorize('create', Unit::class);
 
         Unit::create([
             'name' => $request->name,
@@ -49,7 +49,7 @@ class UnitController extends Controller
         ]);
 
         return to_route('units.index')
-            ->with('message', 'Berhasil menambahkan unit baru.')
+            ->with('message', __('dashboard.Successfully added a new unit.'))
             ->with('status', 'success');
     }
 
@@ -96,7 +96,7 @@ class UnitController extends Controller
         ]);
 
         return to_route('units.index')
-            ->with('message', 'Berhasil mengubah data unit.')
+            ->with('message', __('dashboard.Successfully changed the unit.'))
             ->with('status', 'success');
     }
 
@@ -113,7 +113,7 @@ class UnitController extends Controller
         // ]);
 
         // return to_route('units.index')
-        //     ->with('message', 'Berhasil menonaktifkan data unit.')
+        //     ->with('message', __('dashboard.Successfully deleted the unit.'))
         //     ->with('status', 'success');
     }
 }

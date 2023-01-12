@@ -46,6 +46,17 @@ class DesignatorPolicy
     }
 
     /**
+     * Determine whether the user can edit any models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function editAny(User $user)
+    {
+        return in_array($user->role, [RoleEnum::Admin]);
+    }
+
+    /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user

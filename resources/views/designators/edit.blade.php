@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Designator')
+@section('title', __('dashboard.Edit Designator'))
 
 @push('style')
     <!-- CSS Libraries -->
@@ -10,11 +10,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Edit Designator</h1>
+                <h1>{{ __('dashboard.Edit Designator') }}</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('designators.index') }}">Designator</a></div>
-                    <div class="breadcrumb-item active">Edit Designator</div>
+                    <div class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('dashboard.Dashboard') }}</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('designators.index') }}">{{ __('dashboard.Designator') }}</a></div>
+                    <div class="breadcrumb-item active">{{ __('dashboard.Edit Designator') }}</div>
                 </div>
             </div>
 
@@ -26,61 +26,87 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="inputName">Nama</label>
+                                    <label for="inputName">{{ __('dashboard.Name') }}</label>
                                     <input type="text"
                                         name="name"
                                         value="{{ $designators->name ?? old('name') }}"
                                         class="form-control @error('name') is-invalid @enderror"
-                                        id="inputName"
-                                        placeholder="Nama atau istilah vendor...">
+                                        id="inputName">
+                                        @error('name')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}                                            
+                                        </div>
+                                        @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Unit</label>
+                                    <label>{{ __('dashboard.Unit') }}</label>
                                     <select name="unit_id" class="form-control form-control-lg">
                                         @foreach($units as $unit)
                                         <option @selected($designators->unit_id == $unit->id) value="{{ $unit->id }}">{{ $unit->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('unit_id')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}                                            
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputMaterial">Material</label>
+                                    <label for="inputMaterial">{{ __('dashboard.Material') }}</label>
                                     <input type="text"
                                         name="material"
                                         value="{{ $designators->material ?? old('material') }}"
                                         class="form-control"
-                                        id="inputMaterial"
-                                        placeholder="Material dari designator...">
+                                        id="inputMaterial">
+                                        @error('material')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}                                            
+                                        </div>
+                                        @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputServices">Services</label>
+                                    <label for="inputServices">{{ __('dashboard.Service') }}</label>
                                     <input type="text"
                                         name="services"
                                         value="{{ $designators->services ?? old('services') }}"
                                         class="form-control"
-                                        id="inputServices"
-                                        placeholder="Services dari designator...">
+                                        id="inputServices">
+                                        @error('services')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}                                            
+                                        </div>
+                                        @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputDescription">Deskripsi</label>
+                                    <label for="inputDescription">{{ __('dashboard.Description') }}</label>
                                     <input type="text"
                                         name="description"
                                         value="{{ $designators->description ?? old('description') }}"
                                         class="form-control"
-                                        id="inputDescription"
-                                        placeholder="Deskripsi atau keterangan designator...">
+                                        id="inputDescription">
+                                        @error('description')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}                                            
+                                        </div>
+                                        @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Status</label>
+                                    <label>{{ __('dashboard.Status') }}</label>
                                     <select name="status" class="form-control form-control-lg">
                                         @foreach(\App\Enums\StatusEnum::activeCases() as $status)
-                                        <option @selected($designators->status->name == $status->name) value="{{ $status->value }}">{{ $status->value }}</option>
+                                        <option @selected($designators->status->name == $status->name) value="{{ $status->value }}">{{ __('dashboard.' . $status->value) }}</option>
                                         @endforeach
                                     </select>
+                                    @error('status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}                                            
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-lg btn-primary">Submit</button>
-                                <a href="{{ route('designators.index') }}" class="btn btn-lg btn-link">Kembali</a>
+                                <button type="submit" class="btn btn-lg btn-primary">{{ __('dashboard.Submit') }}</button>
+                                <a href="{{ route('designators.index') }}" class="btn btn-lg btn-link">{{ __('dashboard.Back') }}</a>
                             </div>
                         </div>
                     </form>

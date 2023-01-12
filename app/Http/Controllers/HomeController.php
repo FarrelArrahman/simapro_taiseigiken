@@ -7,7 +7,9 @@ use App\Models\Project;
 use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cookie;
 
 class HomeController extends Controller
 {
@@ -82,5 +84,18 @@ class HomeController extends Controller
         return to_route('profile')
             ->with('message', 'Berhasil mengubah profil.')
             ->with('status', 'success');
+    }
+
+    public function changeLocale(Request $request, $locale)
+    {
+        if (!in_array($locale, ['id', 'ja'])) {        
+            abort(404);
+        }
+    
+        App::setLocale($locale);
+        // Session
+        session()->put('locale', $locale);
+    
+        return redirect()->back();
     }
 }

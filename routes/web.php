@@ -41,10 +41,11 @@ Route::middleware('auth')->group(function() {
     Route::get('/projects/{projectDesignator}/change-status', [ProjectDesignatorController::class, 'changeDesignatorStatus'])->name('changeDesignatorStatus');
 });
 
+Route::get('/change-locale/{locale}', [HomeController::class, 'changeLocale'])->name('changeLocale');
+
 Route::get('/dashboard-ecommerce-dashboard', function () {
     return view('pages.dashboard-ecommerce-dashboard', ['type_menu' => 'dashboard']);
 });
-
 
 // Layout
 Route::get('/layout-default-layout', function () {

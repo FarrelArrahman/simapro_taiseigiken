@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Designator')
+@section('title', __('dashboard.Designator'))
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,10 +14,10 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Designator</h1>
+                <h1>{{ __('dashboard.Designator') }}</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item active">Designator</div>
+                    <div class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('dashboard.Dashboard') }}</a></div>
+                    <div class="breadcrumb-item active">{{ __('dashboard.Designator') }}</div>
                 </div>
             </div>
 
@@ -26,12 +26,12 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Daftar Designator</h4>
+                                <h4>{{ __('dashboard.Designator List') }}</h4>
                                 <div class="card-header-action">
                                     @can('create', \App\Models\Designator::class)
                                     <a href="{{ route('designators.create') }}"
                                         class="btn btn-primary btn-lg">
-                                        Tambah Data
+                                        {{ __('dashboard.Add Data') }}
                                     </a>
                                     @endcan
                                 </div>
@@ -44,14 +44,14 @@
                                                 <th class="text-center">
                                                     #
                                                 </th>
-                                                <th>Nama</th>
-                                                <th>Unit</th>
-                                                <th>Material</th>
-                                                <th>Services</th>
-                                                <th>Deskripsi</th>
-                                                <th>Status</th>
-                                                @can('edit', \App\Models\Designator::class)
-                                                <th>Aksi</th>
+                                                <th>{{ __('dashboard.Name') }}</th>
+                                                <th>{{ __('dashboard.Unit') }}</th>
+                                                <th>{{ __('dashboard.Material') }}</th>
+                                                <th>{{ __('dashboard.Service') }}</th>
+                                                <th>{{ __('dashboard.Description') }}</th>
+                                                <th>{{ __('dashboard.Status') }}</th>
+                                                @can('editAny', \App\Models\Designator::class)
+                                                <th>{{ __('dashboard.Action') }}</th>
                                                 @endcan
                                             </tr>
                                         </thead>
@@ -65,14 +65,14 @@
                                                 <td>{{ $designator->services }}</td>
                                                 <td>{{ $designator->description }}</td>
                                                 <td>
-                                                    <div class="badge badge-{{ $designator->status->color() }}">{{ $designator->status->value }}</div>
+                                                    <div class="badge badge-{{ $designator->status->color() }}">{{ __('dashboard.' . $designator->status->value) }}</div>
                                                 </td>
-                                                @can('edit', \App\Models\Designator::class)
+                                                @can('editAny', $designator)
                                                 <td>
                                                     <a class="btn btn-warning btn-action mr-1"
                                                         href="{{ route('designators.edit', $designator->id) }}"
                                                         data-toggle="tooltip"
-                                                        title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                        title="{{ __('dashboard.Edit') }}"><i class="fas fa-pencil-alt"></i></a>
                                                     <!-- <a class="btn btn-danger btn-action btn-delete"
                                                         data-toggle="tooltip"
                                                         title="Delete"

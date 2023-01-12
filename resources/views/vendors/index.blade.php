@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Vendor')
+@section('title', __('dashboard.Vendor'))
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,10 +14,10 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Vendor</h1>
+                <h1>{{ __('dashboard.Vendor') }} </h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item active">Vendor</div>
+                    <div class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('dashboard.Dashboard') }}</a></div>
+                    <div class="breadcrumb-item active">{{ __('dashboard.Vendor') }}</div>
                 </div>
             </div>
 
@@ -26,12 +26,12 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Daftar Vendor</h4>
+                                <h4>{{ __('dashboard.Vendor List') }}</h4>
                                 <div class="card-header-action">
                                     @can('create', \App\Models\Vendor::class)
                                     <a href="{{ route('vendors.create') }}"
                                         class="btn btn-primary btn-lg">
-                                        Tambah Data
+                                        {{ __('dashboard.Add Data') }}
                                     </a>
                                     @endcan
                                 </div>
@@ -44,12 +44,12 @@
                                                 <th class="text-center">
                                                     #
                                                 </th>
-                                                <th>Nama</th>
-                                                <th>Alamat</th>
-                                                <th>Nomor Telepon</th>
-                                                <th>Status</th>
-                                                @can('edit', \App\Models\Vendor::class)
-                                                <th>Aksi</th>
+                                                <th>{{ __('dashboard.Name') }}</th>
+                                                <th>{{ __('dashboard.Address') }}</th>
+                                                <th>{{ __('dashboard.Phone Number') }}</th>
+                                                <th>{{ __('dashboard.Status') }}</th>
+                                                @can('editAny', \App\Models\Vendor::class)
+                                                <th>{{ __('dashboard.Action') }}</th>
                                                 @endcan
                                             </tr>
                                         </thead>
@@ -61,14 +61,14 @@
                                                 <td>{{ $vendor->address }}</td>
                                                 <td>{{ $vendor->phone_number }}</td>
                                                 <td>
-                                                    <div class="badge badge-{{ $vendor->status->color() }}">{{ $vendor->status->value }}</div>
+                                                    <div class="badge badge-{{ $vendor->status->color() }}">{{ __('dashboard.' . $vendor->status->value) }}</div>
                                                 </td>
                                                 @can('update', $vendor)
                                                 <td>
                                                     <a class="btn btn-warning btn-action mr-1"
                                                         href="{{ route('vendors.edit', $vendor->id) }}"
                                                         data-toggle="tooltip"
-                                                        title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                        title="{{ __('dashboard.Edit') }}"><i class="fas fa-pencil-alt"></i></a>
                                                     <!-- <a class="btn btn-danger btn-action btn-delete"
                                                         data-toggle="tooltip"
                                                         title="Delete"

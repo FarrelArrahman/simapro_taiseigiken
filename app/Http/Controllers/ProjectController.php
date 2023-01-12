@@ -64,7 +64,7 @@ class ProjectController extends Controller
         ]);
 
         return to_route('projects.index')
-            ->with('message', 'Berhasil menambahkan project baru.')
+            ->with('message', __('dashboard.Successfully added a new project.'))
             ->with('status', 'success');
     }
 
@@ -121,7 +121,7 @@ class ProjectController extends Controller
         ]);
 
         return to_route('projects.index')
-            ->with('message', 'Berhasil mengubah data project.')
+            ->with('message', __('dashboard.Successfully changed the project.'))
             ->with('status', 'success');
     }
 
@@ -136,7 +136,7 @@ class ProjectController extends Controller
         $project->delete();
 
         return to_route('projects.index')
-            ->with('message', 'Berhasil menghapus data project.')
+            ->with('message', __('dashboard.Successfully deleted the project.'))
             ->with('status', 'success');
     }
 

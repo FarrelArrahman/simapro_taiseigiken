@@ -29,7 +29,8 @@ class UserFactory extends Factory
             'phone_number' => fake()->phoneNumber(),
             'role' => fake()->randomElement(['Admin', 'Project Head', 'Worker', 'Manager']),
             'status' => fake()->randomElement(StatusEnum::activeCases()),
-            'profile_picture' => fake()->imageUrl(category: 'person')
+            'profile_picture' => fake()->imageUrl(category: 'person'),
+            'locale' => fake()->randomElement(['id', 'ja']),
         ];
     }
 

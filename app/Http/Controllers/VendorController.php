@@ -46,7 +46,7 @@ class VendorController extends Controller
         ]);
 
         return to_route('vendors.index')
-            ->with('message', 'Berhasil menambahkan vendor baru.')
+            ->with('message', __('dashboard.Successfully added a new vendor.'))
             ->with('status', 'success');
     }
 
@@ -92,7 +92,7 @@ class VendorController extends Controller
         ]);
 
         return to_route('vendors.index')
-            ->with('message', 'Berhasil mengubah data vendor.')
+            ->with('message', __('dashboard.Successfully changed the vendor.'))
             ->with('status', 'success');
     }
 
@@ -107,7 +107,7 @@ class VendorController extends Controller
         // $vendor->delete();
 
         // return to_route('vendors.index')
-        //     ->with('message', 'Berhasil menghapus sementara data vendor.')
+        //     ->with('message', __('dashboard.Successfully deleted the vendor.'))
         //     ->with('status', 'success');
     }
 }

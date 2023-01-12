@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('role', 15);
             $table->string('status', 20);
             $table->string('profile_picture')->nullable();
-            $table->json('settings')->nullable();
+            $table->string('locale')->default('id');
             $table->timestamps();
         });
     }

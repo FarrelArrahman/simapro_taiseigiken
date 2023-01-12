@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Unit')
+@section('title', __('dashboard.Unit'))
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,10 +14,10 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Unit</h1>
+                <h1>{{ __('dashboard.Unit') }}</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item active">Unit</div>
+                    <div class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('dashboard.Dashboard') }}</a></div>
+                    <div class="breadcrumb-item active">{{ __('dashboard.Unit') }}</div>
                 </div>
             </div>
 
@@ -26,12 +26,12 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Daftar Unit</h4>
+                                <h4>{{ __('dashboard.Unit List') }}</h4>
                                 <div class="card-header-action">
                                     @can('create', \App\Models\Unit::class)
                                     <a href="{{ route('units.create') }}"
                                         class="btn btn-primary btn-lg">
-                                        Tambah Data
+                                        {{ __('dashboard.Add Data') }}
                                     </a>
                                     @endcan
                                 </div>
@@ -44,11 +44,11 @@
                                                 <th class="text-center">
                                                     #
                                                 </th>
-                                                <th>Nama</th>
-                                                <th>Deskripsi</th>
-                                                <th>Status</th>
+                                                <th>{{ __('dashboard.Name') }}</th>
+                                                <th>{{ __('dashboard.Description') }}</th>
+                                                <th>{{ __('dashboard.Status') }}</th>
                                                 @can('viewAny', \App\Models\Unit::class)
-                                                <th>Aksi</th>
+                                                <th>{{ __('dashboard.Action') }}</th>
                                                 @endcan
                                             </tr>
                                         </thead>
@@ -63,14 +63,14 @@
                                                 </td>
                                                 <td>{{ $unit->description }}</td>
                                                 <td>
-                                                    <div class="badge badge-{{ $unit->status->color() }}">{{ $unit->status->value }}</div>
+                                                    <div class="badge badge-{{ $unit->status->color() }}">{{ __('dashboard.' . $unit->status->value) }}</div>
                                                 </td>
                                                 @can('update', $unit)
                                                 <td>
                                                     <a class="btn btn-warning btn-action mr-1"
                                                         href="{{ route('units.edit', $unit->id) }}"
                                                         data-toggle="tooltip"
-                                                        title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                        title="{{ __('dashboard.Edit') }}"><i class="fas fa-pencil-alt"></i></a>
                                                     <!-- <a class="btn btn-danger btn-action"
                                                         data-toggle="tooltip"
                                                         title="Delete"

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Project')
+@section('title', __('dashboard.Project Detail'))
 
 @push('style')
     <!-- CSS Libraries -->
@@ -16,11 +16,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Edit Project</h1>
+                <h1>{{ __('dashboard.Project Detail') }}</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('projects.index') }}">Project</a></div>
-                    <div class="breadcrumb-item active">Edit Project</div>
+                    <div class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('dashboard.Dashboard') }}</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('projects.index') }}">{{ __('dashboard.Project') }}</a></div>
+                    <div class="breadcrumb-item active">{{ __('dashboard.Project Detail') }}</div>
                 </div>
             </div>
 
@@ -39,7 +39,7 @@
                                             href="#projectData"
                                             role="tab"
                                             aria-controls="projectData"
-                                            aria-selected="true">Project Data</a>
+                                            aria-selected="true">{{ __('dashboard.Project Detail') }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link {{ request()->query('ref') == 'projectDesignator' ? 'active' : '' }}"
@@ -48,7 +48,7 @@
                                             href="#projectDesignator"
                                             role="tab"
                                             aria-controls="projectDesignator"
-                                            aria-selected="true">Project Designator</a>
+                                            aria-selected="true">{{ __('dashboard.Designator') }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link"
@@ -57,7 +57,7 @@
                                             href="#curveS"
                                             role="tab"
                                             aria-controls="curveS"
-                                            aria-selected="false">Curve S</a>
+                                            aria-selected="false">{{ __('dashboard.Curve S') }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link {{ request()->query('ref') == 'recordEvaluasi' ? 'active' : '' }}"
@@ -66,7 +66,7 @@
                                             href="#recordEvaluasi"
                                             role="tab"
                                             aria-controls="recordEvaluasi"
-                                            aria-selected="false">Record Evaluasi</a>
+                                            aria-selected="false">{{ __('dashboard.Evaluation Record') }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link {{ request()->query('ref') == 'updateProgress' ? 'active' : '' }}"
@@ -75,7 +75,7 @@
                                             href="#updateProgress"
                                             role="tab"
                                             aria-controls="updateProgress"
-                                            aria-selected="false">Update Progress</a>
+                                            aria-selected="false">{{ __('dashboard.Progress Updates') }}</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content tab-bordered"
@@ -84,12 +84,12 @@
                                         id="projectData"
                                         role="tabpanel"
                                         aria-labelledby="project-data-tab">
-                                        <h4 class="mt-3 mb-3">Project Data</h4>
+                                        <h4 class="mt-3 mb-3">{{ __('dashboard.Project Detail') }}</h4>
                                         <form action="{{ route('projects.update', $projects->id) }}" method="POST">
                                             @method('PUT')
                                             @csrf
                                             <div class="form-group">
-                                                <label for="inputProjectCode">Project Code</label>
+                                                <label for="inputProjectCode">{{ __('dashboard.Project Code') }}</label>
                                                 <input type="text"
                                                     @cannot('update', $projects) disabled @endcannot
                                                     name="project_code"
@@ -104,7 +104,7 @@
                                                     @enderror
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputProjectName">Project Name</label>
+                                                <label for="inputProjectName">{{ __('dashboard.Project Name') }}</label>
                                                 <input type="text"
                                                     @cannot('update', $projects) disabled @endcannot
                                                     name="project_name"
@@ -119,7 +119,7 @@
                                                     @enderror
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputTimeOfContract">Time of Contract (days)</label>
+                                                <label for="inputTimeOfContract">{{ __('dashboard.Time of Contract') }}</label>
                                                 <input type="text"
                                                     @cannot('update', $projects) disabled @endcannot
                                                     name="time_of_contract"
@@ -134,7 +134,7 @@
                                                     @enderror
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputDRMValue">Nilai DRM</label>
+                                                <label for="inputDRMValue">{{ __('dashboard.DRM Value') }}</label>
                                                 <input type="text"
                                                     @cannot('update', $projects) disabled @endcannot
                                                     name="drm_value"
@@ -149,7 +149,7 @@
                                                     @enderror
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputProjectHead">Kepala Proyek</label>
+                                                <label for="inputProjectHead">{{ __('dashboard.Project Head') }}</label>
                                                 <select
                                                     @cannot('update', $projects) disabled @endcannot 
                                                     name="project_head_id" 
@@ -165,7 +165,7 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputVendor">Mitra</label>
+                                                <label for="inputVendor">{{ __('dashboard.Vendor') }}</label>
                                                 <select 
                                                     @cannot('update', $projects) disabled @endcannot
                                                     name="vendor_id" 
@@ -181,7 +181,7 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputBeginDate">Tanggal mulai</label>
+                                                <label for="inputBeginDate">{{ __('dashboard.Start Date') }}</label>
                                                 <input type="date"
                                                     @cannot('update', $projects) disabled @endcannot
                                                     name="begin_date"
@@ -195,7 +195,7 @@
                                                     </div>
                                                     @enderror
                                             </div>
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label for="inputFinishDate">Tanggal selesai</label>
                                                 <input type="date"
                                                     @cannot('update', $projects) disabled @endcannot
@@ -209,7 +209,7 @@
                                                         {{ $message }}                                            
                                                     </div>
                                                     @enderror
-                                            </div>
+                                            </div> -->
                                             {{-- <div class="form-group">
                                                 <label>Status</label>
                                                 <select name="status" class="form-control form-control-lg">
@@ -221,7 +221,7 @@
                                             @can('update', $projects)
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
+                                                    <button type="submit" class="btn btn-lg btn-primary btn-block">{{ __('dashboard.Submit') }}</button>
                                                 </div>
                                             </div>
                                             @endcan
@@ -231,7 +231,7 @@
                                         id="projectDesignator"
                                         role="tabpanel"
                                         aria-labelledby="project-designator-tab">
-                                        <h4 class="mt-3 mb-3">Project Designator</h4>
+                                        <h4 class="mt-3 mb-3">{{ __('dashboard.Designator') }}</h4>
                                         <div class="table-responsive">
                                             <table class="table-striped table datatables">
                                                 <thead>
@@ -239,13 +239,13 @@
                                                         <th class="text-center">
                                                             #
                                                         </th>
-                                                        <th>Designator</th>
-                                                        <th>Unit</th>
-                                                        <th>Uraian Pekerjaan</th>
-                                                        <th>Jumlah</th>
-                                                        <th>Status</th>
+                                                        <th>{{ __('dashboard.Designator') }}</th>
+                                                        <th>{{ __('dashboard.Unit') }}</th>
+                                                        <th>{{ __('dashboard.Job Description') }}</th>
+                                                        <th>{{ __('dashboard.Amount') }}</th>
+                                                        <th>{{ __('dashboard.Status') }}</th>
                                                         @can('update', $projects->projectDesignators->first())
-                                                        <th width="75">Aksi</th>
+                                                        <th width="75">{{ __('dashboard.Action') }}</th>
                                                         @endcan
                                                     </tr>
                                                 </thead>
@@ -268,12 +268,12 @@
                                                                 title="Edit"><i class="fas fa-pencil-alt"></i></a> -->
                                                             <a class="btn btn-danger btn-action btn-delete"
                                                                 data-toggle="tooltip"
-                                                                title="Delete"
-                                                                data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
+                                                                title="{{ __('dashboard.Delete') }}"
+                                                                data-confirm="{{ __('dashboard.Are You Sure') }}?|{{ __('dashboard.This action can not be undone. Do you want to continue?') }}"
                                                                 data-confirm-yes="deleteItem('{{ route('project_designators.destroy', $projectDesignator->id) }}')"><i class="fas fa-trash"></i></a>
                                                             <a class="btn {{ $projectDesignator->status->value == 'Done' ? 'btn-dark' :  'btn-info' }} btn-action"
                                                                 data-toggle="tooltip"
-                                                                title="{{ $projectDesignator->status->value == 'Done' ? 'Tandai belum selesai' :  'Tandai selesai' }}"
+                                                                title="{{ $projectDesignator->status->value == 'Done' ? __('dashboard.Mark as done') : __('dashboard.Mark as undone') }}"
                                                                 href="{{ route('changeDesignatorStatus', $projectDesignator->id) }}"><i class="{{ $projectDesignator->status->value == 'Done' ? 'fas fa-clock' :  'fas fa-check' }}"></i></a>
                                                         </td>
                                                         @endcan
@@ -286,9 +286,9 @@
                                         @can('create', \App\Models\ProjectDesignator::class)
                                         <div class="row mt-5">
                                             <div class="col-12">
-                                                <h4 class="mb-3">Designator 
+                                                <h4 class="mb-3">{{ __('dashboard.Add Designator') }}
                                                     @can('create', \App\Models\ProjectDesignator::class)
-                                                    <button data-toggle="modal" data-target="#addDesignatorModal" type="button" id="addDesignatorButton" class="btn btn-success float-right"><i class="fas fa-list-check mr-2"></i> Daftar Designator</button>
+                                                    <button data-toggle="modal" data-target="#addDesignatorModal" type="button" id="addDesignatorButton" class="btn btn-success float-right"><i class="fas fa-list-check mr-2"></i> {{ __('dashboard.Designator List') }}</button>
                                                     @endcan
                                                 </h4>
                                                 <form action="{{ route('project_designators.store') }}" method="POST">
@@ -298,17 +298,17 @@
                                                         <table class="table-striped table">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Designator</th>
-                                                                    <th>Unit</th>
-                                                                    <th>Uraian Pekerjaan</th>
-                                                                    <th>Jumlah</th>
-                                                                    <th>Aksi</th>
+                                                                    <th>{{ __('dashboard.Designator') }}</th>
+                                                                    <th>{{ __('dashboard.Unit') }}</th>
+                                                                    <th>{{ __('dashboard.Job Description') }}</th>
+                                                                    <th>{{ __('dashboard.Amount') }}</th>
+                                                                    <th>{{ __('dashboard.Action') }}</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody id="addDesignatorBody">
                                                                 <tr id="addDesignatorRow">
                                                                     <td colspan="5" class="text-center">
-                                                                        Klik tombol <strong>Daftar Designator</strong> untuk melihat dan menambahkan designator pada project ini.
+                                                                        {{ __('dashboard.Click') }} <strong>{{ __('dashboard.Designator List') }}</strong> {{ __('dashboard.to view and add designators to this project.') }}
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -316,7 +316,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-12">
-                                                            <button id="submitDesignator" type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
+                                                            <button id="submitDesignator" type="submit" class="btn btn-lg btn-primary btn-block">{{ __('dashboard.Submit') }}</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -328,7 +328,7 @@
                                         id="curveS"
                                         role="tabpanel"
                                         aria-labelledby="curve-s-tab">
-                                        <h4 class="mt-3 mb-3">Curve S <button type="button" class="btn btn-primary reloadCurveS float-right"><i class="fa fa-refresh mr-1"></i> Reload</button></h4>
+                                        <h4 class="mt-3 mb-3">{{ __('dashboard.Curve S') }} <button type="button" class="btn btn-primary reloadCurveS float-right"><i class="fa fa-refresh mr-1"></i> {{ __('dashboard.Reload') }}</button></h4>
                                         <div class="row">
                                             <div class="col-12">
                                                 <canvas id="curveSChart"></canvas>
@@ -339,14 +339,13 @@
                                         id="recordEvaluasi"
                                         role="tabpanel"
                                         aria-labelledby="record-evaluasi-tab">
-                                        <h4 class="mt-3 mb-3">Record Evaluasi</h4>
+                                        <h4 class="mt-3 mb-3">{{ __('dashboard.Evaluation Record') }}</h4>
                                         @forelse($projects->projectEvaluations as $projectEvaluation)
                                         <div class="card card-primary">
                                             <div class="card-header">
                                                 <h4>{{ $projectEvaluation->evaluatedBy->name }}</h4>
                                                 <div class="card-header-action">
                                                     {{ $projectEvaluation->created_at->isoFormat('dddd, DD MMMM Y HH:mm') }}
-                                                    WITA
                                                 </div>
                                             </div>
                                             <div class="card-body my-0 py-0">
@@ -359,24 +358,24 @@
                                             <div class="empty-state-icon bg-danger mt-3">
                                                 <i class="fas fa-times"></i>
                                             </div>
-                                            <h2>Record evaluasi tidak tersedia</h2>
+                                            <h2>{{ __('dashboard.Evaluation record not available') }}</h2>
                                             <p class="lead">
-                                                Admin atau Kepala Proyek dapat memberikan evaluasi yang akan ditampilkan pada bagian ini. 
+                                                {{ __('dashboard.Admin or Project Head can provide an evaluation that will be displayed in this section.') }} 
                                             </p>
                                         </div>
                                         @endforelse
                                         @can('create', \App\Models\ProjectEvaluation::class)
-                                        <h4 class="mt-3 mb-3">Tambah Evaluasi</h4>
+                                        <h4 class="mt-3 mb-3">{{ __('dashboard.Add evaluation') }}</h4>
                                         <form action="{{ route('project_evaluations.store') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="project_id" value="{{ $projects->id }}">
                                             <div class="form-group">
                                                 <textarea name="evaluation" class="form-control" 
                                                     data-height="75"
-                                                    placeholder="Berikan evaluasi Anda..."></textarea>
+                                                    placeholder="{{ __('dashboard.Give your evaluation') }}"></textarea>
                                             </div>
                                             <button type="submit" 
-                                                class="btn btn-primary">Kirim</button>
+                                                class="btn btn-primary">{{ __('dashboard.Send') }}</button>
                                         </form>
                                         @endcan
                                     </div>
@@ -384,7 +383,7 @@
                                         id="updateProgress"
                                         role="tabpanel"
                                         aria-labelledby="update-progress-tab">
-                                        <h4 class="mt-3 mb-3">Update Progress &mdash; {{ today()->isoFormat('dddd, DD MMMM Y') }}</h4>
+                                        <h4 class="mt-3 mb-3">{{ __('dashboard.Progress Updates') }} &mdash; {{ today()->isoFormat('dddd, DD MMMM Y') }}</h4>
                                         <form action="{{ route('project_designators.update', $projects->id) }}" method="POST" enctype="multipart/form-data">
                                             @method('PUT')
                                             @csrf
@@ -394,14 +393,14 @@
                                                         <th class="text-center">
                                                             #
                                                         </th>
-                                                        <th>Designator</th>
-                                                        <th>Unit</th>
-                                                        <th width="5%">Jml Awal</th>
-                                                        <th width="5%">Jml Real</th>
-                                                        <th width="5%">Selisih</th>
-                                                        <th width="12.5%">Input Update</th>
-                                                        <th>Dokumentasi</th>
-                                                        <th>Keterangan</th>
+                                                        <th>{{ __('dashboard.Designator') }}</th>
+                                                        <th>{{ __('dashboard.Unit') }}</th>
+                                                        <th>{{ __('dashboard.Initial Value') }}</th>
+                                                        <th>{{ __('dashboard.Real Value') }}</th>
+                                                        <th>{{ __('dashboard.Difference') }}</th>
+                                                        <th>{{ __('dashboard.Input update') }}</th>
+                                                        <th>{{ __('dashboard.Documentation') }}</th>
+                                                        <th>{{ __('dashboard.Description') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -425,7 +424,7 @@
                                                     </tr>
                                                     @empty
                                                     <tr>
-                                                        <td colspan="9" class="text-center">Designator tidak tersedia untuk di-update.</td>
+                                                        <td colspan="9" class="text-center">{{ __('dashboard.The designator is not available for update.') }}</td>
                                                     </tr>
                                                     @endforelse
                                                 </tbody>
@@ -433,22 +432,22 @@
                                             @if($projects->projectDesignators->where('status', \App\Enums\StatusEnum::Incomplete)->count() > 0)
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
+                                                    <button type="submit" class="btn btn-lg btn-primary btn-block">{{ __('dashboard.Submit') }}</button>
                                                 </div>
                                             </div>
                                             @endif
                                         </form>
 
-                                        <h4 class="mt-5 mb-3">Histori Update</h4>
+                                        <h4 class="mt-5 mb-3">{{ __('dashboard.Update History') }}</h4>
                                         @if($projects->projectDesignators->count() < 1)
                                         <div class="empty-state"
                                             data-height="200">
                                             <div class="empty-state-icon bg-danger mt-3">
                                                 <i class="fas fa-times"></i>
                                             </div>
-                                            <h2>Histori update tidak tersedia</h2>
+                                            <h2>{{ __('dashboard.Update history is not available') }}</h2>
                                             <p class="lead">
-                                                Histori update tidak tersedia untuk di-update dan diberi komentar. Silahkan tambahkan designator dan lakukan progress update terlebih dahulu.
+                                            {{ __('dashboard.The update history is not available for updating and commenting. Please add a designator and progress the update first.') }}
                                             </p>
                                         </div>
                                         @else
@@ -495,7 +494,7 @@
                                                                             <a href="#"
                                                                                 data-toggle="dropdown"><i class="fas fa-ellipsis-h"></i></a>
                                                                             <div class="dropdown-menu">
-                                                                                <div class="dropdown-title">Ubah Status</div>
+                                                                                <div class="dropdown-title">{{ __('dashboard.Change Status') }}</div>
                                                                                 <a data-id="{{ $update->id }}"
                                                                                     data-status="Approved" 
                                                                                     href="#!"
@@ -519,7 +518,7 @@
                                                                             </div>
                                                                             @if($update->description == null && $update->content == null)
                                                                             <div class="col-12">
-                                                                                {!! "<em>Update progress ini tidak memiliki deskripsi atau dokumentasi apapun</em>" !!}
+                                                                                {!! "<em>{{ __('dashboard.This progress update does not have any description or documentation') }}</em>" !!}
                                                                             </div>
                                                                             @else
                                                                                 @if($update->content != null)
@@ -545,7 +544,7 @@
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <h6 class="mt-3 mb-3">Komentar</h6>
+                                                                                <h6 class="mt-3 mb-3">{{ __('dashboard.Comment') }}</h6>
                                                                                 <ul id="comment-ul-{{ $update->id }}" class="list-unstyled list-unstyled-border @if($update->comment == NULL && $update->commented_by == NULL) d-none @endif">
                                                                                     <li class="media">
                                                                                         <img alt="image"
@@ -564,10 +563,10 @@
                                                                                     <div class="form-group">
                                                                                         <textarea id="comment-textarea-{{ $update->id }}" class="form-control" 
                                                                                             data-height="75"
-                                                                                            placeholder="Berikan komentar Anda..."></textarea>
+                                                                                            placeholder="{{ __('dashboard.Give your comment') }}"></textarea>
                                                                                     </div>
                                                                                     <button type="submit" 
-                                                                                        class="btn btn-primary">Kirim</button>
+                                                                                        class="btn btn-primary">{{ __('dashboard.Send') }}</button>
                                                                                 </form>
                                                                                 @endcan
 
@@ -582,9 +581,9 @@
                                                                 <div class="empty-state-icon bg-danger">
                                                                     <i class="fas fa-times"></i>
                                                                 </div>
-                                                                <h2>Histori progress tidak tersedia</h2>
+                                                                <h2>{{ __('dashboard.Progress history is not available') }}</h2>
                                                                 <p class="lead">
-                                                                    Silakan update progress untuk designator terlebih dahulu agar dapat menampilkan histori. 
+                                                                {{ __('dashboard.Please update the progress for the designator first in order to display the history.') }} 
                                                                 </p>
                                                             </div>
                                                             @endforelse
@@ -601,7 +600,7 @@
 
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('projects.index') }}" class="btn btn-lg btn-link">Kembali</a>
+                                <a href="{{ route('projects.index') }}" class="btn btn-lg btn-link">{{ __('dashboard.Back') }}</a>
                             </div>
                         </div>
                     </div>
@@ -615,7 +614,7 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addDesignatorLabel">Daftar Designator</h5>
+                <h5 class="modal-title" id="addDesignatorLabel">{{ __('dashboard.Designator List') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -625,12 +624,12 @@
                     <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th>Designator</th>
-                            <th>Unit</th>
-                            <th>Uraian Pekerjaan</th>
-                            <th>Material</th>
-                            <th>Jasa</th>
-                            <th>Aksi</th>
+                            <th>{{ __('dashboard.Designator') }}</th>
+                            <th>{{ __('dashboard.Unit') }}</th>
+                            <th>{{ __('dashboard.Job Description') }}</th>
+                            <th>{{ __('dashboard.Material') }}</th>
+                            <th>{{ __('dashboard.Service') }}</th>
+                            <th>{{ __('dashboard.Action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -650,7 +649,7 @@
                                     data-description="{{ $designator->description }}"
                                     data-material="{{ $designator->material }}"
                                     data-services="{{ $designator->services }}">
-                                    Pilih
+                                    {{ __('dashboard.Choose') }}
                                 </a>
                             </td>
                         </tr>
@@ -659,7 +658,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('dashboard.Close') }}</button>
             </div>
         </div>
     </div>
@@ -766,7 +765,7 @@
                     labels: curveS.data.dates,
                     datasets: [
                     {
-                        label: 'Realisasi',
+                        label: "{{ __('dashboard.Realization') }}",
                         data: curveS.data.realization,
                         fill: false,
                         backgroundColor: 'rgb(255, 99, 132)',
@@ -774,7 +773,7 @@
                         lineTension: 0,
                     },
                     {
-                        label: 'Planning',
+                        label: "{{ __('dashboard.Planning') }}",
                         data: curveS.data.planning,
                         fill: false,
                         backgroundColor: 'rgb(122, 99, 255)',

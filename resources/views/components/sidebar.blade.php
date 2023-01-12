@@ -8,7 +8,7 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">{{ __('dashboard.Menu') }}</li>
-            <li class="{{ Request::is('*home*') ? 'active' : '' }}">
+            <li class="{{ Request::is('*home*') || Request::is('*profile*') ? 'active' : '' }}">
                 <a class="nav-link"
                     href="{{ url('home') }}"><i class="fas fa-home"></i> <span>{{ __('dashboard.Dashboard') }}</span></a>
             </li>

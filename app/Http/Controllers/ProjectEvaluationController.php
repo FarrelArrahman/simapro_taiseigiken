@@ -43,7 +43,7 @@ class ProjectEvaluationController extends Controller
         ]);
 
         return to_route('projects.edit', ['project' => $request->project_id, 'ref' => 'recordEvaluasi'])
-            ->with('message', 'Berhasil menambahkan evaluasi.')
+            ->with('message', __('dashboard.Successfully added an evaluation.'))
             ->with('status', 'success');
     }
 

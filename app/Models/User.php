@@ -30,7 +30,7 @@ class User extends Authenticatable
         'role',
         'status',
         'profile_picture',
-        'settings'
+        'locale'
     ];
 
     /**

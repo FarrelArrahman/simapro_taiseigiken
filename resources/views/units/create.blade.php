@@ -10,11 +10,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Tambah Unit</h1>
+                <h1>{{ __('dashboard.Add Unit') }}</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('units.index') }}">Unit</a></div>
-                    <div class="breadcrumb-item active">Tambah Unit</div>
+                    <div class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('dashboard.Dashboard') }}</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('units.index') }}">{{ __('dashboard.Unit') }}</a></div>
+                    <div class="breadcrumb-item active">{{ __('dashboard.Add Unit') }}</div>
                 </div>
             </div>
 
@@ -25,12 +25,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="inputName">Nama</label>
+                                    <label for="inputName">{{ __('dashboard.Name') }}</label>
                                     <input type="text"
                                         name="name"
                                         class="form-control @error('name') is-invalid @enderror"
                                         id="inputName"
-                                        placeholder="Nama atau istilah unit..."
                                         value="{{ old('name') }}">
                                         @error('name')
                                         <div class="invalid-feedback">
@@ -39,12 +38,11 @@
                                         @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputDescription">Deskripsi</label>
+                                    <label for="inputDescription">{{ __('dashboard.Description') }}</label>
                                     <input type="text"
                                         name="description"
                                         class="form-control @error('description') is-invalid @enderror"
                                         id="inputDescription"
-                                        placeholder="Deskripsi atau keterangan unit..."
                                         value="{{ old('description') }}">
                                         @error('description')
                                         <div class="invalid-feedback">
@@ -54,8 +52,8 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-lg btn-primary">Submit</button>
-                                <a href="{{ route('units.index') }}" class="btn btn-lg btn-link">Kembali</a>
+                                <button type="submit" class="btn btn-lg btn-primary">{{ __('dashboard.Submit') }}</button>
+                                <a href="{{ route('units.index') }}" class="btn btn-lg btn-link">{{ __('dashboard.Back') }}</a>
                             </div>
                         </div>
                     </form>

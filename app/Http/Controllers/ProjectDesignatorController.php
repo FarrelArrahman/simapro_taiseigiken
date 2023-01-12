@@ -53,7 +53,7 @@ class ProjectDesignatorController extends Controller
         }
 
         return to_route('projects.edit', ['project' => $project->id, 'ref' => 'projectDesignator'])
-            ->with('message', 'Berhasil menambahkan designator ke dalam project.')
+            ->with('message', __('dashboard.Successfully added the designator to the project.'))
             ->with('status', 'success');
     }
 
@@ -116,7 +116,7 @@ class ProjectDesignatorController extends Controller
         }
 
         return to_route('projects.edit', ['project' => $projectDesignator->id, 'ref' => 'updateProgress'])
-            ->with('message', 'Berhasil mengupdate progress project.')
+            ->with('message', __('dashboard.Successfully updated the project progress.'))
             ->with('status', 'success');
     }
 
@@ -158,7 +158,7 @@ class ProjectDesignatorController extends Controller
         $projectDesignator->delete();
 
         return to_route('projects.edit', ['project' => $id, 'ref' => 'projectDesignator'])
-            ->with('message', 'Berhasil menghapus designator dari project.')
+            ->with('message', __('dashboard.Successfully removed the designator from the project.'))
             ->with('status', 'success');
     }
 
@@ -177,7 +177,7 @@ class ProjectDesignatorController extends Controller
         ]);
 
         return to_route('projects.edit', ['project' => $projectDesignator->project_id, 'ref' => 'projectDesignator'])
-            ->with('message', 'Berhasil mengubah status designator.')
+            ->with('message', __('dashboard.Successfully changed the status of the designator.'))
             ->with('status', 'success');
     }
 }

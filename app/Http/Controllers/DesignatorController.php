@@ -54,7 +54,7 @@ class DesignatorController extends Controller
         ]);
 
         return to_route('designators.index')
-            ->with('message', 'Berhasil menambahkan designator baru.')
+            ->with('message', __('dashboard.Successfully added a new designator.'))
             ->with('status', 'success');
     }
 
@@ -105,7 +105,7 @@ class DesignatorController extends Controller
         ]);
 
         return to_route('designators.index')
-            ->with('message', 'Berhasil mengubah data designator.')
+            ->with('message', __('dashboard.Successfully changed the unit.'))
             ->with('status', 'success');
     }
 
@@ -117,6 +117,6 @@ class DesignatorController extends Controller
      */
     public function destroy(Designator $designator)
     {
-        $this->authorize('delete', $designator);
+        // $this->authorize('delete', $designator);
     }
 }

@@ -93,22 +93,28 @@
         <li class="dropdown dropdown-list-toggle">
             <div class="dropdown d-inline mr-2">
                 <button class="btn btn-primary shadow-none dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @if(session()->get('locale') == 'ja')
+                    <img
+                        src="{{ asset('library/flag-icon-css/flags/4x3/jp.svg') }}"
+                        alt="Japanese" width="16px">
+                    @else
                     <img
                         src="{{ asset('library/flag-icon-css/flags/4x3/id.svg') }}"
-                        alt="Indonesia Flag" width="16px">
+                        alt="Indonesian" width="16px">
+                    @endif
                 </button>
                 <div class="dropdown-menu w-25">
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{{ route('changeLocale', 'id') }}">
                         <span>
                             <img
                                 src="{{ asset('library/flag-icon-css/flags/4x3/id.svg') }}"
-                                alt="Indonesian" width="16px" class="border border-secondary mr-1"> ID
+                                alt="Indonesian" width="16px" class="border border-secondary mr-1"> {{ __('dashboard.Indonesian') }}
                         </span>
                     </a>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{{ route('changeLocale', 'ja') }}">
                         <img
                             src="{{ asset('library/flag-icon-css/flags/4x3/jp.svg') }}"
-                            alt="Japanese" width="16px" class="border border-secondary mr-1"> JP
+                            alt="Japanese" width="16px" class="border border-secondary mr-1"> {{ __('dashboard.Japanese') }}
                     </a>
                 </div>
             </div>
@@ -183,24 +189,25 @@
                 data-toggle="dropdown"
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="image"
-                    src="{{ asset('img/avatar/avatar-1.png') }}"
+                    src="{{ Storage::exists(auth()->user()->profile_picture) ? Storage::url(auth()->user()->profile_picture) : asset('img/avatar/avatar-1.png') }}"
+                    style="width: 32px; height: 32px; object-fit: cover;"
                     class="rounded-circle mr-1">
-                <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name ?? 'Guest' }}</div>
+                <div class="d-sm-none d-lg-inline-block">{{ __('dashboard.Hello,') }} {{ auth()->user()->name ?? 'Guest' }}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title">
                     <div class="badge badge-{{ auth()->user()->role->color() }}">
-                        {{ auth()->user()->role->value }}
+                        {{ __('dashboard.' . auth()->user()->role->value) }}
                     </div>
                 </div>
                 <a href="{{ route('profile') }}"
                     class="dropdown-item has-icon">
-                    <i class="far fa-user"></i> Profil
+                    <i class="far fa-user"></i> {{ __('dashboard.Profile') }}
                 </a>
                 <div class="dropdown-divider"></div>
                 <a id="logout" href="#"
                     class="dropdown-item has-icon text-danger">
-                    <i class="fas fa-sign-out-alt"></i> Logout
+                    <i class="fas fa-sign-out-alt"></i> {{ __('dashboard.Logout') }}
                 </a>
                 <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                     @csrf

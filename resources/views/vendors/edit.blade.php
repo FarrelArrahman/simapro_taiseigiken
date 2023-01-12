@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Vendor')
+@section('title', __('dashboard.Edit Vendor'))
 
 @push('style')
     <!-- CSS Libraries -->
@@ -10,11 +10,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Edit Vendor</h1>
+                <h1>{{ __('dashboard.Edit Vendor') }}</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('vendors.index') }}">Vendor</a></div>
-                    <div class="breadcrumb-item active">Edit Vendor</div>
+                    <div class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('dashboard.Dashboard') }}</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('vendors.index') }}">{{ __('dashboard.Vendor') }}</a></div>
+                    <div class="breadcrumb-item active">{{ __('dashboard.Edit Vendor') }}</div>
                 </div>
             </div>
 
@@ -26,44 +26,61 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="inputName">Nama</label>
+                                    <label for="inputName">{{ __('dashboard.Name') }}</label>
                                     <input type="text"
                                         name="name"
                                         value="{{ $vendors->name ?? old('name') }}"
                                         class="form-control @error('name') is-invalid @enderror"
-                                        id="inputName"
-                                        placeholder="Nama atau istilah vendor...">
+                                        id="inputName">
+                                        @error('name')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}                                            
+                                        </div>
+                                        @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputAddress">Alamat</label>
+                                    <label for="inputAddress">{{ __('dashboard.Address') }}</label>
                                     <input type="text"
                                         name="address"
                                         value="{{ $vendors->address ?? old('address') }}"
                                         class="form-control"
-                                        id="inputAddress"
-                                        placeholder="Deskripsi atau keterangan vendor...">
+                                        id="inputAddress">
+                                        @error('address')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}                                            
+                                        </div>
+                                        @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPhoneNumber">Nomor Telepon</label>
+                                    <label for="inputPhoneNumber">{{ __('dashboard.Phone Number') }}</label>
                                     <input type="text"
                                         name="phone_number"
                                         value="{{ $vendors->phone_number ?? old('phone_number') }}"
                                         class="form-control"
-                                        id="inputPhoneNumber"
-                                        placeholder="Nomor telepon vendor...">
+                                        id="inputPhoneNumber">
+                                        @error('phone_number')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}                                            
+                                        </div>
+                                        @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Status</label>
+                                    <label>{{ __('dashboard.Status') }}</label>
                                     <select name="status" class="form-control form-control-lg">
                                         @foreach(\App\Enums\StatusEnum::activeCases() as $status)
-                                        <option @selected($vendors->status->name == $status->name) value="{{ $status->value }}">{{ $status->value }}</option>
+                                        <option @selected($vendors->status->name == $status->name) value="{{ $status->value }}">{{ __('dashboard.' . $status->value) }}</option>
                                         @endforeach
                                     </select>
+                                    @error('status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}                                            
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-lg btn-primary">Submit</button>
-                                <a href="{{ route('vendors.index') }}" class="btn btn-lg btn-link">Kembali</a>
+                                <button type="submit" class="btn btn-lg btn-primary">{{ __('dashboard.Submit') }}</button>
+                                <a href="{{ route('vendors.index') }}" class="btn btn-lg btn-link">{{ __('dashboard.Back') }}</a>
                             </div>
                         </div>
                     </form>

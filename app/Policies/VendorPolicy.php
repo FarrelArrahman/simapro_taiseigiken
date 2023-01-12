@@ -21,6 +21,7 @@ class VendorPolicy
     {
         //
     }
+    
 
     /**
      * Determine whether the user can view the model.
@@ -45,6 +46,16 @@ class VendorPolicy
         return in_array($user->role, [RoleEnum::Admin]);
     }
 
+    /**
+     * Determine whether the user can view any models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function editAny(User $user)
+    {
+        return in_array($user->role, [RoleEnum::Admin]);
+    }
     /**
      * Determine whether the user can update the model.
      *
