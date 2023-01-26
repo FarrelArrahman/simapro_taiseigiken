@@ -46,8 +46,8 @@
                                                 </th>
                                                 <th>{{ __('dashboard.Name') }}</th>
                                                 <th>{{ __('dashboard.Unit') }}</th>
-                                                <th>{{ __('dashboard.Material') }}</th>
-                                                <th>{{ __('dashboard.Service') }}</th>
+                                                <!-- <th>{{ __('dashboard.Material') }}</th> -->
+                                                <!-- <th>{{ __('dashboard.Service') }}</th> -->
                                                 <th>{{ __('dashboard.Description') }}</th>
                                                 <th>{{ __('dashboard.Status') }}</th>
                                                 @can('editAny', \App\Models\Designator::class)
@@ -61,8 +61,8 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $designator->name }}</td>
                                                 <td>{{ $designator->unit->name }}</td>
-                                                <td>{{ $designator->material }}</td>
-                                                <td>{{ $designator->services }}</td>
+                                                <!-- <td>{{ $designator->material }}</td> -->
+                                                <!-- <td>{{ $designator->services }}</td> -->
                                                 <td>{{ $designator->description }}</td>
                                                 <td>
                                                     <div class="badge badge-{{ $designator->status->color() }}">{{ __('dashboard.' . $designator->status->value) }}</div>

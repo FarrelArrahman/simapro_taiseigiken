@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('unit_id')->constrained();
-            $table->string('material');
-            $table->string('services');
+            $table->string('material')->nullable();
+            $table->string('services')->nullable();
             $table->text('description')->nullable();
             $table->string('status', 20);
             $table->timestamps();

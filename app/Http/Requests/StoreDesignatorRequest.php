@@ -26,8 +26,8 @@ class StoreDesignatorRequest extends FormRequest
         return [
             'name' => 'required|string',
             'unit_id' => 'required|exists:units,id',
-            'material' => 'required|string',
-            'services' => 'required|string',
+            'material' => 'string',
+            'services' => 'string',
             'description' => 'nullable|string',
         ];
     }

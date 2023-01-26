@@ -49,7 +49,7 @@
                                     </div>
                                     @enderror
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="inputMaterial">{{ __('dashboard.Material') }}</label>
                                     <input type="text"
                                         name="material"
@@ -72,7 +72,7 @@
                                             {{ $message }}                                            
                                         </div>
                                         @enderror
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="inputDescription">{{ __('dashboard.Description') }}</label>
                                     <input type="text"

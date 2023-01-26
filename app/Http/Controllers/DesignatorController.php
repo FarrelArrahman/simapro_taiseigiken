@@ -42,7 +42,7 @@ class DesignatorController extends Controller
      */
     public function store(StoreDesignatorRequest $request)
     {
-        $this->authorize('store', Designator::class);
+        // $this->authorize('store', Designator::class);
 
         Designator::create([
             'name' => $request->name,
