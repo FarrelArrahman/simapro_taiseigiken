@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
             'locale' => 'id',
         ]);
 
-        User::factory(20)->create();
+        // User::factory(20)->create();
         // User::factory()
         //     ->projectHeads()
         //     ->has(

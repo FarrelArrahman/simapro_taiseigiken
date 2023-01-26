@@ -189,7 +189,7 @@
                 data-toggle="dropdown"
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="image"
-                    src="{{ Storage::exists(auth()->user()->profile_picture) ? Storage::url(auth()->user()->profile_picture) : asset('img/avatar/avatar-1.png') }}"
+                    src="{{ auth()->user()->profile_picture != NULL && Storage::exists(auth()->user()->profile_picture) ? Storage::url(auth()->user()->profile_picture) : asset('img/avatar/avatar-1.png') }}"
                     style="width: 32px; height: 32px; object-fit: cover;"
                     class="rounded-circle mr-1">
                 <div class="d-sm-none d-lg-inline-block">{{ __('dashboard.Hello,') }} {{ auth()->user()->name ?? 'Guest' }}</div>

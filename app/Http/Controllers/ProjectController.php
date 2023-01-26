@@ -48,7 +48,7 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        $this->authorize('store', Project::class);
+        // $this->authorize('store', Project::class);
 
         Project::create([
             'project_code' => $request->project_code,
@@ -117,7 +117,8 @@ class ProjectController extends Controller
             'project_head_id' => $request->project_head_id,
             'vendor_id' => $request->vendor_id,
             'begin_date' => $request->begin_date,
-            'finish_date' => $request->finish_date,
+            'finish_date' => Carbon::createFromFormat('Y-m-d', $request->begin_date)
+                ->addDays($request->time_of_contract),
         ]);
 
         return to_route('projects.index')

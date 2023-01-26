@@ -108,7 +108,7 @@ class UserController extends Controller
             'status' => StatusEnum::from($request->status),
         ];
 
-        if($request->has('password')) {
+        if($request->has('password') && ! empty($request->password)) {
             $data['password'] = bcrypt($request->password);
         }
 

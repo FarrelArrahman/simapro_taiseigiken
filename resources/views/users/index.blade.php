@@ -53,7 +53,7 @@
                                                 <td>
                                                     <figure class="avatar mr-2">
                                                         <img
-                                                            src="{{ Storage::exists($user->profile_picture) ? Storage::url($user->profile_picture) : asset('img/avatar/avatar-1.png') }}" 
+                                                            src="{{ $user->profile_picture != NULL && Storage::exists($user->profile_picture) ? Storage::url($user->profile_picture) : asset('img/avatar/avatar-1.png') }}" 
                                                             style="object-fit:cover">
                                                     </figure>
                                                     {{ $user->name }}
