@@ -26,7 +26,7 @@
                         <div class="card profile-widget">
                             <div class="profile-widget-header">
                                 <img alt="image"
-                                    src="{{ Storage::exists(auth()->user()->profile_picture) ? Storage::url(auth()->user()->profile_picture) : asset('img/avatar/avatar-1.png') }}"
+                                    src="{{ auth()->user()->profile_picture != NULL ? Storage::url(auth()->user()->profile_picture) : asset('img/avatar/avatar-1.png') }}"
                                     class="rounded-circle profile-widget-picture" style="width: 100px; height: 100px; object-fit: cover;">
                                 <div class="profile-widget-items">
                                     <div class="profile-widget-item">
