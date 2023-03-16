@@ -332,7 +332,7 @@
                                                                 data-confirm-yes="deleteItem('{{ route('project_designators.destroy', $projectDesignator->id) }}')"><i class="fas fa-trash"></i></a>
                                                             <a class="btn {{ $projectDesignator->status->value == 'Done' ? 'btn-dark' :  'btn-info' }} btn-action"
                                                                 data-toggle="tooltip"
-                                                                title="{{ $projectDesignator->status->value == 'Done' ? __('dashboard.Mark as done') : __('dashboard.Mark as undone') }}"
+                                                                title="{{ $projectDesignator->status->value == 'Done' ? __('dashboard.Mark as undone') : __('dashboard.Mark as done') }}"
                                                                 href="{{ route('changeDesignatorStatus', $projectDesignator->id) }}"><i class="{{ $projectDesignator->status->value == 'Done' ? 'fas fa-clock' :  'fas fa-check' }}"></i></a>
                                                         </td>
                                                         @endcan

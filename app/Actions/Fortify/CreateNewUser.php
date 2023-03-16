@@ -2,6 +2,8 @@
 
 namespace App\Actions\Fortify;
 
+use App\Enums\RoleEnum;
+use App\Enums\StatusEnum;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -34,6 +36,10 @@ class CreateNewUser implements CreatesNewUsers
 
         return User::create([
             'name' => $input['name'],
+            'national_identity_number' => $input['national_identity_number'],
+            'gender' => $input['gender'],
+            'role' => RoleEnum::Worker,
+            'status' => StatusEnum::Active,
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);

@@ -11,7 +11,7 @@
 @section('main')
     <div class="card card-primary">
         <div class="card-header">
-            <h4>Register</h4>
+            <h4>{{ __('dashboard.Register') }}</h4>
         </div>
 
         <div class="card-body">
@@ -19,7 +19,7 @@
                 @csrf
                 <div class="row">
                     <div class="form-group col-12">
-                        <label for="name">Full Name</label>
+                        <label for="name">{{ __('dashboard.Full Name') }}</label>
                         <input id="name"
                             type="text"
                             class="form-control @error('name') is-invalid @enderror"
@@ -33,6 +33,52 @@
                     {{ 'Please fill in your full name' }}
                     @enderror
                     </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-12">
+                        <label for="name">{{ __('dashboard.National Identity Number') }}</label>
+                        <input id="name"
+                            type="text"
+                            class="form-control @error('name') is-invalid @enderror"
+                            name="national_identity_number"
+                            autofocus>
+                    </div>
+                    <div class="invalid-feedback">
+                    @error('national_identity_number')
+                    {{ $message }}
+                    @enderror
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputGender">{{ __('dashboard.Gender') }}</label>
+                    <br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input"
+                            @selected(@old('gender') == "Male")
+                            name="gender"
+                            type="radio"
+                            id="inputGenderMale"
+                            value="Male">
+                        <label class="form-check-label"
+                            for="inputGenderMale">{{ __('dashboard.Male') }}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input"
+                            @selected(@old('gender') == "Female")
+                            name="gender"
+                            type="radio"
+                            id="inputGenderFemale"
+                            value="Female">
+                        <label class="form-check-label"
+                            for="inputGenderFemale">{{ __('dashboard.Female') }}</label>
+                    </div>
+                    @error('gender')
+                    <div class="invalid-feedback">
+                        {{ $message }}                                            
+                    </div>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -72,7 +118,7 @@
                         <input id="password2"
                             type="password"
                             class="form-control @error('password_confirmation') is-invalid @enderror"
-                            name="password-confirm">
+                            name="password_confirmation">
                         <div class="invalid-feedback">
                         @error('password_confirmation')
                         {{ $message }}
