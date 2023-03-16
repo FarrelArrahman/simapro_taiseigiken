@@ -69,7 +69,7 @@ return [
     'Completion' => 'Penyelesaian',
     'Start Date' => 'Tanggal Mulai',
     'End Date' => 'Tanggal Selesai',
-    "You don't have access to this project." => 'Anda tidak memiliki akses ke proyek ini.',
+    "You don't have access to the project." => 'Anda tidak memiliki akses ke proyek ini.',
 
     // Designator Fields
     'Add Designator' => 'Tambah Uraian Pekerjaan',

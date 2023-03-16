@@ -40,7 +40,11 @@ class HomeController extends Controller
         if(auth()->user()->role == RoleEnum::ProjectHead) {
             $this->data['projects'] = auth()->user()->ongoingHeadedProjects();
         } else if(auth()->user()->role == RoleEnum::Worker) {
-            $this->data['projects'] = auth()->user()->ongoingWorkedProjects();
+            $projectWorkers = auth()->user()->projectWorkers;
+            $projects = Project::find($projectWorkers->pluck('project_id'));
+            $this->data['projects'] = collect($projects)->filter(function($item) {
+                return $item->progress() < 100;
+            });
         }
         
         return view('home', $this->data);

@@ -72,6 +72,11 @@ class User extends Authenticatable
         );
     }
 
+    public function projectWorkers()
+    {
+        return $this->hasMany(ProjectWorker::class, 'user_id');
+    }
+
     public function ongoingHeadedProjects()
     {
         $headedProjects = $this->headedProjects;

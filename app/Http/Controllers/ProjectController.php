@@ -30,7 +30,8 @@ class ProjectController extends Controller
         } else if($role == RoleEnum::ProjectHead) {
             $this->data['projects'] = auth()->user()->headedProjects;
         } else {
-            $this->data['projects'] = auth()->user()->workedProjects;
+            $projectWorkers = auth()->user()->projectWorkers;
+            $this->data['projects'] = Project::find($projectWorkers->pluck('project_id'));
         }
 
         return view('projects.index', $this->data);
@@ -98,7 +99,7 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $projectWorkers = ProjectWorker::where('project_id', $project->id)->pluck('user_id');
-        if(auth()->user()->role == RoleEnum::Worker && ! in_array(auth()->user()->id, $projectWorkers->toArray())) {
+        if(auth()->user()->role === RoleEnum::Worker && ! in_array(auth()->user()->id, $projectWorkers->toArray())) {
             return to_route('projects.index')
                 ->with('message', __("dashboard.You don't have access to the project."))
                 ->with('status', 'error');
