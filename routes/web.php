@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function() {
     Route::put('/profile/{user}', [HomeController::class, 'profileUpdate'])->name('profileUpdate');
     Route::put('/progress_update/{update}', [ProjectDesignatorController::class, 'progressUpdate'])->name('progressUpdate');
     Route::get('/projects/{project}/curve-s', [ProjectController::class, 'curveS'])->name('project.curveS');
+    Route::get('/projects/{project}/add-worker/{user}', [ProjectController::class, 'addWorker'])->name('project.addWorker');
+    Route::delete('/projects/delete-worker/{projectWorker}', [ProjectController::class, 'deleteWorker'])->name('project.deleteWorker');
     
     Route::resource('projects', ProjectController::class);
     Route::resource('designators', DesignatorController::class);

@@ -19,7 +19,7 @@ class DesignatorPolicy
      */
     public function viewAny(User $user)
     {
-        return in_array($user->role, [RoleEnum::Admin]);
+        return in_array($user->role, [RoleEnum::Admin, RoleEnum::ProjectHead]);
     }
 
     /**
@@ -42,7 +42,7 @@ class DesignatorPolicy
      */
     public function create(User $user)
     {
-        return in_array($user->role, [RoleEnum::Admin]);
+        return in_array($user->role, [RoleEnum::Admin, RoleEnum::ProjectHead]);
     }
 
     /**
@@ -53,7 +53,7 @@ class DesignatorPolicy
      */
     public function editAny(User $user)
     {
-        return in_array($user->role, [RoleEnum::Admin]);
+        return in_array($user->role, [RoleEnum::Admin, RoleEnum::ProjectHead]);
     }
 
     /**

@@ -3,11 +3,11 @@
 namespace App\Policies;
 
 use App\Enums\RoleEnum;
-use App\Models\Unit;
+use App\Models\ProjectWorker;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UnitPolicy
+class ProjectWorkerPolicy
 {
     use HandlesAuthorization;
 
@@ -19,17 +19,17 @@ class UnitPolicy
      */
     public function viewAny(User $user)
     {
-        return in_array($user->role, [RoleEnum::Admin, RoleEnum::ProjectHead]);
+        // 
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Unit  $unit
+     * @param  \App\Models\ProjectWorker  $projectWorker
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Unit $unit)
+    public function view(User $user, ProjectWorker $projectWorker)
     {
         //
     }
@@ -46,13 +46,25 @@ class UnitPolicy
     }
 
     /**
+     * Determine whether the user can edit the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\ProjectWorker  $projectWorker
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function editAny(User $user)
+    {
+        return in_array($user->role, [RoleEnum::Admin, RoleEnum::ProjectHead]);
+    }
+
+    /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Unit  $unit
+     * @param  \App\Models\ProjectWorker  $projectWorker
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Unit $unit)
+    public function update(User $user, ProjectWorker $projectWorker)
     {
         return in_array($user->role, [RoleEnum::Admin, RoleEnum::ProjectHead]);
     }
@@ -61,34 +73,34 @@ class UnitPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Unit  $unit
+     * @param  \App\Models\ProjectWorker  $projectWorker
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Unit $unit)
+    public function delete(User $user, ProjectWorker $projectWorker)
     {
-        return in_array($user->role, [RoleEnum::Admin]);
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Unit  $unit
+     * @param  \App\Models\ProjectWorker  $projectWorker
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Unit $unit)
+    public function restore(User $user, ProjectWorker $projectWorker)
     {
-        return in_array($user->role, [RoleEnum::Admin]);
+        //
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Unit  $unit
+     * @param  \App\Models\ProjectWorker  $projectWorker
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Unit $unit)
+    public function forceDelete(User $user, ProjectWorker $projectWorker)
     {
         //
     }

@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Designator;
+use App\Models\ProjectWorker;
 use App\Models\User;
 use App\Models\Vendor;
 use Carbon\Carbon;
@@ -22,7 +23,16 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $this->data['projects'] = Project::latest()->get();
+        $role = auth()->user()->role;
+
+        if($role == RoleEnum::Admin || $role == RoleEnum::Manager) {
+            $this->data['projects'] = Project::latest()->get();
+        } else if($role == RoleEnum::ProjectHead) {
+            $this->data['projects'] = auth()->user()->headedProjects;
+        } else {
+            $this->data['projects'] = auth()->user()->workedProjects;
+        }
+
         return view('projects.index', $this->data);
     }
 
@@ -87,13 +97,24 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        $projectWorkers = ProjectWorker::where('project_id', $project->id)->pluck('user_id');
+        if(auth()->user()->role == RoleEnum::Worker && ! in_array(auth()->user()->id, $projectWorkers->toArray())) {
+            return to_route('projects.index')
+                ->with('message', __("dashboard.You don't have access to the project."))
+                ->with('status', 'error');
+        }
+
         $this->authorize('view', $project);
 
         $this->data['projects'] = $project;
         $this->data['designators'] = Designator::whereStatus(StatusEnum::Active)->get();
         $this->data['projectDesignators'] = $project->projectDesignators;
-        $this->data['projectHeads'] = User::whereRole(RoleEnum::ProjectHead)->get();
+        $this->data['projectHeads'] = User::whereStatus(StatusEnum::Active)->whereRole(RoleEnum::ProjectHead)->get();
         $this->data['vendors'] = Vendor::whereStatus(StatusEnum::Active)->get();
+        $this->data['users'] = User::whereStatus(StatusEnum::Active)
+            ->whereRole(RoleEnum::Worker)
+            ->whereNotIn('id', $projectWorkers)
+            ->get();
 
         return view('projects.edit', $this->data);
     }
@@ -180,5 +201,27 @@ class ProjectController extends Controller
                 'realization' => collect($realization)->map(fn($value) => $value != null ? round($value, 2) * 100 : null)
             ]
         ], 200);
+    }
+
+    public function addWorker(Project $project, User $user)
+    {
+        ProjectWorker::create([
+            'project_id' => $project->id,
+            'user_id' => $user->id,
+            'status' => StatusEnum::Active,
+        ]);
+
+        return to_route('projects.edit', ['project' => $project->id, 'ref' => 'projectWorker'])
+            ->with('message', __('dashboard.Successfully added worker to the project.'))
+            ->with('status', 'success');
+    }
+
+    public function deleteWorker(ProjectWorker $projectWorker)
+    {
+        $projectWorker->delete();
+
+        return to_route('projects.edit', ['project' => $projectWorker->project_id, 'ref' => 'projectWorker'])
+            ->with('message', __('dashboard.Successfully removed worker from the project.'))
+            ->with('status', 'success');
     }
 }

@@ -37,6 +37,12 @@ class HomeController extends Controller
             ->count();
         $this->data['project_done_count'] = Project::whereDate('finish_date', '<', now())
             ->count();
+        if(auth()->user()->role == RoleEnum::ProjectHead) {
+            $this->data['projects'] = auth()->user()->ongoingHeadedProjects();
+        } else if(auth()->user()->role == RoleEnum::Worker) {
+            $this->data['projects'] = auth()->user()->ongoingWorkedProjects();
+        }
+        
         return view('home', $this->data);
     }
 

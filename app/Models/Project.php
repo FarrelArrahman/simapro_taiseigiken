@@ -48,7 +48,7 @@ class Project extends Model
     // Relationships
     public function projectHead()
     {
-        return $this->hasOne(User::class, 'id', 'project_head_id');
+        return $this->belongsTo(User::class, 'project_head_id', 'id');
     }
     
     public function vendor()
@@ -64,6 +64,11 @@ class Project extends Model
     public function projectEvaluations()
     {
         return $this->hasMany(ProjectEvaluation::class, 'project_id')->latest();
+    }
+
+    public function projectWorkers()
+    {
+        return $this->hasMany(ProjectWorker::class, 'project_id');
     }
 
     // Helpers

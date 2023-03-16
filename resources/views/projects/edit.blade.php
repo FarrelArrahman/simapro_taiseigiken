@@ -42,6 +42,15 @@
                                             aria-selected="true">{{ __('dashboard.Project Detail') }}</a>
                                     </li>
                                     <li class="nav-item">
+                                        <a class="nav-link {{ request()->query('ref') == 'projectWorker' ? 'active' : '' }}"
+                                            id="project-data-tab"
+                                            data-toggle="tab"
+                                            href="#projectWorker"
+                                            role="tab"
+                                            aria-controls="projectWorker"
+                                            aria-selected="true">{{ __('dashboard.Project Worker') }}</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link {{ request()->query('ref') == 'projectDesignator' ? 'active' : '' }}"
                                             id="project-designator-tab"
                                             data-toggle="tab"
@@ -227,11 +236,61 @@
                                             @endcan
                                         </form>
                                     </div>
+                                    <!-- Worker -->
+                                    <div class="tab-pane fade {{ request()->query('ref') == 'projectWorker' ? 'show active' : '' }}"
+                                        id="projectWorker"
+                                        role="tabpanel"
+                                        aria-labelledby="project-designator-tab">
+                                        <h4 class="mt-3 mb-3">{{ __('dashboard.Project Worker') }}
+                                            @can('create', \App\Models\ProjectWorker::class)
+                                            <button data-toggle="modal" data-target="#addWorkerModal" type="button" id="addDesignatorButton" class="btn btn-success float-right"><i class="fas fa-user mr-2"></i> {{ __('dashboard.Add Worker') }}</button>
+                                            @endcan
+                                        </h4>
+                                        <div class="table-responsive">
+                                            <table class="table-striped table datatables">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">
+                                                            #
+                                                        </th>
+                                                        <th>{{ __('dashboard.Name') }}</th>
+                                                        <th>{{ __('dashboard.Role') }}</th>
+                                                        <th>{{ __('dashboard.Status') }}</th>
+                                                        @can('editAny', \App\Models\ProjectWorker::class)
+                                                        <th width="10%">{{ __('dashboard.Action') }}</th>
+                                                        @endcan
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($projects->projectWorkers as $projectWorker)
+                                                    <tr>
+                                                        <td class="text-center">{{ $loop->iteration }}</td>
+                                                        <td>{{ $projectWorker->user->name }}</td>
+                                                        <td>{{ $projectWorker->user->role->value }}</td>
+                                                        <td>
+                                                            <div class="badge badge-{{ $projectWorker->status->color() }}">{{ $projectWorker->status->value }}</div>
+                                                        </td>
+                                                        @can('editAny', \App\Models\ProjectWorker::class)
+                                                        <td>
+                                                            <a href="#" class="btn btn-danger btn-action btn-delete"
+                                                                data-toggle="tooltip"
+                                                                title="{{ __('dashboard.Delete') }}"
+                                                                data-confirm="{{ __('dashboard.Are You Sure?') }}?|{{ __('dashboard.This action can not be undone. Do you want to continue?') }}"
+                                                                data-confirm-yes="deleteItem('{{ route('project.deleteWorker', $projectWorker->id) }}')"><i class="fas fa-trash"></i></a>
+                                                        </td>
+                                                        @endcan
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                     <div class="tab-pane fade {{ request()->query('ref') == 'projectDesignator' ? 'show active' : '' }}"
                                         id="projectDesignator"
                                         role="tabpanel"
                                         aria-labelledby="project-designator-tab">
-                                        <h4 class="mt-3 mb-3">{{ __('dashboard.Designator') }}</h4>
+                                        <h4 class="mt-3 mb-3">{{ __('dashboard.Designator') }}
+                                        </h4>
                                         <div class="table-responsive">
                                             <table class="table-striped table datatables">
                                                 <thead>
@@ -611,7 +670,7 @@
         </section>
     </div>
 
-<!-- Modal -->
+<!-- Modal Designator -->
 <div class="modal fade" id="addDesignatorModal" tabindex="-1" role="dialog" aria-labelledby="addDesignatorLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -652,6 +711,51 @@
                                     data-material="{{ $designator->material }}"
                                     data-services="{{ $designator->services }}">
                                     {{ __('dashboard.Choose') }}
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('dashboard.Close') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Worker -->
+<div class="modal fade" id="addWorkerModal" tabindex="-1" role="dialog" aria-labelledby="addWorkerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addWorkerLabel">{{ __('dashboard.Worker List') }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table-striped table datatables">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th>{{ __('dashboard.Name') }}</th>
+                            <th>{{ __('dashboard.Role') }}</th>
+                            <th>{{ __('dashboard.Status') }}</th>
+                            <th>{{ __('dashboard.Action') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($users as $user)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->role->value }}</td>
+                            <td>{{ $user->status->value }}</td>
+                            <td>
+                                <a href="{{ route('project.addWorker', ['project' => $projects->id, 'user' => $user->id]) }}" class="btn btn-success selectDesignator">
+                                    {{ __('dashboard.Add') }}
                                 </a>
                             </td>
                         </tr>

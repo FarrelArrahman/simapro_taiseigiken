@@ -55,4 +55,37 @@ class User extends Authenticatable
     ];
 
     // Helpers
+    public function headedProjects()
+    {
+        return $this->hasMany(Project::class, 'project_head_id');
+    }
+
+    public function workedProjects()
+    {
+        return $this->hasManyThrough(
+            Project::class,
+            ProjectWorker::class,
+            'user_id',
+            'id',
+            'id',
+            'id'
+        );
+    }
+
+    public function ongoingHeadedProjects()
+    {
+        $headedProjects = $this->headedProjects;
+        return collect($headedProjects)->filter(function($item) {
+            return $item->progress() < 100;
+        });
+    }
+
+
+    public function ongoingWorkedProjects()
+    {
+        $workedProjects = $this->workedProjects;
+        return collect($workedProjects)->filter(function($item) {
+            return $item->progress() < 100;
+        });
+    }
 }

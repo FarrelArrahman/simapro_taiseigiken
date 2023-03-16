@@ -20,8 +20,10 @@ return [
     'Done Projects' => 'プロジェクト完了',
 
     // Lists
+    'Ongoing Project List' => '継続プロジェクト一覧',
     'Project List' => 'プロジェクト一覧',
     'Designator List' => 'デシネーターリスト',
+    'Worker List' => '作業者リスト',
     'Vendor List' => 'ベンダーの一覧',
     'Unit List' => 'ユニット一覧',
     'User List' => 'ユーザー一覧',
@@ -53,18 +55,21 @@ return [
 
     // Project Fields
     'Add Project' => 'プロジェクトの追加',
+    'Add Worker' => 'ワーカーを追加する',
     'Project Detail' => 'プロジェクト詳細',
     'Curve S' => 'S字カーブ',
     'Evaluation Record' => '評価記録',
     'Progress Updates' => '進捗状況',
     'Code' => 'コード',
     'Project Code' => 'プロジェクトコード',
+    'Project Worker' => 'プロジェクトワーカー',
     'Project Name' => 'プロジェクト名',
     'Time of Contract' => 'プロジェクト期間',
     'DRM Value' => 'DRMバリュー',
     'Completion' => '決済',
     'Start Date' => '開始日',
     'End Date' => '終了日',
+    "You don't have access to the project." => 'プロジェクトにアクセスできない。',
 
     // Designator Fields
     'Add Designator' => '新デザイナー',
@@ -145,6 +150,7 @@ return [
     'Successfully added a new vendor.' => '新しいベンダーの追加に成功。',
     'Successfully added a new unit.' => '新しいユニットの追加に成功。',
     'Successfully added a new user.' => '新規ユーザーの追加に成功しました。',
+    'Successfully added worker to the project.' => 'プロジェクトにワーカーを成功裏に追加した。',
     'Successfully added the designator to the project.' => 'プロジェクトにデシグネーターを追加することに成功しました。',
     'Successfully added an evaluation.' => '評価の追加に成功しました。',
 
@@ -164,6 +170,7 @@ return [
     'Successfully deleted the vendor.' => 'ベンダーの削除に成功しました。',
     'Successfully deleted the unit.' => '本体の削除に成功しました。',
     'Successfully deleted the user.' => 'ユーザーの削除に成功しました。',
+    'Successfully removed worker from the project.' => 'プロジェクトからのワーカーの削除に成功しました。',
     'Successfully removed the designator from the project.' => 'プロジェクトからの指定子の削除に成功しました。',
 ]
 ?>
