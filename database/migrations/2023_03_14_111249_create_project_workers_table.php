@@ -15,7 +15,12 @@ return new class extends Migration
     {
         Schema::create('project_workers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id')->constrained();
+            $table->unsignedBigInteger('project_id');
+            $table->foreign('project_id', 'project_workers_foreign')
+                ->references('id')
+                ->on('projects')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreignId('user_id')->constrained();
             $table->string('status', 20);
             $table->timestamps();

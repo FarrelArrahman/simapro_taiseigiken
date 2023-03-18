@@ -26,8 +26,8 @@ class UpdateDesignatorRequest extends FormRequest
         return [
             'name' => 'required|string',
             'unit_id' => 'required|exists:units,id',
-            'material' => 'required|string',
-            'services' => 'required|string',
+            // 'material' => 'required|string',
+            // 'services' => 'required|string',
             'description' => 'nullable|string',
         ];
     }

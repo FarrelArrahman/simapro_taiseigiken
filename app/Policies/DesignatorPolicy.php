@@ -65,7 +65,7 @@ class DesignatorPolicy
      */
     public function update(User $user, Designator $designator)
     {
-        return in_array($user->role, [RoleEnum::Admin]);
+        return in_array($user->role, [RoleEnum::Admin, RoleEnum::ProjectHead]);
     }
 
     /**

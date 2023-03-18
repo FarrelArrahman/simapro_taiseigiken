@@ -98,8 +98,8 @@ class DesignatorController extends Controller
         $designator->update([
             'name' => $request->name,
             'unit_id' => $request->unit_id,
-            'material' => $request->material,
-            'services' => $request->services,
+            // 'material' => $request->material,
+            // 'services' => $request->services,
             'description' => $request->description,
             'status' => StatusEnum::from($request->status),
         ]);

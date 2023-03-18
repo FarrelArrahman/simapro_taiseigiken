@@ -25,6 +25,11 @@
                         @csrf
                         <div class="card">
                             <div class="card-body">
+                                <ul>
+                                @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                                </ul>
                                 <div class="form-group">
                                     <label for="inputName">{{ __('dashboard.Name') }}</label>
                                     <input type="text"
