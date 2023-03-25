@@ -41,9 +41,7 @@
                                     <table class="table-striped table datatables">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">
-                                                    #
-                                                </th>
+                                                <th class="text-center">No.</th>
                                                 <th>{{ __('dashboard.Name') }}</th>
                                                 <th>{{ __('dashboard.Unit') }}</th>
                                                 <!-- <th>{{ __('dashboard.Material') }}</th> -->

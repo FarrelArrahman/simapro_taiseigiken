@@ -295,9 +295,7 @@
                                             <table class="table-striped table datatables">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center">
-                                                            #
-                                                        </th>
+                                                        <th class="text-center">No.</th>
                                                         <th>{{ __('dashboard.Designator') }}</th>
                                                         <th>{{ __('dashboard.Unit') }}</th>
                                                         <th>{{ __('dashboard.Job Description') }}</th>
@@ -450,9 +448,7 @@
                                             <table class="table-striped table">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center">
-                                                            #
-                                                        </th>
+                                                        <th class="text-center">No.</th>
                                                         <th>{{ __('dashboard.Designator') }}</th>
                                                         <th>{{ __('dashboard.Unit') }}</th>
                                                         <th>{{ __('dashboard.Initial Value') }}</th>
@@ -684,7 +680,7 @@
                 <table class="table-striped table datatables">
                     <thead>
                         <tr>
-                            <th class="text-center">#</th>
+                            <th class="text-center">No.</th>
                             <th>{{ __('dashboard.Designator') }}</th>
                             <th>{{ __('dashboard.Unit') }}</th>
                             <th>{{ __('dashboard.Job Description') }}</th>
@@ -739,7 +735,7 @@
                 <table class="table-striped table datatables">
                     <thead>
                         <tr>
-                            <th class="text-center">#</th>
+                            <th class="text-center">No.</th>
                             <th>{{ __('dashboard.Name') }}</th>
                             <th>{{ __('dashboard.Role') }}</th>
                             <th>{{ __('dashboard.Status') }}</th>

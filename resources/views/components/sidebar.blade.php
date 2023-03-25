@@ -1,10 +1,14 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">Simapro</a>
+            <a href="index.html">
+                <img src="{{ asset('logo.png') }}" alt="" width="48">
+            </a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">ST</a>
+            <a href="index.html">
+                <img src="{{ asset('logo.png') }}" alt="" width="36">
+            </a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">{{ __('dashboard.Menu') }}</li>

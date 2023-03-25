@@ -39,7 +39,7 @@
                                     <table class="table-striped table datatables">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">#</th>
+                                                <th class="text-center">No.</th>
                                                 <th>{{ __('dashboard.Name') }}</th>
                                                 <th>{{ __('dashboard.Role') }}</th>
                                                 <th>{{ __('dashboard.Status') }}</th>

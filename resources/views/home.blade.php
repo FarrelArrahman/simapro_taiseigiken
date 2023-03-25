@@ -30,9 +30,7 @@
                                 <table class="table-striped table datatables">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">
-                                                #
-                                            </th>
+                                            <th class="text-center">No.</th>
                                             <th>{{ __('dashboard.Code') }}</th>
                                             <th>{{ __('dashboard.Project Name') }}</th>
                                             <th>{{ __('dashboard.Time of Contract') }}</th>
