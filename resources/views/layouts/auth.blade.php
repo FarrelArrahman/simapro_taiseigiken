@@ -23,6 +23,7 @@
         href="{{ asset('css/style.css') }}">
     <link rel="stylesheet"
         href="{{ asset('css/components.css') }}">
+    <link rel="shortcut icon" href="{{ asset('logo.png') }}" type="image/x-icon">
     <!-- Start GA -->
     <script async
         src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
