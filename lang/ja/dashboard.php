@@ -60,7 +60,7 @@ return [
     'Add Project' => 'プロジェクトの追加',
     'Add Worker' => 'ワーカーを追加する',
     'Project Detail' => 'プロジェクト詳細',
-    'Curve S' => 'S字カーブ',
+    'Curve' => '字カーブ',
     'Evaluation Record' => '評価記録',
     'Progress Updates' => '進捗状況',
     'Code' => 'コード',

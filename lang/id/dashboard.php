@@ -60,7 +60,7 @@ return [
     'Add Project' => 'Tambah Proyek',
     'Add Worker' => 'Tambah Pekerja',
     'Project Detail' => 'Detail Proyek',
-    'Curve S' => 'Kurva S',
+    'Curve' => 'Kurva',
     'Evaluation Record' => 'Catatan Evaluasi',
     'Progress Updates' => 'Pembaruan Kemajuan',
     'Code' => 'Kode',

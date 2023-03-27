@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
     {
         User::create([
             'national_identity_number' => '0000000000000000',
-            'name' => 'Super Admin',
+            'name' => '[TEST] Super Admin',
             'email' => 'superadmin@simapro.taiseigiken.test',
             'password' => bcrypt('123'),
             'remember_token' => NULL,
@@ -32,7 +32,52 @@ class UserSeeder extends Seeder
             'locale' => 'id',
         ]);
 
-        // User::factory(20)->create();
+        User::create([
+            'national_identity_number' => '0000000000000001',
+            'name' => '[TEST] Manager',
+            'email' => 'manager@simapro.taiseigiken.test',
+            'password' => bcrypt('123'),
+            'remember_token' => NULL,
+            'gender' => 'Male',
+            'address' => NULL,
+            'phone_number' => NULL,
+            'role' => RoleEnum::Manager,
+            'status' => StatusEnum::Active,
+            'profile_picture' => fake()->imageUrl(category: 'person'),
+            'locale' => 'id',
+        ]);
+
+        User::create([
+            'national_identity_number' => '0000000000000002',
+            'name' => '[TEST] Project Head',
+            'email' => 'projecthead@simapro.taiseigiken.test',
+            'password' => bcrypt('123'),
+            'remember_token' => NULL,
+            'gender' => 'Male',
+            'address' => NULL,
+            'phone_number' => NULL,
+            'role' => RoleEnum::ProjectHead,
+            'status' => StatusEnum::Active,
+            'profile_picture' => fake()->imageUrl(category: 'person'),
+            'locale' => 'id',
+        ]);
+
+        User::create([
+            'national_identity_number' => '0000000000000003',
+            'name' => '[TEST] Worker',
+            'email' => 'worker@simapro.taiseigiken.test',
+            'password' => bcrypt('123'),
+            'remember_token' => NULL,
+            'gender' => 'Male',
+            'address' => NULL,
+            'phone_number' => NULL,
+            'role' => RoleEnum::Worker,
+            'status' => StatusEnum::Active,
+            'profile_picture' => fake()->imageUrl(category: 'person'),
+            'locale' => 'id',
+        ]);
+
+        User::factory(100)->create();
         // User::factory()
         //     ->projectHeads()
         //     ->has(

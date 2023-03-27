@@ -66,7 +66,7 @@
                                             href="#curveS"
                                             role="tab"
                                             aria-controls="curveS"
-                                            aria-selected="false">{{ __('dashboard.Curve S') }}</a>
+                                            aria-selected="false">{{ __('dashboard.Curve') }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link {{ request()->query('ref') == 'recordEvaluasi' ? 'active' : '' }}"
@@ -250,9 +250,7 @@
                                             <table class="table-striped table datatables">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center">
-                                                            #
-                                                        </th>
+                                                        <th class="text-center">No.</th>
                                                         <th>{{ __('dashboard.Name') }}</th>
                                                         <th>{{ __('dashboard.Role') }}</th>
                                                         <th>{{ __('dashboard.Status') }}</th>
@@ -385,7 +383,7 @@
                                         id="curveS"
                                         role="tabpanel"
                                         aria-labelledby="curve-s-tab">
-                                        <h4 class="mt-3 mb-3">{{ __('dashboard.Curve S') }} <button type="button" class="btn btn-primary reloadCurveS float-right"><i class="fa fa-refresh mr-1"></i> {{ __('dashboard.Reload') }}</button></h4>
+                                        <h4 class="mt-3 mb-3">{{ __('dashboard.Curve') }} <button type="button" class="btn btn-primary reloadCurveS float-right"><i class="fa fa-refresh mr-1"></i> {{ __('dashboard.Reload') }}</button></h4>
                                         <div class="row">
                                             <div class="col-12">
                                                 <canvas id="curveSChart"></canvas>
@@ -799,7 +797,7 @@
 
         toggleSubmitDesignator()
 
-        $('.selectDesignator').on('click', function() {
+        $(document).on('click', '.selectDesignator', function() {
             counter++
             let designator = $(this)
             let tr = `<tr class="designator designator-${counter}">
