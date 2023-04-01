@@ -675,7 +675,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table-striped table datatables">
+                <table class="table-striped table datatables" id="designatorTable">
                     <thead>
                         <tr>
                             <th class="text-center">No.</th>
@@ -796,10 +796,9 @@
         }
 
         toggleSubmitDesignator()
-
-        $(document).on('click', '.selectDesignator', function() {
+        
+        let assignDesignatorToProject = (designator) => {
             counter++
-            let designator = $(this)
             let tr = `<tr class="designator designator-${counter}">
                 <td>${designator.data('name')}</td>
                 <td>${designator.data('unit')}</td>
@@ -817,6 +816,14 @@
             $('#addDesignatorBody').append(tr)
             toggleFirstDesignatorRow()
             toggleSubmitDesignator()
+        }
+
+        $('#designatorTable').on('click', '.selectDesignator', function() {
+            assignDesignatorToProject($(this))
+        })
+
+        $('.selectDesignator').on('click', function() {
+            assignDesignatorToProject($(this))
         })
 
         let removeDesignator = (id) => {
