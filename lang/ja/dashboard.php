@@ -122,7 +122,7 @@ return [
 
     // Evaluation Record
     'Evaluation record not available' => '評価記録なし',
-    'Admin or Project Head can provide an evaluation that will be displayed in this section.' => '管理者またはプロジェクト責任者は、このセクションに表示される評価を提供することができます。',
+    'Only manager can provide an evaluation that will be displayed in this section.' => 'このセクションに表示される評価は、マネージャーだけが行うことができます。',
     'Add evaluation' => '評価の追加',
     'Give your evaluation' => '評価をする',
 
@@ -175,5 +175,6 @@ return [
     'Successfully deleted the user.' => 'ユーザーの削除に成功しました。',
     'Successfully removed worker from the project.' => 'プロジェクトからのワーカーの削除に成功しました。',
     'Successfully removed the designator from the project.' => 'プロジェクトからの指定子の削除に成功しました。',
+    'Successfully removed the evaluation.' => '評価の削除に成功しました。',
 ]
 ?>

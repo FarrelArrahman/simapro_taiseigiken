@@ -42,7 +42,7 @@ class ProjectDesignatorProgressUpdatePolicy
      */
     public function create(User $user)
     {
-        return in_array($user->role, [RoleEnum::Admin, RoleEnum::Worker, RoleEnum::ProjectHead]);
+        return in_array($user->role, [RoleEnum::Worker, RoleEnum::ProjectHead]);
     }
 
     /**
@@ -54,7 +54,7 @@ class ProjectDesignatorProgressUpdatePolicy
      */
     public function update(User $user, ProjectDesignatorProgressUpdate $projectDesignatorProgressUpdate)
     {
-        return in_array($user->role, [RoleEnum::Admin, RoleEnum::Manager, RoleEnum::ProjectHead]);
+        return in_array($user->role, [RoleEnum::Manager, RoleEnum::ProjectHead]);
     }
 
     /**

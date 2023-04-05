@@ -42,7 +42,7 @@ class ProjectEvaluationPolicy
      */
     public function create(User $user)
     {
-        return in_array($user->role, [RoleEnum::Admin, RoleEnum::Manager]);
+        return in_array($user->role, [RoleEnum::Manager]);
     }
 
     /**
@@ -54,7 +54,7 @@ class ProjectEvaluationPolicy
      */
     public function update(User $user, ProjectEvaluation $projectEvaluation)
     {
-        return in_array($user->role, [RoleEnum::Admin, RoleEnum::Manager]);
+        return in_array($user->role, [RoleEnum::Manager]);
     }
 
     /**
@@ -66,7 +66,7 @@ class ProjectEvaluationPolicy
      */
     public function delete(User $user, ProjectEvaluation $projectEvaluation)
     {
-        return in_array($user->role, [RoleEnum::Admin, RoleEnum::Manager]);
+        return in_array($user->role, [RoleEnum::Manager]) && $projectEvaluation->evaluatedBy->id == $user->id;
     }
 
     /**

@@ -273,7 +273,7 @@
                                                             <a href="#" class="btn btn-danger btn-action btn-delete"
                                                                 data-toggle="tooltip"
                                                                 title="{{ __('dashboard.Delete') }}"
-                                                                data-confirm="{{ __('dashboard.Are You Sure?') }}?|{{ __('dashboard.This action can not be undone. Do you want to continue?') }}"
+                                                                data-confirm="{{ __('dashboard.Are You Sure?') }}|{{ __('dashboard.This action can not be undone. Do you want to continue?') }}"
                                                                 data-confirm-yes="deleteItem('{{ route('project.deleteWorker', $projectWorker->id) }}')"><i class="fas fa-trash"></i></a>
                                                         </td>
                                                         @endcan
@@ -324,7 +324,7 @@
                                                             <a class="btn btn-danger btn-action btn-delete"
                                                                 data-toggle="tooltip"
                                                                 title="{{ __('dashboard.Delete') }}"
-                                                                data-confirm="{{ __('dashboard.Are You Sure') }}?|{{ __('dashboard.This action can not be undone. Do you want to continue?') }}"
+                                                                data-confirm="{{ __('dashboard.Are You Sure?') }}|{{ __('dashboard.This action can not be undone. Do you want to continue?') }}"
                                                                 data-confirm-yes="deleteItem('{{ route('project_designators.destroy', $projectDesignator->id) }}')"><i class="fas fa-trash"></i></a>
                                                             <a class="btn {{ $projectDesignator->status->value == 'Done' ? 'btn-dark' :  'btn-info' }} btn-action"
                                                                 data-toggle="tooltip"
@@ -401,6 +401,14 @@
                                                 <h4>{{ $projectEvaluation->evaluatedBy->name }} <div class="ml-1 badge badge-sm badge-{{ $projectEvaluation->evaluatedBy->role->color() }}">{{ __('dashboard.' . $projectEvaluation->evaluatedBy->role->value) }}</div></h4>
                                                 <div class="card-header-action">
                                                     {{ $projectEvaluation->created_at->isoFormat('dddd, DD MMMM Y HH:mm') }}
+                                                    @can('delete', $projectEvaluation)
+                                                    <br>
+                                                    <a class="btn btn-rounded btn-danger btn-delete"
+                                                        data-toggle="tooltip"
+                                                        title="{{ __('dashboard.Delete') }}"
+                                                        data-confirm="{{ __('dashboard.Are You Sure?') }}|{{ __('dashboard.This action can not be undone. Do you want to continue?') }}"
+                                                        data-confirm-yes="deleteItem('{{ route('project_evaluations.destroy', $projectEvaluation->id) }}')"><i class="fa fa-trash ml-2"></i> {{ __('dashboard.Delete') }}</a>
+                                                    @endcan
                                                 </div>
                                             </div>
                                             <div class="card-body my-0 py-0">
@@ -415,7 +423,7 @@
                                             </div>
                                             <h2>{{ __('dashboard.Evaluation record not available') }}</h2>
                                             <p class="lead">
-                                                {{ __('dashboard.Admin or Project Head can provide an evaluation that will be displayed in this section.') }} 
+                                                {{ __('dashboard.Only manager can provide an evaluation that will be displayed in this section.') }} 
                                             </p>
                                         </div>
                                         @endforelse

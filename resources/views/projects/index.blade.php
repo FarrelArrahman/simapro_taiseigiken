@@ -81,13 +81,13 @@
                                                         href="{{ route('projects.edit', $project->id) }}"
                                                         data-toggle="tooltip"
                                                         title="{{ __('dashboard.Show') }}"><i class="fas fa-eye"></i></a>
-                                                    @can('delete', $project)
+                                                    <!-- @can('delete', $project)
                                                     <a class="btn btn-danger btn-block btn-action btn-delete"
                                                         data-toggle="tooltip"
                                                         title="{{ __('dashboard.Delete') }}"
                                                         data-confirm="{{ __('dashboard.Are You Sure?') }}|{{ __('dashboard.This action can not be undone. Do you want to continue?') }}"
                                                         data-confirm-yes="deleteItem('{{ route('projects.destroy', $project->id) }}')"><i class="fas fa-trash"></i></a>
-                                                    @endcan
+                                                    @endcan -->
                                                 </td>
                                             </tr>
                                             @endforeach

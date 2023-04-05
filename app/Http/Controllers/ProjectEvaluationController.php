@@ -89,6 +89,11 @@ class ProjectEvaluationController extends Controller
      */
     public function destroy(ProjectEvaluation $projectEvaluation)
     {
-        //
+        $id = $projectEvaluation->project_id;
+        $projectEvaluation->delete();
+
+        return to_route('projects.edit', ['project' => $id, 'ref' => 'recordEvaluasi'])
+            ->with('message', __('dashboard.Successfully removed the evaluation.'))
+            ->with('status', 'success');
     }
 }

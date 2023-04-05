@@ -122,7 +122,7 @@ return [
     
     // Evaluation Record
     'Evaluation record not available' => 'Catatan evaluasi tidak tersedia',
-    'Admin or Project Head can provide an evaluation that will be displayed in this section.' => 'Admin atau Kepala Proyek dapat memberikan evaluasi yang akan ditampilkan pada bagian ini.',
+    'Only manager can provide an evaluation that will be displayed in this section.' => 'Hanya manajer yang dapat memberikan evaluasi yang akan ditampilkan pada bagian ini.',
     'Add evaluation' => 'Tambah evaluasi',
     'Give your evaluation' => 'Berikan evaluasi Anda',
 
@@ -175,5 +175,6 @@ return [
     'Successfully deleted the user.' => 'Berhasil menghapus pengguna.',
     'Successfully removed worker from the project.' => 'Berhasil menghapus pekerja dari proyek.',
     'Successfully removed the designator from the project.' => 'Berhasil menghapus uraian pekerjaan dari proyek.',
+    'Successfully removed the evaluation.' => 'Berhasil menghapus evaluasi.',
 ]
 ?>

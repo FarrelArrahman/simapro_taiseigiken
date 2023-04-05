@@ -52,7 +52,7 @@ if(window.Dropzone) {
 //     ]
 //   })
 // });
-$('.datatables').on('click', '.btn-delete', function() {
+$('body').on('click', '.btn-delete', function() {
   var me = $(this),
   me_data = me.data('confirm');
 

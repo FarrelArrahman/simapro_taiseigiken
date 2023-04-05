@@ -32,11 +32,18 @@ class HomeController extends Controller
     {
         $this->data['worker_count'] = User::where('role', RoleEnum::Worker)->count();
         $this->data['vendor_count'] = Vendor::all()->count();
-        $this->data['project_ongoing_count'] = Project::whereDate('begin_date', '<', now())
-            ->whereDate('finish_date', '>', now())
-            ->count();
-        $this->data['project_done_count'] = Project::whereDate('finish_date', '<', now())
-            ->count();
+        // $this->data['project_ongoing_count'] = Project::whereDate('begin_date', '<', now())
+        //     ->whereDate('finish_date', '>', now())
+        //     ->count();
+        // $this->data['project_done_count'] = Project::whereDate('finish_date', '<', now())
+        //     ->count();
+        $this->data['project_ongoing_count'] = count(collect(Project::all())->filter(function($item) {
+            return $item->progress() < 100;
+        }));
+        $this->data['project_done_count'] = count(collect(Project::all())->filter(function($item) {
+            return $item->progress() == 100;
+        }));
+        
         if(auth()->user()->role == RoleEnum::ProjectHead) {
             $this->data['projects'] = auth()->user()->ongoingHeadedProjects();
         } else if(auth()->user()->role == RoleEnum::Worker) {
