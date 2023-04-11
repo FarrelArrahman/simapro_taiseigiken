@@ -15,7 +15,7 @@ return [
 
     // Dashboard
     'Workers Count' => 'Total Pekerja',
-    'Vendors Count' => 'Total Vendor',
+    'Vendors Count' => 'Total Mitra',
     'Ongoing Projects' => 'Proyek Berjalan',
     'Done Projects' => 'Proyek Selesai',
 

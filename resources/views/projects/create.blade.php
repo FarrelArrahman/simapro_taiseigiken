@@ -58,6 +58,19 @@
                                         @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label for="inputAddress">{{ __('dashboard.Address') }}</label>
+                                    <input type="text"
+                                        name="address"
+                                        class="form-control @error('address') is-invalid @enderror"
+                                        id="inputAddress"
+                                        value="{{ old('address') }}">
+                                        @error('address')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}                                            
+                                        </div>
+                                        @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="inputTimeOfContract">{{ __('dashboard.Time of Contract') }}</label>
                                     <input type="text"
                                         name="time_of_contract"

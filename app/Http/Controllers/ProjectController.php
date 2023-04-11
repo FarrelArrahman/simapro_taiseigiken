@@ -64,6 +64,7 @@ class ProjectController extends Controller
         Project::create([
             'project_code' => $request->project_code,
             'project_name' => $request->project_name,
+            'address' => $request->address,
             'time_of_contract' => $request->time_of_contract,
             'drm_value' => str_replace('.', '', $request->drm_value),
             'project_head_id' => $request->project_head_id,
@@ -134,6 +135,7 @@ class ProjectController extends Controller
         $project->update([
             'project_code' => $request->project_code,
             'project_name' => $request->project_name,
+            'address' => $request->address,
             'time_of_contract' => $request->time_of_contract,
             'drm_value' => str_replace('.', '', $request->drm_value),
             'project_head_id' => $request->project_head_id,
@@ -143,7 +145,7 @@ class ProjectController extends Controller
                 ->addDays($request->time_of_contract),
         ]);
 
-        return to_route('projects.index')
+        return to_route('projects.edit', $project->id)
             ->with('message', __('dashboard.Successfully changed the project.'))
             ->with('status', 'success');
     }
