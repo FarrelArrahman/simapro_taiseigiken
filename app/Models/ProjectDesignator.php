@@ -19,6 +19,8 @@ class ProjectDesignator extends Model
         'project_id',
         'designator_id',
         'designated_by',
+        'begin_date',
+        'finish_date',
         'amount',
         'status',
     ];
@@ -39,6 +41,10 @@ class ProjectDesignator extends Model
      */
     protected $casts = [
         'status' => StatusEnum::class
+    ];
+
+    protected $dates = [
+        'begin_date', 'finish_date'
     ];
 
     // Relationships

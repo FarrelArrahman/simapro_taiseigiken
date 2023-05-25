@@ -10,6 +10,8 @@
         href="{{ asset('library/izitoast/dist/css/iziToast.min.css') }}">
     <link rel="stylesheet"
         href="{{ asset('library/chocolat/dist/css/chocolat.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('css/easy-gantt.css') }}">
 @endpush
 
 @section('main')
@@ -58,6 +60,15 @@
                                             role="tab"
                                             aria-controls="projectDesignator"
                                             aria-selected="true">{{ __('dashboard.Designator') }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                            id="timeline-tab"
+                                            data-toggle="tab"
+                                            href="#timeline"
+                                            role="tab"
+                                            aria-controls="timeline"
+                                            aria-selected="false">{{ __('dashboard.Project Timeline') }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link"
@@ -311,6 +322,7 @@
                                                         <th>{{ __('dashboard.Designator') }}</th>
                                                         <th>{{ __('dashboard.Unit') }}</th>
                                                         <th>{{ __('dashboard.Job Description') }}</th>
+                                                        <th>{{ __('dashboard.Working Date') }}</th>
                                                         <th>{{ __('dashboard.Amount') }}</th>
                                                         <th>{{ __('dashboard.Status') }}</th>
                                                         @can('update', $projects->projectDesignators->first())
@@ -325,6 +337,7 @@
                                                         <td>{{ $projectDesignator->designator->name }}</td>
                                                         <td>{{ $projectDesignator->designator->unit->name }}</td>
                                                         <td>{{ $projectDesignator->designator->description }}</td>
+                                                        <td>{{ $projectDesignator->begin_date ? $projectDesignator->begin_date->isoFormat('dddd, DD MMMM Y') : '-' }} - {{ $projectDesignator->finish_date ? $projectDesignator->finish_date->isoFormat('dddd, DD MMMM Y') : '-' }}</td>
                                                         <td>{{ $projectDesignator->amount }}</td>
                                                         <td>
                                                             <div class="badge badge-{{ $projectDesignator->status->color() }}">{{ $projectDesignator->status->value }}</div>
@@ -370,13 +383,15 @@
                                                                     <th>{{ __('dashboard.Designator') }}</th>
                                                                     <th>{{ __('dashboard.Unit') }}</th>
                                                                     <th>{{ __('dashboard.Job Description') }}</th>
+                                                                    <th>{{ __('dashboard.Start Date') }}</th>
+                                                                    <th>{{ __('dashboard.End Date') }}</th>
                                                                     <th>{{ __('dashboard.Amount') }}</th>
                                                                     <th>{{ __('dashboard.Action') }}</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody id="addDesignatorBody">
                                                                 <tr id="addDesignatorRow">
-                                                                    <td colspan="5" class="text-center">
+                                                                    <td colspan="7" class="text-center">
                                                                         {{ __('dashboard.Click') }} <strong>{{ __('dashboard.Designator List') }}</strong> {{ __('dashboard.to view and add designators to this project.') }}
                                                                     </td>
                                                                 </tr>
@@ -392,6 +407,17 @@
                                             </div>
                                         </div>
                                         @endcan
+                                    </div>
+                                    <div class="tab-pane fade"
+                                        id="timeline"
+                                        role="tabpanel"
+                                        aria-labelledby="curve-s-tab">
+                                        <h4 class="mt-3 mb-3">{{ __('dashboard.Project Timeline') }}</h4>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="gantt"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade"
                                         id="curveS"
@@ -804,6 +830,8 @@
     <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
 
     <script src="{{ asset('js/datatable.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <script src="{{ asset('js/easy-gantt.js') }}"></script>
 
     <script type="text/javascript">
         let counter = 0
@@ -826,9 +854,25 @@
                 <td>${designator.data('unit')}</td>
                 <td>${designator.data('description')}</td>
                 <td>
+                    <input class="form-control" 
+                            type="hidden" 
+                            value="${designator.data('id')}"
+                            name="id[${designator.data('id')}]">
+                    <input required class="form-control" 
+                        type="date" 
+                        value="{{ $projects->begin_date }}"
+                        name="begin_date[${designator.data('id')}]">
+                </td>
+                <td>
+                    <input required class="form-control" 
+                        type="date" 
+                        value="{{ $projects->begin_date }}"
+                        name="finish_date[${designator.data('id')}]">
+                </td>
+                <td>
                     <input required class="form-control" 
                         type="number" 
-                        name="${designator.data('id')}">
+                        name="amount[${designator.data('id')}]">
                 </td>
                 <td>
                     <button onclick="removeDesignator(${counter})" class="btn btn-danger">Hapus</button>
@@ -959,6 +1003,25 @@
         $('.reloadCurveS').click(function() {
             getCurveS()
         })
+    </script>
+
+    <script>
+
+    var myTask = {!! json_encode($gantt) !!}
+
+    moment.locale('id');
+
+    $('.gantt').gantt({
+        dtStart: "{{ $projects->begin_date }}",
+        dtEnd: "{{ $projects->finish_date }}",
+        height: 500,
+
+        labelTask: true,
+        data: myTask,
+        click: function(taskId, taskName, taskCountDays){
+            console.log('aqui', taskId, taskName, taskCountDays);
+        }
+    });
     </script>
 
     @if(session()->has('message'))

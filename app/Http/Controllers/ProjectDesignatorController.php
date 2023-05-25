@@ -41,13 +41,17 @@ class ProjectDesignatorController extends Controller
     public function store(StoreProjectDesignatorRequest $request)
     {
         $project = Project::findOrFail($request->project_id);
-        $projectDesignators = $request->except(['project_id', '_token']);
-        foreach($projectDesignators as $key => $value) {
+        // $projectDesignators = $request->except(['project_id', '_token']);
+        $projectDesignators = $request->all();
+        // dd($projectDesignators);
+        foreach($projectDesignators['id'] as $value) {
             ProjectDesignator::create([
                 'project_id' => $request->project_id,
-                'designator_id' => $key,
+                'designator_id' => $value,
                 'designated_by' => auth()->user()->id,
-                'amount' => $value,
+                'begin_date' => $projectDesignators['begin_date'][$value],
+                'finish_date' => $projectDesignators['finish_date'][$value],
+                'amount' => $projectDesignators['amount'][$value],
                 'status' => StatusEnum::Incomplete,
             ]);
         }
